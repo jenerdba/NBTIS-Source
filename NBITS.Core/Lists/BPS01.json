@@ -1,0 +1,119 @@
+[
+  {
+    "id": 1,
+    "code": "N",
+    "description": "Permanent - New"
+  },
+  {
+    "id": 2,
+    "code": "PO",
+    "description": "Permanent - Open"
+  },
+  {
+    "id": 3,
+    "code": "TO",
+    "description": "Temporary - Open"
+  },
+  {
+    "id": 4,
+    "code": "SO",
+    "description": "Supported - Open"
+  },
+  {
+    "id": 5,
+    "code": "PA",
+    "description": "Permanent - Needs Action"
+  },
+  {
+    "id": 6,
+    "code": "TA",
+    "description": "Temporary - Needs Action"
+  },
+  {
+    "id": 7,
+    "code": "SA",
+    "description": "Supported - Needs Action"
+  },
+  {
+    "id": 8,
+    "code": "PP",
+    "description": "Temporary - Posted"
+  },
+  {
+    "id": 9,
+    "code": "TP",
+    "description": "Temporary - Posted"
+  },
+  {
+    "id": 10,
+    "code": "SP",
+    "description": "Supported - Posted"
+  },
+  {
+    "id": 11,
+    "code": "PR",
+    "description": "Permanent - Restricted"
+  },
+  {
+    "id": 12,
+    "code": "TR",
+    "description": "Temporary - Restricted"
+  },
+  {
+    "id": 13,
+    "code": "SR",
+    "description": "Supported - Restricted"
+  },
+  {
+    "id": 14,
+    "code": "PD",
+    "description": "Permanent - Needs Reduction"
+  },
+  {
+    "id": 15,
+    "code": "TD",
+    "description": "Temporary - Needs Reduction"
+  },
+  {
+    "id": 16,
+    "code": "SD",
+    "description": "Supported - Needs Reduction"
+  },
+  {
+    "id": 17,
+    "code": "PM",
+    "description": "Permanent - Missing"
+  },
+  {
+    "id": 18,
+    "code": "TM",
+    "description": "Temporary - Missing"
+  },
+  {
+    "id": 19,
+    "code": "SM",
+    "description": "Supported - Missing"
+  },
+  {
+    "id": 20,
+    "code": "C",
+    "description": "Closed"
+  },
+  {
+    "id": 21,
+    "code": "PA-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 22,
+    "code": "PP-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 23,
+    "code": "PR-T",
+    "description": "Temporary Code"
+  }
+]
+
+

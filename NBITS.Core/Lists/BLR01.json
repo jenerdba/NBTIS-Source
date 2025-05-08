@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "code": "H10",
+    "description": "H-10"
+  },
+  {
+    "id": 2,
+    "code": "H15",
+    "description": "H-15"
+  },
+  {
+    "id": 3,
+    "code": "H20",
+    "description": "H-20"
+  },
+  {
+    "id": 4,
+    "code": "HS15",
+    "description": "HS-15"
+  },
+  {
+    "id": 5,
+    "code": "HS20",
+    "description": "HS-20"
+  },
+  {
+    "id": 6,
+    "code": "HS20M",
+    "description": "HS-20 and Military"
+  },
+  {
+    "id": 7,
+    "code": "HS20Plus",
+    "description": "Greater than HS-20"
+  },
+  {
+    "id": 8,
+    "code": "HL93",
+    "description": "HL-93"
+  },
+  {
+    "id": 9,
+    "code": "HL93Plus",
+    "description": "Greater than HL-93"
+  },
+  {
+    "id": 10,
+    "code": "RR",
+    "description": "Railroad"
+  },
+  {
+    "id": 11,
+    "code": "U",
+    "description": "Unknown"
+  },
+  {
+    "id": 12,
+    "code": "X",
+    "description": "Other"
+  }
+]

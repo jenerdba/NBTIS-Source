@@ -1,0 +1,23 @@
+/* Example: Make the active NavLink in the tabs more apparent */
+.nav-tabs .nav-link.active {
+    background-color: #007bff; /* Typical Bootstrap primary color */
+    color: #fff !important;
+}
+
+/* Layout spacing adjustments */
+.page.container {
+    margin-top: 1rem;
+}
+
+.content.py-3 {
+    padding: 1rem;
+}
+
+/* If needed, override navbar brand color or other defaults */
+.navbar-brand {
+    color: #fff;
+}
+
+    .navbar-brand:hover {
+        color: #dcdcdc;
+    }

@@ -1,0 +1,2130 @@
+[
+  {
+    "WorkflowName": "Primary",
+    "Rules": [
+      //BRIDGE NUMBER
+      {
+        "RuleName": "BID01-1", //BridgeNumber NullCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge number is null",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BID01",
+          "ItemName": "Bridge Number",
+          "DataSet": "Primary",
+          "IsFatal":  "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBridgeNumber(input1.BID01)"
+      },
+      {
+        "RuleName": "BID01-2", // BridgeNumber LengthCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Number length exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BID01",
+          "ItemName": "Bridge Number",
+          "DataSet": "Primary",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BID01, 15)"
+      },
+      {
+        "RuleName": "BID01-3", // BridgeNumber RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BID01",
+          "ItemName": "Bridge Number",
+          "DataSet": "Primary",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BID01, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      //BRIDGE NAME
+      {
+        "RuleName": "BID02-1", //BridgeName Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge name length exceeds 300 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BID02",
+          "ItemName": "Bridge Name",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BID02, 300)"
+      },
+      {
+        "RuleName": "BID02-2", //BridgeName is not null
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Missing bridge name",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BID02",
+          "ItemName": "Bridge Name",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNullOrWhiteSpace(input1.BID02)"
+      },
+      //PREVIOUS BRIDGE NUMBER
+      {
+        "RuleName": "BID03-1", // Previous Bridge Number 
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous bridge number is null. Report 0 if no previous bridge number",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNullOrWhiteSpace(input1.BID03)"
+      },
+      {
+        "RuleName": "BID03-2", // Previous Bridge Number LengthCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous bridge number length exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BID03, 15)"
+      },
+      {
+        "RuleName": "BID03-3", // Previous Bridge Number RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous bridge number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BID03, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      {
+        "RuleName": "BID03-4", // Previous Bridge Number Not Same As BID01
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous bridge number should not be the same as bridge number BID01",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsDifferent(input1.BID01, input1.BID03)" //BID03 cannot be same as BID01
+      },
+      //BL01 STATE CODE
+      {
+        "RuleName": "BL01-1", //StateCode
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "State code is null or not valid.",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL01",
+          "ItemName": "State Code",
+          "DataSet": "Primary",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidStateCode(input1.BL01)"
+      },
+      {
+        "RuleName": "BL01-2", //StateCode Mismatch
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "State code does not match the selected state.",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL01",
+          "ItemName": "State Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidStateMatch(input1.BL01, input2)"
+      },
+      //COUNTY CODE
+      {
+        "RuleName": "BL02-1", //CountyCode
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "County Code is null or not a valid value",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL02",
+          "ItemName": "County Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidCountyCode(input1.BL01, input1.BL02)"
+      },
+      //PLACE CODE
+      {
+        "RuleName": "BL03-1", //PlaceCode Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Place Code length exceeds 5 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL03",
+          "ItemName": "Place Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BL03, 5)"
+      },
+      {
+        "RuleName": "BL03-2", //PlaceCode Positive Integer
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Place Code is null or not a valid number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL03",
+          "ItemName": "Place Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL03(input1.BL03)"
+      },
+      //HIGHWAY AGENCY DISTRICT
+      {
+        "RuleName": "BL04-1", //HighwayAgencyDistrict
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Agency District is null or exceeds 2 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL04",
+          "ItemName": "Highway Agency District",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL04(input1.BL04)"
+      },
+      {
+        "RuleName": "BL04-2", //HighwayAgencyDistrict Data Type Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Agency District has invalid characters. Valid characters include A-Z, a-z, and 0-9.",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL04",
+          "ItemName": "Highway Agency District",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BL04, \"^[a-zA-Z0-9]+$\")"
+      },
+      //LATITUDE
+      {
+        "RuleName": "BL05-1", //Latitude
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Latitude is null or not a valid number",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL05",
+          "ItemName": "Latitude",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL05(input1.BL05)"
+      },
+      {
+        "RuleName": "BL05-2", //Latitude Polarity
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Polarity of Latitude has been adjusted for this location",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BL05",
+          "ItemName": "Latitude",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL05_GeospatialPolarity(input1.BL01, input1.BL05)"
+      },
+      //LONGITUDE
+      {
+        "RuleName": "BL06-1", //Longitude
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Longitude is null or not a valid number",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL06",
+          "ItemName": "Longitude",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL06(input1.BL06)"
+      },
+      {
+        "RuleName": "BL06-2", //Longitude Polarity
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Polarity of Longitude has been adjusted for this location",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BL06",
+          "ItemName": "Longitude",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL06_GeospatialPolarity(input1.BL01, input1.BL06)"
+      },
+      //BORDER BRIDGE NUMBER
+      {
+        "RuleName": "BL07-1", //Border Bridge Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BL07 Border Bridge Number is null. Report \"N\" if no border crossing exists or \"0\" if the bordering country does not have a bridge number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL07",
+          "ItemName": "Border Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBridgeNumber(input1.BL07)"
+      },
+      {
+        "RuleName": "BL07-2", //Border Bridge LengthCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border bridge number length exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL07",
+          "ItemName": "Border Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BL07, 15)"
+      },
+      {
+        "RuleName": "BL07-3", //Border Bridge RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border bridge number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL07",
+          "ItemName": "Border Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BL07, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      //BORDER BRIDGE STATE OR COUNTRY CODE
+      {
+        "RuleName": "BL08-1", //BorderBridgeStateOrCountryCode
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border bridge state or country code is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL08",
+          "ItemName": "Border Bridge State Or Country Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL08(input1.BL07, input1.BL08)"
+      },
+      {
+        "RuleName": "BL08-2", //BorderBridgeStateOrCountryCode Cross Check State Code
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border bridge state or country code should not be the same as state code BL01",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL08",
+          "ItemName": "Border Bridge State Or Country Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBL08_BL01(input1.BL01, input1.BL07, input1.BL08)"
+      },
+      //BORDER BRIDGE INSPECTION RESPONSIBILITY
+      {
+        "RuleName": "BL09-1", //BorderBridgeInspectionResponsibility
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border bridge inspection responsibility code is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL09",
+          "ItemName": "Border Bridge Inspection Responsibility",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL09(input1.BL07, input1.BL09)"
+      },
+      {
+        "RuleName": "BL09-2", //BorderBridgeInspectionResponsibility
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BL07 = 'N'. Do not report BL09 Border Bridge Inspection Responsibility for a non-border bridge.",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BL09",
+          "ItemName": "Border Bridge Inspection Responsibility",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBL07_BL09(input1.BL07, input1.BL09)"
+      },
+      //BORDER BRIDGE DESIGNATED LEAD STATE
+      {
+        "RuleName": "BL10-1", //BorderBridgeDesignatedLeadState
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border bridge designated lead state code is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL10",
+          "ItemName": "Border Bridge Designated Lead State",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL10(input1)"
+      },
+      {
+        "RuleName": "BL10-2", //BorderBridgeDesignatedLeadState
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BL07 = \"N\". Do not report BL10 Border Bridge Designated Lead State for a non-border bridge.",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BL10",
+          "ItemName": "Border Bridge Designated Lead State",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBL07_BL10(input1.BL07, input1.BL10)"
+      },
+      //Border Bridge Neighboring State - DO NOT REPORT BL11 Bridge Location
+      {
+        "RuleName": "BL12-1", //MetroPlanningOrganization Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Metro Planning Organization length exceeds 300 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL12",
+          "ItemName": "Metropolitan Planning Organization",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BL12, 300)"
+      },
+      {
+        "RuleName": "BL12-2", //MetroPlanningOrganization
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway feature carried on the bridge is designated \"on\" the NHS - BL12 Metropolitan Planning Organization must be reported - by both States for Border Bridges",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL12",
+          "ItemName": "Metropolitan Planning Organization",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL12(input1)"
+      },
+      //BCL01 - OWNER
+      {
+        "RuleName": "BCL01-1", //Owner
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Owner code is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BCL01",
+          "ItemName": "Owner",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCL01_BCL02(input1.BCL01)"
+      },
+      //BCL02 - MAINTENANCE RESPONSIBILITY
+      {
+        "RuleName": "BCL02-1", //MaintenanceResponsibility
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Maintenance responsibility code is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BCL02",
+          "ItemName": "Maintenance Responsibility",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCL01_BCL02(input1.BCL02)"
+      },
+      //BCL03 - FEDERAL OR TRIBAL LAND ACCESS
+      {
+        "RuleName": "BCL03-1", //FederalOrTribalLandAccess
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Federal or Tribal land access code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCL03",
+          "ItemName": "Federal Or Tribal Land Access",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCL03(input1.BCL03)"
+      },
+      {
+        "RuleName": "BCL03-2", //FederalOrTribalLandAccess Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Federal or Tribal land access code exceeds 30 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCL03",
+          "ItemName": "Federal Or Tribal Land Access",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BCL03, 30)"
+      },
+      //BCL04 - HISTORICAL SIGNIFICANCE
+      {
+        "RuleName": "BCL04", //HistoricSignifigance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Historic significance code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCL04",
+          "ItemName": "Historical Signifigance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCL04(input1.BCL04)"
+      },
+      //BCL05 - TOLL
+      {
+        "RuleName": "BCL05", //Toll
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Toll code is null or is not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCL05",
+          "ItemName": "Toll",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCL05(input1.BCL05)"
+      },
+      //BCL06 - Emergency Evacuation Designation
+      {
+        "RuleName": "BCL06", //EmergencyEvacuationDesignation
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Emergency evacuation designation code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCL06",
+          "ItemName": "Emergency Evacuation Designation",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsYOrN(input1.BCL06)" //Y or N
+      },
+      {
+        "RuleName": "BRH01", //BridgeRailings
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge railings code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRH01",
+          "ItemName": "Bridge Railings",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRH01(input1.BRH01)" //	Valid values listed in Table 6 in SNBI; Temporary Codes I0-T ("eye-zero"-T) and Y-T are accepted valid values for 2026 and 2027 but will be excluded in 2028 when permanent SNBI codes are in full effect.
+      },
+      {
+        "RuleName": "BRH02", //Transitions
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Transitions code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRH02",
+          "ItemName": "Transitions",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRH02(input1.BRH02)" //TODO: Valid values listed in Table 6 in SNBI; Temporary Codes I0-T ("eye-zero"-T) and Y-T are accepted valid values for 2026 and 2027 but will be excluded in 2028 when permanent SNBI codes are in full effect.
+      },
+      {
+        "RuleName": "BG01-1", //Maximum NBIS Bridge Length Check - N(7,1)
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "NBIS bridge length exceeds 7 digits",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG01",
+          "ItemName": "NBIS Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        //"Expression": "CustomRules.HasMaxLengthDouble(input1.BG01, 7)"
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG01, 7, 6)" 
+      },
+      {
+        "RuleName": "BG01-2", //NBIS Bridge Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "NBIS bridge length is either null or not a numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG01",
+          "ItemName": "NBIS Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG01_2(input1.BG01)" //Must be numeric with 1 decimal place; 
+      },
+      {
+        "RuleName": "BG01-3", //NBIS Bridge Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Based on submitted value - this is not an NBIS length bridge",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG01",
+          "ItemName": "NBIS Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG01_3(input1.BG01)" //Report only bridges where NBIS Bridge Length is " "greater\" than 20 feet"
+      },
+      {
+        "RuleName": "BG01-4", //NBIS Bridge Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999,999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG01",
+          "ItemName": "NBIS Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG01, 6)"
+      },
+      {
+        "RuleName": "BG01-5", //NBIS Bridge Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG01",
+          "ItemName": "NBIS Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG01)"
+      },
+      {
+        "RuleName": "BG02-1", //Maximum Total Bridge Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Total bridge length exceeds 7 digits",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG02",
+          "ItemName": "Total Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG02, 7, 6)"
+      },
+      {
+        "RuleName": "BG02-2", //Total Bridge Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Total bridge length is either null or not a numeric",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG02",
+          "ItemName": "Total Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG02(input1.BG02)"
+      },
+      {
+        "RuleName": "BG02-3", //Cross check BG01 and dBG02
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BG01 NBIS bridge length should not be greater than BG02 total bridge length",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG02",
+          "ItemName": "Total Bridge Length",
+          "DataSet": "Primary"
+
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBG01_BG02(input1.BG01, input1.BG02)"
+      },
+      {
+        "RuleName": "BG02-4", //Total Bridge Length Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999,999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG02",
+          "ItemName": "Total Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG02, 6)"
+      },
+      {
+        "RuleName": "BG02-5", //Total Bridge Length Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG02",
+          "ItemName": "Total Bridge Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG02)"
+      },
+      {
+        "RuleName": "BG03-1", //Maximum Span Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Maximum span length is either null or not a numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG03",
+          "ItemName": "Maximum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG03(input1.BG03)" //Must be numeric with 1 decimal place
+      },
+      {
+        "RuleName": "BG03-2", //Maximum Span Length Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Maximum span length exceeds 5 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG03",
+          "ItemName": "Maximum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG03, 5, 4)"
+      },
+      {
+        "RuleName": "BG03-3", //Maximum Span Length Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 9,999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG03",
+          "ItemName": "Maximum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG03, 4)"
+      },
+      {
+        "RuleName": "BG03-4", //Maximum Span Length Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG03",
+          "ItemName": "Maximum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG03)"
+      },
+      {
+        "RuleName": "BG04-1", //Minimum Span Length Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Minimum span length exceeds 5 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG04",
+          "ItemName": "Minimum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG04, 5, 4)"
+      },
+      {
+        "RuleName": "BG04-2", //Minimum Span Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Minimum span length is either null or not a numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG04",
+          "ItemName": "Minimum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG04(input1.BG04)" //Must be numeric with 1 decimal place
+      },
+      {
+        "RuleName": "BG04-3", //Minimum Span Length Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 9,999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG04",
+          "ItemName": "Minimum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG04, 4)"
+      },
+      {
+        "RuleName": "BG04-4", //Minimum Span Length Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG04",
+          "ItemName": "Minimum Span Length",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG04)"
+      },
+      {
+        "RuleName": "BG05-1", //Bridge Width Out-To-Out Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Width Out-To-Out exceeds 4 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG05",
+          "ItemName": "Bridge Width Out-To-Out",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG05, 4, 3)"
+      },
+      {
+        "RuleName": "BG05-2", //Bridge Width Out-To-Out
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Width Out-To-Out is either null or not numeric",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG05",
+          "ItemName": "Bridge Width Out-To-Out",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG05(input1.BG05)" //Must be reported and must be numeric
+      },
+      {
+        "RuleName": "BG05-3", //Bridge Width Out-To-Out Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG05",
+          "ItemName": "Bridge Width Out-To-Out",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG05, 3)"
+      },
+      {
+        "RuleName": "BG05-4", //Bridge Width Out-To-Out Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG05",
+          "ItemName": "Bridge Width Out-To-Out",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG05)"
+      },
+      {
+        "RuleName": "BG05-5", //Bridge Width Out-To-Out BG05 must be greater than Bridge Width Curb-to-Curb BG06
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Width Out-to-Out should be greater than Bridge Width Curb-to-Curb; except when the bridge is a Sidehill Bridge",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG05",
+          "ItemName": "Bridge Width Out-To-Out",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG05_BG06(input1.BG05, input1.BG06, input1.BG14)"
+      },
+      {
+        "RuleName": "BG06-1", //Bridge Width Curb-To-Curb Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge width curb-to-curb exceeds 4 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG06",
+          "ItemName": "Bridge Width Curb-To-Curb",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG06, 4, 3)"
+      },
+      {
+        "RuleName": "BG06-2", //Bridge Width Curb-To-Curb
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge width curb-to-curb is either null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG06",
+          "ItemName": "Bridge Width Curb-To-Curb",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG06(input1.BG06)" //Must be numeric
+      },
+      {
+        "RuleName": "BG06-3", //Bridge Width Curb-To-Curb Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG06",
+          "ItemName": "Bridge Width Curb-To-Curb",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG06, 3)"
+      },
+      {
+        "RuleName": "BG06-4", //Bridge Width Curb-To-Curb Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG06",
+          "ItemName": "Bridge Width Curb-To-Curb",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG06)"
+      },
+      {
+        "RuleName": "BG07-1", //Left Curb or Sidewalk Width Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Left curb/sidewalk width exceeds 3 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG07",
+          "ItemName": "Left Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG07, 3, 2)"
+      },
+      {
+        "RuleName": "BG07-2", //Left Curb or Sidewalk Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Left curb/sidewalk width is either null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG07",
+          "ItemName": "Left Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG07(input1.BG07)" //Must be numeric
+      },
+      {
+        "RuleName": "BG07-3", //Left Curb or Sidewalk Width Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG07",
+          "ItemName": "Left Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG07, 2)"
+      },
+      {
+        "RuleName": "BG07-4", //Left Curb or Sidewalk Width Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG07",
+          "ItemName": "Left Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG07)"
+      },
+      {
+        "RuleName": "BG08-1", //Right Curb or Sidewalk Width Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Right curb/sidewalk width exceeds 3 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG08",
+          "ItemName": "Right Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG08, 3, 2)"
+      },
+      {
+        "RuleName": "BG08-2", //Right Curb or Sidewalk Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Right curb/sidewalk width is either null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG08",
+          "ItemName": "Right Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG08(input1.BG08)" //Must be numeric
+      },
+      {
+        "RuleName": "BG08-3", //Right Curb or Sidewalk Width Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG08",
+          "ItemName": "Right Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG08, 2)"
+      },
+      {
+        "RuleName": "BG08-4", //Right Curb or Sidewalk Width Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG08",
+          "ItemName": "Right Curb or Sidewalk Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG08)"
+      },
+      {
+        "RuleName": "BG09-1", //Approach Roadway Width Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Right curb/sidewalk width exceeds 4 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG09",
+          "ItemName": "Approach Roadway Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLengthDouble(input1.BG09, 4, 3)"
+      },
+      {
+        "RuleName": "BG09-2", //Approach Roadway Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Approach roadway width is either null or not numeric",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG09",
+          "ItemName": "Approach Roadway Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG09(input1.BG09)" //Must be reported and numeric
+      },
+      {
+        "RuleName": "BG09-3", //Approach Roadway Width Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG09",
+          "ItemName": "Approach Roadway Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG09, 3)"
+      },
+      {
+        "RuleName": "BG09-4", //Approach Roadway Width Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG09",
+          "ItemName": "Approach Roadway Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG09)"
+      },
+      {
+        "RuleName": "BG10-1", //Bridge Median
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge median code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG10",
+          "ItemName": "Bridge Median",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG10(input1.BG10)" // 0-3
+      },
+      {
+        "RuleName": "BG11-1", //Skew
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Skew angle is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG11",
+          "ItemName": "Skew",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG11(input1.BG11)" //Must be int between 0-99
+      },
+      //{
+      //  "RuleName": "BG11-2", //Skew Length Check
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Skew angle exceeds 2 digits",
+      //  "Properties": {
+      //    "ErrorType": "Error",
+      //    "ItemId": "BG11",
+      //    "ItemName": "Skew",
+      //    "DataSet": "Primary"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.HasMaxLengthDouble(input1.BG11, 2)"
+      //},
+      {
+        "RuleName": "BG11-3", //Skew Decimal Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Skew angle must be an integer. Value will be rounded down to the nearest whole number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG11",
+          "ItemName": "Skew",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BG11)" //Must be integer
+      },
+      {
+        "RuleName": "BG12-1", //Curved Bridge
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Curved bridge code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG12",
+          "ItemName": "Curved Bridge",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG12(input1.BG12)"
+      },
+      {
+        "RuleName": "BG13-1", //Maximum Bridge Height Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Maximum bridge height exceeds 4 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG13",
+          "ItemName": "Maximum Bridge Height",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BG13, 4)"
+      },
+      {
+        "RuleName": "BG13-2", //Maximum Bridge Height
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Maximum bridge height is null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG13",
+          "ItemName": "Maximum Bridge Height",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG13(input1.BG13, 0)" //Must be numeric
+      },
+      {
+        "RuleName": "BG13-3", //Maximum Bridge Height Whole Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Maximum Bridge Height must be a whole number. Value will be rounded to the nearest whole foot",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG13",
+          "ItemName": "Maximum Bridge Height",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumberRoundDown(input1.BG13)"
+      },
+      {
+        "RuleName": "BG14", //Sidehill Bridge
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Sidehill bridge code is null or not valid. Must be Y or N",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG14",
+          "ItemName": "Sidehill Bridge",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsYOrN(input1.BG14)" //Y or N
+      },
+      {
+        "RuleName": "BG15-1", //Irregular Deck Area Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Irregular deck area exceeds 10 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG15",
+          "ItemName": "Irregular Deck Area",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BG15, 10)"
+      },
+      {
+        "RuleName": "BG15-2", //Irregular Deck Area
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Irregular deck area is not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG15",
+          "ItemName": "Irregular Deck Area",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBG15(input1.BG15)" //If reported, must be numeric
+      },
+      {
+        "RuleName": "BG15-3", //Irregular Deck Area Pre-Decimal Maximum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999,999,999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BG15",
+          "ItemName": "Irregular Deck Area",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BG15, 9)"
+      },
+      {
+        "RuleName": "BG15-4", //Irregular Deck Area Decimal
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BG15",
+          "ItemName": "Irregular Deck Area",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BG15)"
+      },
+      {
+        "RuleName": "BG16", //Calculated Deck Area
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "DO NOT REPORT calculated deck area",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BG16",
+          "ItemName": "Calculated Deck Area",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BG16)"
+      },
+      {
+        "RuleName": "BLR01", //Design Load
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Design load is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR01",
+          "ItemName": "Design Load",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBLR01(input1.BLR01)"
+      },
+      {
+        "RuleName": "BLR02", //	Design Method
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Design method is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR02",
+          "ItemName": "Design Method",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBLR02(input1.BLR02)"
+      },
+      {
+        "RuleName": "BLR03", //Load Rating Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Load rating date is null or not a valid date",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR03",
+          "ItemName": "Load Rating Date",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBLR03(input1)" //	Checked for YYYYMMDD format
+      },
+      {
+        "RuleName": "BLR04", //Load Rating Method
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Load rating method is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR04",
+          "ItemName": "Load Rating Method",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBLR04(input1.BLR04, input1.BLR05, input1.BLR06)"
+      },
+      //{
+      //  "RuleName": "BLR04-2", //Load Rating Method
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Do not report load rating method if no rating analysis or evaluation has been performed",
+      //  "Properties": {
+      //    "ErrorType": "Flag",
+      //    "ItemId": "BLR04",
+      //    "ItemName": "Load Rating Method",
+      //    "DataSet": "Primary"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.IsNullOrEmptyBLR04(input1.BLR04, input1.BLR05, input1.BLR06)"
+      //},
+      {
+        "RuleName": "BLR05-1", //	Inventory Load Rating Factor
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inventory Load Rating Factor is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR05",
+          "ItemName": "Inventory Load Rating Factor",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNull(input1.BLR05)"
+      },
+      {
+        "RuleName": "BLR05-2", //	Inventory Load Rating Factor
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inventory Load Rating Factor must be a numeric value, with up to two decimal places, and not exceeding 99.99",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR05",
+          "ItemName": "Inventory Load Rating Factor",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLoadRatingFactor(input1.BLR05, 2)" //Must be numeric with 2 decimal places
+      },
+      //{
+      //  "RuleName": "BLR05-2", //	Inventory Load Rating Factor must be reported
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Other load rating data fields indicate a new load rating may have been completed recently but BLR05 Inventory Load Rating Factor has not been reported for this bridge",
+      //  "Properties": {
+      //    "ErrorType": "Flag",
+      //    "ItemId": "BLR05",
+      //    "ItemName": "Inventory Load Rating Factor",
+      //    "DataSet": "Primary"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.IsReportedBLR05(input1)"
+      //},
+      //{
+      //  "RuleName": "BLR05-3", //	Do not report Inventory Load Rating Factor
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "",
+      //  "Properties": {
+      //    "ErrorType": "Flag"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.DoNotReportBLR05(input1)"
+      //},
+      {
+        "RuleName": "BLR06-1", //B.LR.06 Operating Load Rating Factor
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Operating Load Rating Factor is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR06",
+          "ItemName": "Operating Load Rating Factor",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNull(input1.BLR06)"
+      },
+      {
+        "RuleName": "BLR06-2", //	Operating Load Rating Factor
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Operating Load Rating Factor must be a numeric value, with up to two decimal places, and not exceeding 99.99",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR06",
+          "ItemName": "Operating Load Rating Factor",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLoadRatingFactor(input1.BLR05, 2)" //Must be numeric with 2 decimal places
+      },
+      {
+        "RuleName": "BLR07-1", //Controlling Legal Load Rating Factor
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Controlling Legal Load Rating Factor is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR07",
+          "ItemName": "Controlling Legal Load Rating Factor",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNull(input1.BLR07)"
+      },
+      {
+        "RuleName": "BLR07-2", //Controlling Legal Load Rating Factor
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Controlling Legal Load Rating Factor must be a numeric value, with up to two decimal places, and not exceeding 99.99",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR07",
+          "ItemName": "Controlling Legal Load Rating Factor",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidLoadRatingFactor(input1.BLR05, 2)" //Must be numeric with 2 decimal places
+      },
+      {
+        "RuleName": "BLR08-1", //	Routine Permit Loads
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Routine Permit Loads is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR08",
+          "ItemName": "Routine Permit Loads",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNull(input1.BLR08)"
+      },
+      {
+        "RuleName": "BLR08-2", //	Routine Permit Loads
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Routine Permit Loads must be a numeric value, with up to two decimal places, and not exceeding 99.99",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BLR08",
+          "ItemName": "Routine Permit Loads",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBLR08(input1.BLR08)" //Valid values listed in SNBI
+      },
+      //{
+      //  "RuleName": "BIR01-1",
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Do not report BIR01 NSTM Inspection Required for bridges that do not have steel superstructure and/or steel substructure",
+      //  "Properties": {
+      //    "ErrorType": "Flag",
+      //    "ItemId": "BIR01",
+      //    "ItemName": "NSTM Inspection Required",
+      //    "DataSet": "Primary"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.DoNotReportBIR01(input1)"
+      //},
+      {
+        "RuleName": "BIR01-2", //	NSTM Inspection Required
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "NSTM Inspection Required is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIR01",
+          "ItemName": "NSTM Inspection Required",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIR01(input1)"
+      },
+      {
+        "RuleName": "BIR02-1", //	Fatigue Details
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Fatigue details code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIR02",
+          "ItemName": "Fatigue Details",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIR02(input1)" //Valid values are Y or N
+      },
+      {
+        "RuleName": "BIR02-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report BIR02 Fatigue Details for bridges that do not have steel superstructure and/or steel substructure",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BIR02",
+          "ItemName": "Fatigue Details",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBIR02(input1)"
+      },
+      {
+        "RuleName": "BIR03-1", //	Underwater Inspection Required
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Underwater inspection required code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIR03",
+          "ItemName": "Underwater Inspection Required",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIR03(input1)"
+      },
+      {
+        "RuleName": "BIR03-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report BIR03 Underwater Inspection Required for bridges that do not have a 'waterway' feature",
+
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BIR03",
+          "ItemName": "Underwater Inspection Required",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBIR03(input1)" //Valid values are Y or N
+      },
+      {
+        "RuleName": "BIR04", //	Complex Feature
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Complex feature code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIR04",
+          "ItemName": "Complex Feature",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIR04(input1.BIR04)" //Valid values are Y or N
+      },
+      {
+        "RuleName": "BC01-1", // Deck Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck condition rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BC01",
+          "ItemName": "Deck Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_BC07(input1.BC01)"
+      },
+      {
+        "RuleName": "BC01-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck condition rating is not in the valid value range of '0-9'",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC01",
+          "ItemName": "Deck Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_1(input1)" //0 through 9
+      },
+      {
+        "RuleName": "BC01-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Spans datasets indicate no deck is present for this bridge - BC01 Deck Condition Rating should be equal to 'N'",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC01",
+          "ItemName": "Deck Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_2(input1)" //N
+      },
+      {
+        "RuleName": "BC02-1", // Superstructure Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Superstructure condition rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BC02",
+          "ItemName": "Superstructure Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_BC07(input1.BC02)"
+      },
+      {
+        "RuleName": "BC02-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Superstructure condition rating is not in the valid value range of '0-9'",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC02",
+          "ItemName": "Superstructure Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBC02_BSP01(input1)" //0 through 9
+      },
+      {
+        "RuleName": "BC02-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Spans datasets indicate no superstructure is present for this bridge - BC02 Superstructure Condition Rating should be equal to 'N'",
+
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC02",
+          "ItemName": "Superstructure Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBC02_BSP01_BSP05(input1)"
+      },
+      {
+        "RuleName": "BC03-1", // Substructure Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Substructure condition rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BC03",
+          "ItemName": "Substructure Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_BC07(input1.BC03)"
+      },
+      {
+        "RuleName": "BC03-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Substructure condition rating is not in the valid value range of '0-9'",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC03",
+          "ItemName": "Substructure Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBC03_BSP01(input1)" //0 through 9
+      },
+      {
+        "RuleName": "BC03-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Spans datasets indicate no Substructure is present for this bridge - BC03 Substructure Condition Rating should be equal to 'N'",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC03",
+          "ItemName": "Substructure Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBC03_BSP01_BSP05(input1)"
+      },
+      {
+        "RuleName": "BC04-1", // Culvert Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Culvert condition rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BC04",
+          "ItemName": "Culvert Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_BC07(input1.BC04)"
+      },
+      {
+        "RuleName": "BC04-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Culvert condition rating is not in the valid value range of '0-9'",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC04",
+          "ItemName": "Culvert Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBC04_0_9(input1)" //0 through 9
+      },
+      {
+        "RuleName": "BC04-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Spans datasets indicate this bridge is not a culvert - BC04 Culvert Condition Rating should be equal to 'N'",
+
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC04",
+          "ItemName": "Culvert Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBC04_N_1(input1)"
+      },
+      {
+        "RuleName": "BC04-4",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Span datasets indicate there are no culvert spans for this bridge - BC04 Culvert Condition Rating show be equal to 'N'",
+
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC04",
+          "ItemName": "Culvert Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBC04_N_2(input1)"
+      },
+      {
+        "RuleName": "BC05-1", // Bridge Railing Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge railing condition rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC05",
+          "ItemName": "Bridge Railing Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_BC07(input1.BC05)"
+      },
+      {
+        "RuleName": "BC05-2", // Bridge Railing Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Railings BRH01 is not equal to \"N\" or 0. Bridge Railing Condition Rating is not in the valid value range of \"0-9\"",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC05",
+          "ItemName": "Bridge Railing Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC05_1(input1.BC05, input1.BRH01)"
+      },
+      {
+        "RuleName": "BC05-3", // Bridge Railing Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "When Bridge Railings (BRH01) is \"N\" or 0, the Bridge Railing Transitions Condition Rating must also be \"N\"",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC05",
+          "ItemName": "Bridge Railing Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC05_2(input1.BC05, input1.BRH01)"
+      },
+      {
+        "RuleName": "BC06-1", // Bridge Railing Transitions Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Railing Transitions Condition Rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC06",
+          "ItemName": "Bridge Railing Transitions Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_BC07(input1.BC06)"
+      },
+      {
+        "RuleName": "BC06-2", // Bridge Railing Transitions Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Transitions BRH02 is not equal to \"N\". Bridge Railing Transitions Condition Rating is not in the valid value range of \"0-9\"",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC06",
+          "ItemName": "Bridge Railing Transitions Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC06_1(input1.BC06, input1.BRH02)"
+      },
+      {
+        "RuleName": "BC06-3", // Bridge Railing Transitions Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "When Transitions (BRH02) is \"N\", the Bridge Railing Transitions Condition Rating must also be \"N\"",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC06",
+          "ItemName": "Bridge Railing Transitions Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC06_2(input1.BC06, input1.BRH02)"
+      },
+      {
+        "RuleName": "BC07-1", // Bridge Bearings Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge bearings condition rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC07",
+          "ItemName": "Bridge Bearings Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC01_BC07(input1.BC07)"
+      },
+      {
+        "RuleName": "BC08-1", // Bridge Joints Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge joints condition rating is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC08",
+          "ItemName": "Bridge Joints Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC08(input1.BC08)"
+      },
+      {
+        "RuleName": "BC09-1", // Channel Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Channel Condition Rating is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC09",
+          "ItemName": "Channel Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC09(input1.BC09)"
+      },
+      {
+        "RuleName": "BC09-2", // Channel Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Channel Condition Rating should be in the valid value range of \"0-9\" for all bridges with a \"waterway\" feature",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC09",
+          "ItemName": "Channel Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC09_ForWaterway(input1)"
+      },
+      {
+        "RuleName": "BC09-3", // Channel Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Channel Condition Rating should be equal to \"N\" for all bridges that do not have a \"waterway\" feature",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC09",
+          "ItemName": "Channel Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC09_WhenNoWaterway(input1)"
+      },
+      {
+        "RuleName": "BC10-1", // Channel Protection Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Channel Protection Condition Rating is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC10",
+          "ItemName": "Channel Protection Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC10(input1.BC10)"
+      },
+      //Removed per Wendy's email from 10/30/2024. Added by per Wendy's email from 11/4/2024.
+      {
+        "RuleName": "BC10-2", // Channel Protection Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Channel Protection Condition Rating should be in the valid value range of \"0-9\" or \"N\" for all bridges with a \"waterway\" feature",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC10",
+          "ItemName": "Channel Protection Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC10_ForWaterway(input1)"
+      },
+      {
+        "RuleName": "BC10-3", // Channel Protection Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BC10 Channel Protection Condition Rating should be equal to \"N\" for all bridges that do not have a \"waterway\" feature",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC10",
+          "ItemName": "Channel Protection Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC10_WhenNoWaterway(input1)"
+      },
+      {
+        "RuleName": "BC11-1", // Scour Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Scour Condition Rating is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC11",
+          "ItemName": "Scour Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC11(input1.BC11)" //	0 through 9 and N, temp codes
+      },
+      {
+        "RuleName": "BC11-2", // Scour Condition Rating
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Scour Condition Rating should be in the valid value range of \"0-9\" or \"N\" for all bridges with a \"waterway\" feature",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC11",
+          "ItemName": "Scour Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC11_ForWaterway(input1)"
+      },
+      {
+        "RuleName": "BC11-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Scour Condition Rating should be equal to \"N\" for all bridges that do not have a \"waterway\" feature",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC11",
+          "ItemName": "Scour Condition Rating",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC11_WhenNoWaterway(input1)"
+      },
+      {
+        "RuleName": "BC12", // Bridge Condition Classification 
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "DO NOT REPORT Bridge Condition Classification",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC12",
+          "ItemName": "Bridge Condition Classification",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BC12)" //DO NOT REPORT
+      },
+      {
+        "RuleName": "BC13", // Lowest Condition Rating Code
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "DO NOT REPORT Lowest Condition Rating Code",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC13",
+          "ItemName": "Lowest Condition Rating Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BC13)" //DO NOT REPORT
+      },
+      {
+        "RuleName": "BC14-1", // NSTM Inspection Condition
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BC14 NSTM Inspection Condition should be in the valid value range of \"0-9\" for bridges that require NSTM inspection",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC14",
+          "ItemName": "NSTM Inspection Condition",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC14(input1)" //	0 through 9 
+      },
+      {
+        "RuleName": "BC14-2", // NSTM Inspection Condition
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report BC14 NSTM Inspection Condition for bridges that do not require NSTM inspection",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC14",
+          "ItemName": "NSTM Inspection Condition",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBC14(input1)" //DO NOT REPORT
+      },
+      {
+        "RuleName": "BC15-1", // Underwater Inspection Condition
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Underwater Inspection Condition is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BC15",
+          "ItemName": "Underwater Inspection Condition",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBC15(input1)" // 0 through 9 
+      },
+      {
+        "RuleName": "BC15-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report BC15 Underwater Inspection Condition for bridges that do not require underwater inspection",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BC15",
+          "ItemName": "Underwater Inspection Condition",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBC15(input1)" //DO NOT REPORT
+      },
+      /////**************** APPRAISAL SUBSECTION ***************/////
+      {
+        "RuleName": "BAP01", // Approach Roadway Alignment
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Approach Roadway Alignment is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BAP01",
+          "ItemName": "Approach Roadway Alignment",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBAP01(input1.BAP01)" //	Valid values include G, F, and P, required
+      },
+      {
+        "RuleName": "BAP02-1", // Overtopping Likelihood
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Overtopping likelihood is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BAP02",
+          "ItemName": "Overtopping Likelihood",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBAP02(input1)" // 0 through 6
+      },
+      {
+        "RuleName": "BAP02-2", // Overtopping Likelihood
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report Overtopping Likelihood if the bridge does not cross over a \"waterway\" as indicated in BF01 Feature Type",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BAP02",
+          "ItemName": "Overtopping Likelihood",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBAP02(input1)"
+      },
+      {
+        "RuleName": "BAP03-1", // Scour Vulnerability
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Scour vulnerability is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BAP03",
+          "ItemName": "Scour Vulnerability",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBAP03(input1)" //	Valid values listed in SNBI; Temporary Codes AB-T, BCE-T and CD-T
+      },
+      {
+        "RuleName": "BAP03-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report scour vulnerability if the bridge does not cross over a waterway as indicated in BF01 Feature Type",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BAP03",
+          "ItemName": "Scour Vulnerability",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBAP03(input1)"
+      },
+      {
+        "RuleName": "BAP04-1", // Scour Plan of Action
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Scour plan of action is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BAP04",
+          "ItemName": "Scour Plan of Action",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBAP04(input1)" //	0, Y, and N
+      },
+      {
+        "RuleName": "BAP04-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report scour plan of action if the bridge does not cross over a waterway as indicated in BF01 Feature Type",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BAP04",
+          "ItemName": "Scour Plan of Action",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBAP04(input1)"
+      },
+      {
+        "RuleName": "BAP05", // Seismic Vulnerability
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Seismic vulnerability code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BAP05",
+          "ItemName": "Seismic Vulnerability",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBAP05(input1.BAP05)"
+      },
+      {
+        "RuleName": "BW01-1", // Year Built
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Year build is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BW01",
+          "ItemName": "Year Built",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBW01(input1.BW01)"
+      },
+      {
+        "RuleName": "BSP01",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Based on submitted coding - this structure does not meet the SNBI definition for Culvert",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BSP01",
+          "ItemName": "Span Configuration Designation",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.ValidateCulvertSpanConfig(input1)"
+      }
+      
+    ]
+  }
+]

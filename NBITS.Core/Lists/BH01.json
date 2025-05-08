@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "code": "1",
+    "description": "Interstate"
+  },
+  {
+    "id": 2,
+    "code": "2",
+    "description": "Principal Arterial – Other Freeways and Expressways"
+  },
+  {
+    "id": 3,
+    "code": "3",
+    "description": "Principal Arterial – Other"
+  },
+  {
+    "id": 4,
+    "code": "4",
+    "description": "Minor Arterial"
+  },
+  {
+    "id": 5,
+    "code": "5",
+    "description": "Major Collector"
+  },
+  {
+    "id": 6,
+    "code": "6",
+    "description": "Minor Collector"
+  },
+  {
+    "id": 7,
+    "code": "7",
+    "description": "Local"
+  },
+  {
+    "id": 8,
+    "code": "C-T",
+    "description": "Temporary Code"
+  }
+]

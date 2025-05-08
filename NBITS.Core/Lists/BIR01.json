@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "code": "N",
+    "description": "NSTM inspection not required."
+  },
+  {
+    "id": 2,
+    "code": "Y",
+    "description": "NSTM inspection required."
+  },
+  {
+    "id": 3,
+    "code": "I",
+    "description": "NSTM inspection not required – Internal Redundancy"
+  },
+  {
+    "id": 4,
+    "code": "S",
+    "description": "NSTM inspection not required – System Redundancy"
+  }
+]

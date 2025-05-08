@@ -1,0 +1,111 @@
+﻿@using NBTIS.Web.ViewModels
+@using NBTIS.Core.DTOs
+@using Telerik.Blazor.Components
+
+<TelerikForm Model="EditItem"
+OnValidSubmit="@OnValidSubmit"
+ColumnSpacing="20px"
+ButtonsLayout="@FormButtonsLayout.Stretch"
+Columns="1">
+    <FormValidation>
+        <DataAnnotationsValidator />
+    </FormValidation>
+    <FormItems>
+        <FormItem>
+            <Template>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="k-label">State or Agency:</label>
+                        @EditItem.SubmittedByDescription
+                    </div>
+                    <div class="col-6">
+                        <label class="k-label">Upload Date:</label>
+                        @EditItem.UploadDate.ToString("MM/dd/yyyy h:mm:ss tt")
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label class="k-label">Type of Submittal:</label>
+                        @EditItem.UploadType
+                    </div>
+                    <div class="col-6">
+                        <label class="k-label">Uploaded By:</label>
+                        @EditItem.UploadedBy
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label class="k-label">Status:</label>
+                        @EditItem.Status
+                    </div>
+                </div>
+                <hr class="my-3" />
+                <!-- New Comment Area -->
+                <div class="feature-card p-4 m-3 text-start">
+                    <label class="k-label">Add New Comment</label>
+                    <textarea class="k-textbox k-input k-input-md k-rounded-md k-input-solid fixed-input-width"
+                    @bind="newCommentText"
+                    rows="3"
+                    placeholder="Enter your comment here..."></textarea>
+                    <div class="mt-2">
+                        <TelerikButton OnClick="@AddComment"
+                        Icon="@nameof(SvgIcon.Save)"
+                        ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">
+                            Add Comment
+                        </TelerikButton>
+                    </div>
+                </div>
+                @if (isUpdateSuccessful)
+                {
+                    <div class="alert alert-success mt-3">
+                        @successMessage
+                    </div>
+                }
+                <!-- Existing Comments -->
+                @if (EditItem?.SubmittalComments != null && EditItem.SubmittalComments.Any())
+                {
+                    @foreach (var comment in EditItem.SubmittalComments.OrderByDescending(e => e.UpdatedDate ?? e.CreatedDate).ThenByDescending(e => e.CreatedDate))
+                    {
+                        <div class="feature-card p-4 m-3 text-start">
+                            <b>@comment.CreatedBy</b> @comment.CreatedDate.ToString("MM/dd/yyyy h:mm:ss tt") <br />
+                            <textarea class="k-textbox k-input k-input-md k-rounded-md k-input-solid fixed-input-width"
+                            @bind="@comment.CommentText"
+                            rows="3"></textarea>
+                            @if (comment.CreatedBy == CurrentUser)
+                            {
+                                <div class="mt-2">
+                                    <TelerikButton OnClick="@(() => UpdateCommentAsync(comment))"
+                                    Icon="@nameof(SvgIcon.Save)"
+                                    ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                                    Class="me-2">
+                                        Update                                      
+                                    </TelerikButton>
+                                    <TelerikButton OnClick="@(() => DeleteCommentAsync(comment))"
+                                                   Icon="@nameof(SvgIcon.Trash)"
+                                                   ThemeColor="@ThemeConstants.Button.ThemeColor.Secondary">
+                                        Delete
+                                    </TelerikButton>                                  
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No comments available.</p>
+                }
+            </Template>
+        </FormItem>
+    </FormItems>
+    <FormButtons>
+       @*  <TelerikButton Icon="@nameof(SvgIcon.Save)" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">
+            Save
+        </TelerikButton> *@
+        <TelerikButton Icon="@nameof(SvgIcon.Cancel)" ButtonType="@ButtonType.Button" OnClick="@OnCancel">
+            Cancel
+        </TelerikButton>
+    </FormButtons>
+
+
+
+</TelerikForm>

@@ -1,0 +1,186 @@
+﻿@page "/datacorrection"
+@inherits DataCorrectionBase
+
+@using Telerik.Blazor.Components
+@using NBTIS.Web.ViewModels
+@using NBTIS.Web.Components.PageComponents
+
+<div style="position: relative; height: 20px;">
+    <a href="/submittals" class="top-right-link">Return to Submittals</a>
+</div>
+
+<div class="container">
+    <h1 class="mb-2">Data Correction</h1>
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    @onclick="ClearSuccessMessage"></button>
+            <strong>Success:</strong> @successMessage
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @onclick="ClearErrorMessage"></button>
+            <strong>Error:</strong> @errorMessage
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <strong>State or Agency:</strong> @submittedByDescription
+        </div>
+        <button type="submit" class="btn button btn-primary">
+            Re-run Processing Report
+        </button>
+    </div>
+
+
+    <TelerikLoaderContainer OverlayThemeColor="light"
+                            Visible="@( !IsInitialDataLoadComplete )"
+                            Text="@null" Class="initial-data-loader">
+        <Template>
+            <TelerikLoader Type="@LoaderType.InfiniteSpinner"
+                           Size="@(ThemeConstants.Loader.Size.Large)">
+            </TelerikLoader>
+        </Template>
+    </TelerikLoaderContainer>
+
+    <TelerikGrid @ref="GridRef"
+                 Data="@SubmittalsList"
+                 TItem="ErrorSummary"
+                 EditMode="GridEditMode.Popup"
+                 Pageable="true"
+                 Sortable="true"
+                 FilterMode="@GridFilterMode.FilterMenu"
+                 class="mt-3">
+        <GridSettings>
+            <GridPopupEditSettings Width="850px"
+                                   Title="Correct Data"
+                                   MaxHeight="99vh"
+                                   MaxWidth="99vw"
+                                   Class="popup-class">
+            </GridPopupEditSettings>
+            <GridPopupEditFormSettings>
+                <FormTemplate Context="gridPopupEditFormTemplateContext">
+                    @{
+                        EditItem = gridPopupEditFormTemplateContext.Item as ErrorSummary;
+                    }
+                    <DataCorrectionEdit_PopUp EditItem="@(EditItem)"
+                                              CurrentUser="@(CurrentUserService.UserId)"
+                                              OnCancel="@OnCancel"
+                                              OnSaveSuccess="@OnSaveSuccess"
+                                              OnSaveFailure="@(async (string error) => await OnSaveFailure(error))" />
+                </FormTemplate>
+            </GridPopupEditFormSettings>
+        </GridSettings>
+
+        <GridColumns>
+            <GridColumn Field="@nameof(ErrorSummary.State)" Title="State" Width="40px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.BID01)" Title="Bridge No" Width="60px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.BCL01)" Title="Owner" Width="60px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.ItemId)" Title="Item ID" Width="60px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.ItemName)" Title="Item Name" Width="100px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.SubmittedValue)" Title="Submitted Value" Width="75px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.ErrorType)" Title="Error Type" Width="60px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.DataSet)" Title="Data Set" Width="60px" HeaderClass="fw-bold" Editable="false" />
+            <GridColumn Field="@nameof(ErrorSummary.Description)" Title="Error Description" Width="115px" HeaderClass="fw-bold" Editable="false" />
+            <GridCommandColumn Title="Data Correction"
+                               Width="50px"
+                               HeaderClass="fw-bold">
+                <GridCommandButton Command="Edit" Icon="@SvgIcon.EditTools"
+                                   ThemeColor="@ThemeConstants.Button.ThemeColor.Warning">
+                    Correct
+                </GridCommandButton>
+
+            </GridCommandColumn>
+        </GridColumns>
+    </TelerikGrid>
+
+
+</div>
+
+<style>
+    .popup-class {
+        border-radius: 8px;
+    }
+
+        .popup-class .k-window-titlebar {
+            border-radius: 8px;
+        }
+
+    .top-right-link {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        font-size: 14px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+</style>
+
+
+
+@code {
+    private TelerikGrid<ErrorSummary>? GridRef { get; set; }
+    public ErrorSummary EditItem { get; set; }
+    private List<ErrorSummary> CorrectionItems { get; set; } = new List<ErrorSummary>();
+
+
+    private async Task OnCancel()
+    {
+        await ExitEditAsync();
+    }
+
+    private async Task ExitEditAsync()
+    {
+        var state = GridRef?.GetState();
+        state.OriginalEditItem = null;
+        state.EditItem = null;
+        state.InsertedItem = null;
+
+        await GridRef?.SetStateAsync(state);
+    }
+
+    private void OnEditItemClick(ErrorSummary selectedItem)
+    {
+        // Populate CurrentlyEditedItem with the selected ErrorSummary
+        CorrectionItems = new List<ErrorSummary>
+        {
+            new ErrorSummary
+            {
+                ItemId = selectedItem.ItemId,
+                ItemName = selectedItem.ItemName,
+                SubmittedValue = selectedItem.SubmittedValue,
+                BID01 = selectedItem.BID01
+            }
+        };
+    }
+
+    private async Task OnSaveSuccess()
+    {
+        if (EditItem != null)
+        {
+            SubmittalsList.RemoveAll(x => x.ItemId == EditItem.ItemId && x.ItemName == EditItem.ItemName && x.BID01 == EditItem.BID01);
+        }
+
+        successMessage = "Item saved successfully!";
+        await ExitEditAsync();
+        StateHasChanged();
+    }
+
+    private async Task OnSaveFailure(string error)
+    {
+        successMessage = string.Empty;
+        errorMessage = error;
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+
+
+}

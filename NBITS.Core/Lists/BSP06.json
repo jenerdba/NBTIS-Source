@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "code": "A01",
+    "description": "Arch - under fill without spandrel"
+  },
+  {
+    "id": 2,
+    "code": "A02",
+    "description": "Arch - open spandrel"
+  },
+  {
+    "id": 3,
+    "code": "A03",
+    "description": "Arch - closed spandrel"
+  },
+  {
+    "id": 4,
+    "code": "A04",
+    "description": "Arch - through"
+  },
+  {
+    "id": 5,
+    "code": "A05",
+    "description": "Arch - tied"
+  },
+  {
+    "id": 6,
+    "code": "B01",
+    "description": "Box girder/beam - single"
+  },
+  {
+    "id": 7,
+    "code": "B02",
+    "description": "Box girder/beam - multiple adjacent"
+  },
+  {
+    "id": 8,
+    "code": "B03",
+    "description": "Box girder/beam - multiple spread"
+  },
+  {
+    "id": 9,
+    "code": "B04",
+    "description": "Box girder/beam - segmental"
+  },
+  {
+    "id": 10,
+    "code": "F01",
+    "description": "Frame - three-sided"
+  },
+  {
+    "id": 11,
+    "code": "F02",
+    "description": "Frame - four-sided"
+  },
+  {
+    "id": 12,
+    "code": "F03",
+    "description": "Frame - K-shaped"
+  },
+  {
+    "id": 13,
+    "code": "F04",
+    "description": "Frame - delta-shaped"
+  },
+  {
+    "id": 14,
+    "code": "G01",
+    "description": "Girder/beam - I-shaped adjacent"
+  },
+  {
+    "id": 15,
+    "code": "G02",
+    "description": "Girder/beam - I-shaped spread"
+  },
+  {
+    "id": 16,
+    "code": "G03",
+    "description": "Girder/beam - tee-beam"
+  },
+  {
+    "id": 17,
+    "code": "G04",
+    "description": "Girder/beam - inverted tee-beam"
+  },
+  {
+    "id": 18,
+    "code": "G05",
+    "description": "Girder/beam - double-tee adjacent"
+  },
+  {
+    "id": 19,
+    "code": "G06",
+    "description": "Girder/beam - double-tee spread"
+  },
+  {
+    "id": 20,
+    "code": "G07",
+    "description": "Girder/beam - channel adjacent"
+  },
+  {
+    "id": 21,
+    "code": "G08",
+    "description": "Girder/beam - channel spread"
+  },
+  {
+    "id": 22,
+    "code": "G09",
+    "description": "Girder/beam - girder \u0026 floor beam"
+  },
+  {
+    "id": 23,
+    "code": "G10",
+    "description": "Girder/beam - through girder"
+  },
+  {
+    "id": 24,
+    "code": "GX",
+    "description": "Girder/beam - other"
+  },
+  {
+    "id": 25,
+    "code": "L01",
+    "description": "Cable - suspension"
+  },
+  {
+    "id": 26,
+    "code": "L02",
+    "description": "Cable - cable-stayed"
+  },
+  {
+    "id": 27,
+    "code": "L03",
+    "description": "Cable - extradosed"
+  },
+  {
+    "id": 28,
+    "code": "LX",
+    "description": "Cable - other"
+  },
+  {
+    "id": 29,
+    "code": "M01",
+    "description": "Movable - vertical lift"
+  },
+  {
+    "id": 30,
+    "code": "M02",
+    "description": "Movable - bascule"
+  },
+  {
+    "id": 31,
+    "code": "M03",
+    "description": "Movable - swing"
+  },
+  {
+    "id": 32,
+    "code": "MX",
+    "description": "Movable - other"
+  },
+  {
+    "id": 33,
+    "code": "P01",
+    "description": "Pipe - Rigid"
+  },
+  {
+    "id": 34,
+    "code": "P02",
+    "description": "Pipe - Flexible"
+  },
+  {
+    "id": 35,
+    "code": "S01",
+    "description": "Slab - solid"
+  },
+  {
+    "id": 36,
+    "code": "S02",
+    "description": "Slab - voided"
+  },
+  {
+    "id": 37,
+    "code": "T01",
+    "description": "Truss - deck"
+  },
+  {
+    "id": 38,
+    "code": "T02",
+    "description": "Truss - through"
+  },
+  {
+    "id": 39,
+    "code": "T03",
+    "description": "Truss - pony"
+  },
+  {
+    "id": 40,
+    "code": "X01",
+    "description": "Other - railroad flat car"
+  },
+  {
+    "id": 41,
+    "code": "X02",
+    "description": "Other - ferry transfer"
+  },
+  {
+    "id": 42,
+    "code": "X03",
+    "description": "Other - floating"
+  },
+  {
+    "id": 43,
+    "code": "X",
+    "description": "Other"
+  },
+  {
+    "id": 44,
+    "code": "X-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 45,
+    "code": "S-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 46,
+    "code": "GB-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 47,
+    "code": "GT-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 48,
+    "code": "BM-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 49,
+    "code": "BS-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 50,
+    "code": "F-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 51,
+    "code": "T-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 52,
+    "code": "AD-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 53,
+    "code": "AT-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 54,
+    "code": "C-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 55,
+    "code": "Z-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 56,
+    "code": "GC-T",
+    "description": "Temporary Code"
+  }
+]

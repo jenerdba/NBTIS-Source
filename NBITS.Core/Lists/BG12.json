@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "code": "CU",
+    "description": "Curved girder(s)"
+  },
+  {
+    "id": 2,
+    "code": "CP",
+    "description": "Piecewise straight girders"
+  },
+  {
+    "id": 3,
+    "code": "CK",
+    "description": "Kinked girder(s)"
+  },
+  {
+    "id": 4,
+    "code": "N",
+    "description": "Not curved"
+  }
+]

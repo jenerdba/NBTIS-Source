@@ -1,0 +1,374 @@
+[
+  {
+    "WorkflowName": "Elements",
+    "Rules": [
+      {
+        "RuleName": "BE01-1", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element number code is not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements",
+          "IsFatal": "Yes" //The record will be removed.
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_1(input1.BE01)"
+      },
+      {
+        "RuleName": "BE01-2", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Spans dataset indicates there is no Wearing Surface on the deck of this bridge - BE01 Element Number should not equal \"510\"",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_2(input1, input2)"
+      },
+      //Per Wendy's comment - turn off these rules until refined.
+      //{
+      //  "RuleName": "BE01-3", //Element Number
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Spans dataset indicates there are no protective \"coating\" systems on the superstucture of this bridge - BE01 Element Number should not equal \"515\" or \"521\"",
+      //  "Properties": {
+      //    "ErrorType": "Flag",
+      //    "ItemId": "BE01",
+      //    "ItemName": "Element Number",
+      //    "DataSet": "Elements"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.IsValidBE01_3(input1, input2)"
+      //},
+      //{
+      //  "RuleName": "BE01-4", //Element Number
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Substructures dataset indicates there are no protective \"coating\" systems on the substructure of this bridge - BE01 Element Number should not equal \"515\" or \"521\"",
+      //  "Properties": {
+      //    "ErrorType": "Flag",
+      //    "ItemId": "BE01",
+      //    "ItemName": "Element Number",
+      //    "DataSet": "Elements"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.IsValidBE01_4(input1, input2)"
+      //},
+      {
+        "RuleName": "BE01-5", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Spans dataset indicates there are no pin and hangar assemblies for this bridge - BE01 Element Number should not equal \"161\"",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_5(input1, input2)"
+      },
+      {
+        "RuleName": "BE01-6", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Superstructure element submitted with slab element",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_6(input1, input2)"
+      },
+      {
+        "RuleName": "BE01-7", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Superstructure element submitted for culvert",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_7(input1, input2)"
+      },
+      {
+        "RuleName": "BE01-8", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck element submitted for culvert",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_8(input1, input2)"
+      },
+      {
+        "RuleName": "BE01-9", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Missing substructure element",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_9(input1, input2)"
+      },
+      {
+        "RuleName": "BE01-10", //Element Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Missing superstructure element",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BE01",
+          "ItemName": "Element Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE01_10(input1, input2)"
+      },
+      {
+        "RuleName": "BE02-1", //Element Parent Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element parent number is not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BE02",
+          "ItemName": "Element Parent Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE02_1(input1)"
+      },
+      {
+        "RuleName": "BE02-2", //Element Parent Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Missing element number for the specified parent number. Please ensure that each parent element number has corresponding element number.",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BE02",
+          "ItemName": "Element Parent Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE02_2(input1, input2)"
+      },
+      {
+        "RuleName": "BE02-3", //Element Parent Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element number indicates this element is a wearing surface or protective coating - BE02 Element Parent Number must not equal \"0\"",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BE02",
+          "ItemName": "Element Parent Number",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE02_2(input1, input2)"
+      },
+      {
+        "RuleName": "BCS01-1", //Element Quantity Condition State One
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"1\" is not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS01",
+          "ItemName": "Element Quantity Condition State One",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCS(input1.BCS01)" //required, numeric
+      },
+      {
+        "RuleName": "BCS01-2", //Element Quantity Condition State One Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"1\" has a length that exceeds 8 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS01",
+          "ItemName": "Element Quantity Condition State One",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BCS01, 8)"
+      },
+      {
+        "RuleName": "BCS01-3", //Element Quantity Condition State One Decimal Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The value must be a whole number. A decimal value was detected and has been replaced with 0",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS01",
+          "ItemName": "Element Quantity Condition State One",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BCS01)"
+      },
+      {
+        "RuleName": "BCS02-1", //Element Quantity Condition State 2
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"2\" is not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS02",
+          "ItemName": "Element Quantity Condition State Two",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCS(input1.BCS02)"
+      },
+      {
+        "RuleName": "BCS02-2", //Element Quantity Condition State 2 Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"2\" has a length that exceeds 8 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS02",
+          "ItemName": "Element Quantity Condition State Two",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BCS02, 8)"
+      },
+      {
+        "RuleName": "BCS02-3", //Element Quantity Condition State 2 Decimal Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The value must be a whole number. A decimal value was detected and has been replaced with 0",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS02",
+          "ItemName": "Element Quantity Condition State Two",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BCS02)"
+      },
+      {
+        "RuleName": "BCS03-1", //Element Quantity Condition State Three
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"3\" is not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS03",
+          "ItemName": "Element Quantity Condition State Three",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCS(input1.BCS03)"
+      },
+      {
+        "RuleName": "BCS03-2", //Element Quantity Condition State Three Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"3\" has a length that exceeds 8 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS03",
+          "ItemName": "Element Quantity Condition State Three",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BCS03, 8)"
+      },
+      {
+        "RuleName": "BCS03-3", //Element Quantity Condition State Three Decimal Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The value must be a whole number. A decimal value was detected and has been replaced with 0",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS03",
+          "ItemName": "Element Quantity Condition State Three",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BCS03)"
+      },
+      {
+        "RuleName": "BCS04-1", //Element Quantity Condition State Four
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"4\" is not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS04",
+          "ItemName": "Element Quantity Condition State Four",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBCS(input1.BCS04)"
+      },
+      {
+        "RuleName": "BCS04-2", //Element Quantity Condition State Four Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element quantity condition state \"4\" has a length that exceeds 8 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS04",
+          "ItemName": "Element Quantity Condition State Four",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BCS04, 8)"
+      },
+      {
+        "RuleName": "BCS04-3", //Element Quantity Condition State Four Decimal Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The value must be a whole number. A decimal value was detected and has been replaced with 0",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BCS04",
+          "ItemName": "Element Quantity Condition State Four",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BCS04)"
+      },
+      //ELEMENT TOTAL QUANITY
+      {
+        "RuleName": "BE03-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element total quantity is 0 or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BE03",
+          "ItemName": "Element Total Quantity",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBE03(input1.BE03)"
+      },
+      {
+        "RuleName": "BE03-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element total quantity has a length that exceeds 8 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BE03",
+          "ItemName": "Element Total Quantity",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BE03, 8)"
+      },
+      {
+        "RuleName": "BE03-3", //Total Sum
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element total quantity does not equal the sum of the quantities reported for B.CS.01, B.CS.02, B.CS.03, and B.CS.04",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BE03",
+          "ItemName": "Element Total Quantity",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidTotalSum(input1)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,72 @@
+﻿/* HomeFeatures.razor.css */
+
+/* Container styling */
+.features-section {
+    background-color: var(--background-color);
+}
+
+/* Section title & subtitle */
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #225AC8; /* or your brand color */
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    color: #6c757d;
+    font-size: 1.125rem;
+}
+
+/* Card styling */
+.feature-card {
+    background-color: var(--white-color);
+    border: 1px solid #e6e6e6;
+    border-radius: 0.5rem;
+    max-width: 320px;
+    transition: box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Icon container */
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    /*   background-color: #ffd084;*/
+    background-color: #ffb13d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card Title */
+.feature-card-title-link {
+    margin: 0.5rem 0 0.75rem;
+    font-weight: 500;
+    color: #212529;
+    text-decoration: none;
+}
+
+.feature-card-title {
+    font-size: 1.25rem;
+}
+
+    .feature-card-title-link:hover {
+        text-decoration: underline;
+    }
+
+/* Link */
+.feature-learn-more {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.feature-learn-more:hover {
+    text-decoration: underline;
+}
+

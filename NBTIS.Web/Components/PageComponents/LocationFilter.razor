@@ -1,0 +1,26 @@
+﻿@using Telerik.Blazor.Components
+@using NBTIS.Web.Components.Pages
+@using NBTIS.Web.ViewModels
+@using Microsoft.AspNetCore.Components
+
+<div style="height: 300px; overflow-y: auto; border: 1px solid #ccc;">
+    <TelerikTreeView Data="@FlatData"
+                     @bind-ExpandedItems="@ExpandedItems"
+                     CheckChildren="true"
+                     CheckBoxMode="@TreeViewCheckBoxMode.Multiple"
+                     CheckedItems="@_checkedItems"
+                     CheckedItemsChanged="OnCheckedItemsChanged">
+        <TreeViewBindings>
+            <TreeViewBinding IdField="Id"
+                             ParentIdField="ParentId"
+                             TextField="Text"
+                             HasChildrenField="HasChildren" />
+        </TreeViewBindings>
+    </TelerikTreeView>
+</div>
+
+<!-- External control: optional -->
+@* @if (ShowApplyButton)
+{
+    <button class="btn btn-sm btn-primary mt-2" @onclick="ApplySelectedFilter">Apply Filter</button>
+} *@

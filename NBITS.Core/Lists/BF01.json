@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "code": "H",
+    "description": "Highway"
+  },
+  {
+    "id": 2,
+    "code": "R",
+    "description": "Railroad"
+  },
+  {
+    "id": 3,
+    "code": "P",
+    "description": "Pathway"
+  },
+  {
+    "id": 4,
+    "code": "W",
+    "description": "Waterway"
+  },
+  {
+    "id": 5,
+    "code": "F",
+    "description": "Relief for waterway"
+  },
+  {
+    "id": 6,
+    "code": "B",
+    "description": "Urban feature"
+  },
+  {
+    "id": 7,
+    "code": "D",
+    "description": "Dry terrain or side slope"
+  },
+  {
+    "id": 8,
+    "code": "X",
+    "description": "Other"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "code": "1",
+    "description": "Simple or single span"
+  },
+  {
+    "id": 2,
+    "code": "2",
+    "description": "Continuous"
+  },
+  {
+    "id": 3,
+    "code": "3",
+    "description": "Continuous for live loads only"
+  },
+  {
+    "id": 4,
+    "code": "4",
+    "description": "Cantilever"
+  },
+  {
+    "id": 5,
+    "code": "5",
+    "description": "Cantilever with pin and hanger"
+  },
+  {
+    "id": 6,
+    "code": "6",
+    "description": "Frame"
+  },
+  {
+    "id": 7,
+    "code": "7",
+    "description": "Buried"
+  },
+  {
+    "id": 8,
+    "code": "C-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 9,
+    "code": "7-T",
+    "description": "Temporary Code"
+  }
+]

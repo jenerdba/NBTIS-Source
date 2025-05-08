@@ -1,0 +1,150 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+<div class="features-section text-center ">
+    <h2 class="section-title">What would you like to work on?</h2>
+    @*  <p class="section-subtitle mb-5">
+        Explore the core functionality that empowers your workflow.
+    </p> *@
+
+    <div class="row d-flex justify-content-center flex-wrap">
+        <!-- Public User Card #1: Check Data -->
+        <div class="col-md-3  d-flex justify-content-center mb-0">
+            <div class="feature-card p-4 text-start" aria-labelledby="check-data-heading">
+                <!-- Flex container for Icon and Heading -->
+                <div class="d-flex align-items-center mb-3">
+                    <!-- Icon -->
+                    @*  <div class="feature-icon me-2">
+                        <i class="bi bi-check-circle icon-large" aria-hidden="true"></i>
+                    </div> *@
+                    <div class="feature-icon me-2">
+                        <i class="bi bi-clipboard-check icon-large" aria-hidden="true"></i>
+                    </div>
+                    <!-- Heading -->
+                    <a href="https://fhwaapps.fhwa.dot.gov/snbidvp" class="feature-card-title-link">
+                        <h3 id="check-data-heading" class="feature-card-title mb-0">SNBI Data Validation Module</h3>
+                    </a>
+                </div>
+
+                <p>
+                    Validate National Bridge Inventory (NBI) data in preparation for the submittal.
+                </p>
+
+                <a href="https://fhwaapps.fhwa.dot.gov/snbidvp" class="feature-learn-more"
+                   aria-label="Open SNBI Data Validation Module">
+                    Check Data
+                </a>
+            </div>
+        </div>
+        <AuthorizeView>
+            <Authorized>
+                <!-- Card: Submittals -->
+                <div class="col-md-3 d-flex justify-content-center mb-0">
+                    <div class="feature-card p-4 text-start" aria-labelledby="submittals-heading">
+                        <!-- Flex container for Icon and Heading -->
+                        <div class="d-flex align-items-center mb-3">
+                            <!-- Icon -->
+                            <div class="feature-icon me-2">
+                                <i class="bi bi-file-earmark-arrow-up icon-large" aria-hidden="true"></i>
+                            </div>
+                            <!-- Heading -->
+                            <a href="submittals" class="feature-card-title-link">
+                                <h3 id="submittals-heading" class="feature-card-title mb-0">Submittals</h3>
+                            </a>
+                        </div>
+
+                        <p>
+                            Upload, validate, and submit Bridge Inventory JSON files.
+                        </p>
+
+                        <a href="#" class="feature-learn-more"
+                           aria-label="Open Submittals section for uploading and reviewing files">
+                            Submit Data
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card: Data Correction -->
+                <div class="col-md-3 d-flex justify-content-center mb-0">
+                    <div class="feature-card p-4 text-start" aria-labelledby="data-correction-heading">
+                        <div class="d-flex align-items-center mb-3">
+                            <!-- Icon -->
+                            <div class="feature-icon me-2">
+                                <i class="bi bi-pencil-square icon-large" aria-hidden="true"></i>
+                            </div>
+
+                            <!-- Heading -->
+                            <a href="#" class="feature-card-title-link">
+                                <h3 id="data-correction-heading" class="feature-card-title">Data Correction</h3>
+                            </a>
+                        </div>
+
+                        <!-- Short description -->
+                        <p class="text-muted mb-2">
+                            Easily review and correct previously approved bridge data
+                            to keep records accurate and compliant.
+                        </p>
+
+                        <a href="#" class="feature-learn-more" aria-label="Open Data Correction page to review and edit approved bridge data">
+                            Correct Data
+                        </a>
+                    </div>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <!-- Card: Reports -->
+                <div class="col-md-3 d-flex justify-content-center mb-0">
+                    <div class="feature-card p-4 text-start" aria-labelledby="reports-heading">
+                        <div class="d-flex align-items-center mb-3">
+                            <!-- Icon -->
+                            <div class="feature-icon me-2">
+                                <i class="bi bi-file-earmark-bar-graph icon-large" aria-hidden="true"></i>
+                            </div>
+                            <a href="#" class="feature-card-title-link">
+                                <!-- Heading -->
+                                <h3 id="reports-heading" class="feature-card-title">Reports</h3>
+                            </a>
+                        </div>
+
+                        <!-- Short description -->
+                        <p class="text-muted mb-2">
+                            Generate a variety of detailed reports to gain deeper insights and track bridge conditions over time.
+                        </p>
+
+                        <a href="#" class="feature-learn-more"
+                           aria-label="Open Reports page to generate and view available reports">
+                            Run Reports
+                        </a>
+                    </div>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <!-- Card: Data Export -->
+        <div class="col-md-3 d-flex justify-content-center mb-0">
+            <div class="feature-card p-4 text-start" aria-labelledby="data-export-heading">
+                <div class="d-flex align-items-center mb-3">
+                    <!-- Icon -->
+                    <div class="feature-icon me-2">
+                        <i class="bi bi-file-earmark-arrow-down icon-large" aria-hidden="true"></i>
+                    </div>
+
+                    <!-- Heading -->
+                    <a href="#" class="feature-card-title-link">
+                        <h3 id="data-export-heading" class="feature-card-title">Data Export</h3>
+                    </a>
+                </div>
+
+                <!-- Short description -->
+                <p class="text-muted mb-2">
+                    Export state or national bridge data in multiple formats
+                    (Text, JSON, XLS, SHP, GeoJSON).
+                </p>
+
+                <a href="#" class="feature-learn-more"
+                   aria-label="Open Data Export page to select file formats and download data">
+                    Export Data
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

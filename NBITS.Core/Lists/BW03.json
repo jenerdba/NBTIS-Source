@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "code": "BR01",
+    "description": "Replaced"
+  },
+  {
+    "id": 2,
+    "code": "IP1",
+    "description": "Widened"
+  },
+  {
+    "id": 3,
+    "code": "IP2",
+    "description": "Raised"
+  },
+  {
+    "id": 4,
+    "code": "IP3",
+    "description": "Strengthened by retrofit"
+  },
+  {
+    "id": 5,
+    "code": "IP4",
+    "description": "Seismic retrofit"
+  },
+  {
+    "id": 6,
+    "code": "DK1",
+    "description": "Deck Replaced"
+  },
+  {
+    "id": 7,
+    "code": "DK2",
+    "description": "Deck Major Rehabilitation"
+  },
+  {
+    "id": 8,
+    "code": "DK3",
+    "description": "Deck Minor Rehabilitation"
+  },
+  {
+    "id": 9,
+    "code": "DK4",
+    "description": "Deck Overlaid"
+  },
+  {
+    "id": 10,
+    "code": "DK5",
+    "description": "Deck Sealed"
+  },
+  {
+    "id": 11,
+    "code": "DK6",
+    "description": "Deck Coating (New or Replaced)"
+  },
+  {
+    "id": 12,
+    "code": "DK7",
+    "description": "Deck Coating (Preserved)"
+  },
+  {
+    "id": 13,
+    "code": "SP1",
+    "description": "Superstructure Replaced"
+  },
+  {
+    "id": 14,
+    "code": "SP2",
+    "description": "Superstructure Major Rehabilitation"
+  },
+  {
+    "id": 15,
+    "code": "SP3",
+    "description": "Superstructure Minor Rehabilitation"
+  },
+  {
+    "id": 16,
+    "code": "SP5",
+    "description": "Superstructure Sealed"
+  },
+  {
+    "id": 17,
+    "code": "SP6",
+    "description": "Superstructure Coating (New or Replaced)"
+  },
+  {
+    "id": 18,
+    "code": "SP7",
+    "description": "Superstructure Coating (Preserved)"
+  },
+  {
+    "id": 19,
+    "code": "SB1",
+    "description": "Substructure Replaced"
+  },
+  {
+    "id": 20,
+    "code": "SB2",
+    "description": "Substructure Major Rehabilitation"
+  },
+  {
+    "id": 21,
+    "code": "SB3",
+    "description": "Substructure Minor Rehabilitation"
+  },
+  {
+    "id": 22,
+    "code": "SB5",
+    "description": "Substructure Sealed"
+  },
+  {
+    "id": 23,
+    "code": "SB6",
+    "description": "Substructure Coating (New or Replaced)"
+  },
+  {
+    "id": 24,
+    "code": "SB7",
+    "description": "Substructure Coating (Preserved)"
+  },
+  {
+    "id": 25,
+    "code": "CU2",
+    "description": "Culvert Major Rehabilitation"
+  },
+  {
+    "id": 26,
+    "code": "CU3",
+    "description": "Culvert Minor Rehabilitation"
+  },
+  {
+    "id": 27,
+    "code": "CU4",
+    "description": "Culvert Overlaid"
+  },
+  {
+    "id": 28,
+    "code": "CU5",
+    "description": "Culvert Sealed"
+  },
+  {
+    "id": 29,
+    "code": "CU6",
+    "description": "Culvert Coating (New or Replaced)"
+  },
+  {
+    "id": 30,
+    "code": "CU7",
+    "description": "Culvert Coating (Preserved)"
+  },
+  {
+    "id": 31,
+    "code": "BG1",
+    "description": "Bearings Installed or Replaced"
+  },
+  {
+    "id": 32,
+    "code": "BG2",
+    "description": "Bearings Repaired"
+  },
+  {
+    "id": 33,
+    "code": "JT1",
+    "description": "Deck Joints Installed or Replaced"
+  },
+  {
+    "id": 34,
+    "code": "JT2",
+    "description": "Deck Joints Repaired"
+  },
+  {
+    "id": 35,
+    "code": "RT1",
+    "description": "Bridge Railings or Transitions Installed or Replaced"
+  },
+  {
+    "id": 36,
+    "code": "RT2",
+    "description": "Bridge Railings or Transitions Repaired"
+  },
+  {
+    "id": 37,
+    "code": "SC1",
+    "description": "Scour Counter-measures Installed or Replaced"
+  },
+  {
+    "id": 38,
+    "code": "SC2",
+    "description": "Scour Counter-measures Repaired"
+  },
+  {
+    "id": 39,
+    "code": "CP1",
+    "description": "Channel Protection Installed or Replaced"
+  },
+  {
+    "id": 40,
+    "code": "CP2",
+    "description": "Channel Protection Repaired"
+  },
+  {
+    "id": 41,
+    "code": "CH1",
+    "description": "Channel Condition Improved"
+  },
+  {
+    "id": 42,
+    "code": "0",
+    "description": "No Work Performed"
+  }
+]

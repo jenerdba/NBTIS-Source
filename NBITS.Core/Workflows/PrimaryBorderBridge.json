@@ -1,0 +1,360 @@
+[
+  {
+    "WorkflowName": "PrimaryBorderBridge",
+    "Rules": [
+      //BRIDGE NUMBER
+      {
+        "RuleName": "BID01-1", //BridgeNumber NullCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Number is null",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BID01",
+          "ItemName": "Bridge Number",
+          "DataSet": "Primary",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBridgeNumber(input1.BID01)"
+      },
+      {
+        "RuleName": "BID01-2", // BridgeNumber LengthCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Number length exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BID01",
+          "ItemName": "Bridge Number",
+          "DataSet": "Primary",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BID01, 15)"
+      },
+      {
+        "RuleName": "BID01-3", // BridgeNumber RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge Number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BID01",
+          "ItemName": "Bridge Number",
+          "DataSet": "Primary",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BID01, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      //PREVIOUS BRIDGE NUMBER
+      {
+        "RuleName": "BID03-1", // Previous Bridge Number 
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous Bridge Number is null. Report 0 if no previous bridge number",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNullOrWhiteSpace(input1.BID03)"
+      },
+      {
+        "RuleName": "BID03-2", // Previous Bridge Number LengthCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous Bridge Number length exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BID03, 15)"
+      },
+      {
+        "RuleName": "BID03-3", // Previous Bridge Number RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous Bridge Number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BID03, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      {
+        "RuleName": "BID03-4", // Previous Bridge Number Not Same As BID01
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Previous Bridge Number should not be the same as bridge number BID01",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BID03",
+          "ItemName": "Previous Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsDifferent(input1.BID01, input1.BID03)" //BID03 cannot be same as BID01
+      },
+      //BL01 STATE CODE
+      {
+        "RuleName": "BL01-1", //StateCode
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "State Code is null or not valid.",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL01",
+          "ItemName": "State Code",
+          "DataSet": "Primary",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidStateCode(input1.BL01)"
+      },
+      {
+        "RuleName": "BL01-2", //StateCode Mismatch
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "State Code does not match the selected state.",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL01",
+          "ItemName": "State Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidStateMatch(input1.BL01, input2)"
+      },
+      //COUNTY CODE
+      {
+        "RuleName": "BL02-1", //CountyCode
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "County Code is null or not a valid value",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL02",
+          "ItemName": "County Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidCountyCode(input1.BL01, input1.BL02)"
+      },
+      //PLACE CODE
+      {
+        "RuleName": "BL03-1", //PlaceCode Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Place Code length exceeds 5 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL03",
+          "ItemName": "Place Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BL03, 5)"
+      },
+      {
+        "RuleName": "BL03-2", //PlaceCode Positive Integer
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Place Code is null or not a valid number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL03",
+          "ItemName": "Place Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL03(input1.BL03)"
+      },
+      //HIGHWAY AGENCY DISTRICT
+      {
+        "RuleName": "BL04-1", //HighwayAgencyDistrict
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Agency District is null or exceeds 2 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL04",
+          "ItemName": "Highway Agency District",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL04(input1.BL04)"
+      },
+      {
+        "RuleName": "BL04-2", //HighwayAgencyDistrict Data Type Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Agency District has invalid characters. Valid characters include A-Z, a-z, and 0-9.",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL04",
+          "ItemName": "Highway Agency District",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BL04, \"^[a-zA-Z0-9]+$\")"
+      },
+      //Border Bridge Neighboring State - DO NOT REPORT LATITUDE BL05 and LONGITUDE BL06
+      //
+      //BORDER BRIDGE NUMBER
+      {
+        "RuleName": "BL07-1", //Border Bridge Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BL07 Border Bridge Number is null. Report \"N\" if no border crossing exists or \"0\" if the bordering country does not have a bridge number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL07",
+          "ItemName": "Border Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBridgeNumber(input1.BL07)"
+      },
+      {
+        "RuleName": "BL07-2", //Border Bridge LengthCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border Bridge Number length exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL07",
+          "ItemName": "Border Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BL07, 15)"
+      },
+      {
+        "RuleName": "BL07-3", //Border Bridge RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border Bridge Number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL07",
+          "ItemName": "Border Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BL07, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      {
+        "RuleName": "BL07-4", //Border Bridge Number
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BL07/BL10 combination indicates bridge is submitted by the Neighboring State and should only include abbreviated record items",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BL07",
+          "ItemName": "Border Bridge Number",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBorderBridgeItems(input1)"
+      },
+      //BORDER BRIDGE STATE OR COUNTRY CODE
+      {
+        "RuleName": "BL08-1", //BorderBridgeStateOrCountryCode
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border Bridge State or Country Code is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL08(input1.BL07, input1.BL08)"
+      },
+      {
+        "RuleName": "BL08-2", //BorderBridgeStateOrCountryCode Cross Check State Code
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border Bridge State or Country Code should not be the same as state code BL01",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL08",
+          "ItemName": "Border Bridge State Or Country Code",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBL08_BL01(input1.BL01, input1.BL07, input1.BL08)"
+      },
+      //BORDER BRIDGE INSPECTION RESPONSIBILITY
+      {
+        "RuleName": "BL09-1", //BorderBridgeInspectionResponsibility
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border Bridge Inspection Responsibility is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL09",
+          "ItemName": "Border Bridge Inspection Responsibility",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL09(input1.BL07, input1.BL09)"
+      },
+      {
+        "RuleName": "BL09-2", //BorderBridgeInspectionResponsibility
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BL07 = 'N'. Do not report BL09 Border Bridge Inspection Responsibility for a non-border bridge.",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BL09",
+          "ItemName": "Border Bridge Inspection Responsibility",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBL07_BL09(input1.BL07, input1.BL09)"
+      },
+      //BORDER BRIDGE DESIGNATED LEAD STATE
+      {
+        "RuleName": "BL10-1", //BorderBridgeDesignatedLeadState
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Border Bridge Designated Lead State code is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BL10",
+          "ItemName": "Border Bridge Designated Lead State",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL10(input1)"
+      },
+      {
+        "RuleName": "BL10-2", //BorderBridgeDesignatedLeadState
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BL07 = \"N\". Do not report BL10 Border Bridge Designated Lead State for a non-border bridge.",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BL10",
+          "ItemName": "Border Bridge Designated Lead State",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBL07_BL10(input1.BL07, input1.BL10)"
+      },
+      //Border Bridge Neighboring State - DO NOT REPORT BL11 Bridge Location
+      {
+        "RuleName": "BL12-1", //MetroPlanningOrganization Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Metro Planning Organization length exceeds 300 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL12",
+          "ItemName": "Metropolitan Planning Organization",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BL12, 300)"
+      },
+      {
+        "RuleName": "BL12-2", //MetroPlanningOrganization
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway feature carried on the bridge is designated \"on\" the NHS - BL12 Metropolitan Planning Organization must be reported - by both States for Border Bridges",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BL12",
+          "ItemName": "Metropolitan Planning Organization",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBL12(input1)"
+      }
+
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "code": "G",
+    "description": "Good"
+  },
+  {
+    "id": 2,
+    "code": "F",
+    "description": "Fair"
+  },
+  {
+    "id": 3,
+    "code": "P",
+    "description": "Poor"
+  }
+]

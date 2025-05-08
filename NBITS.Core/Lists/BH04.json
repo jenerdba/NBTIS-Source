@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "Code": "1",
+    "Description": "Primary Highway Freight System"
+  },
+  {
+    "id": 2,
+    "Code": "2",
+    "Description": "Interstate portions not on the Primary Highway Freight System"
+  },
+  {
+    "id": 3,
+    "Code": "3",
+    "Description": "Critical Rural Freight Corridor"
+  },
+  {
+    "id": 4,
+    "Code": "4",
+    "Description": "Critical Urban Freight Corridor"
+  },
+  {
+    "id": 5,
+    "Code": "N",
+    "Description": "Not on the NHFN"
+  },
+  {
+    "id": 6,
+    "Code": "1-T",
+    "Description": "Temporary Code"
+  }
+]
+

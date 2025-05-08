@@ -1,0 +1,1010 @@
+[
+  {
+    "WorkflowName": "Features",
+    "Rules": [
+      {
+        "RuleName": "BF01-1", //Feature Type
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Feature type code is null or not a valid value",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BF01",
+          "ItemName": "Feature Type",
+          "DataSet": "Features",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBF01(input1.BF01)" //Valid values listed in SNBI
+      },
+      //Per Wendy's comment - delete this rule.
+      //{
+      //  "RuleName": "BF01-2", //Highway must be carried on the bridge
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "BF01 Feature Type = 'H01' (highway) must be carried on the bridge (BF02 = 'C')",
+      //  "Properties": {
+      //    "ErrorType": "Critical",
+      //    "ItemId": "BF01",
+      //    "ItemName": "Feature Type",
+      //    "DataSet": "Features"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.CrossCheckBF01_BF02(input1)"
+      //},
+      {
+        "RuleName": "BF02", //Feature Location
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Feature location must be reported",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BF02",
+          "ItemName": "Feature Location",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBF02(input1.BF02)" //Valid values listed in SNBI
+      },
+      {
+        "RuleName": "BF03-1", //Feature Name
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Feature name is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BF03",
+          "ItemName": "Feature Name",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNullOrWhiteSpace(input1.BF03)" //not null
+      },
+      {
+        "RuleName": "BF03-2", //Feature Name Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Feature name length exceeds 300 characters. Value will be truncated",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BF03",
+          "ItemName": "Feature Name",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthStringTruncate(input1.BF03, 300)"
+      },
+      {
+        "RuleName": "BH01-1", //Functional Classification
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Functional classification is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH01",
+          "ItemName": "Functional Classification",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH01(input1)"
+      },
+      {
+        "RuleName": "BH01-2", //Functional Classification
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH01 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH01",
+          "ItemName": "Functional Classification",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH01)"
+      },
+      {
+        "RuleName": "BH02-1", //Urban Code
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Urban code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH02",
+          "ItemName": "Urban Code",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH02(input1)" //Listed in SNBI Urban code links in the commentary for B.H.02;
+      },
+      {
+        "RuleName": "BH02-2", //Urban Code
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH02 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH02",
+          "ItemName": "Urban Code",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH02)"
+      },
+      {
+        "RuleName": "BH03-1", //NHS Designation
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "NHS Designation is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH03",
+          "ItemName": "NHS Designation",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH03(input1)" //Must be reported and checked for valid NHS designation codes Y/N
+      },
+      {
+        "RuleName": "BH03-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH03 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH03",
+          "ItemName": "NHS Designation",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH03)"
+      },
+      {
+        "RuleName": "BH04-1", //National Highway Freight Network
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "National highway freight network code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH04",
+          "ItemName": "National Highway Freight Network",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH04(input1)" //	1 through 4 and N; Temporary Code 1-T
+      },
+      {
+        "RuleName": "BH04-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH04 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH04",
+          "ItemName": "National Highway Freight Network",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH04)"
+      },
+      {
+        "RuleName": "BH05-1", //STRAHNET Designation
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "STRAHNET designation code is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH05",
+          "ItemName": "STRAHNET Designation",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH05(input1)" //	1 through 2 and N
+      },
+      {
+        "RuleName": "BH05-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH05 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH05",
+          "ItemName": "STRAHNET Designation",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH05)"
+      },
+      {
+        "RuleName": "BH06-1", //LRS Route ID
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "LRS Route ID is null or exceeds 120 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH06",
+          "ItemName": "LRS Route ID",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH06(input1, 120)"
+      },
+      {
+        "RuleName": "BH07-1", //LRS Mile Point
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "LRS milepoint is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH07",
+          "ItemName": "LRS Mile Point",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH07(input1, 3)" //numeric with 3 decimal places
+      },
+      {
+        "RuleName": "BH07-2", //LRS Mile Point Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "LRS milepoint length exceeds 8 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH07",
+          "ItemName": "LRS Mile Point",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BH07, 8)"
+      },
+      {
+        "RuleName": "BH08-1", //Lanes On Highway
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Lanes on highway is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH08",
+          "ItemName": "Lanes On Highway",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH08(input1)" //int
+      },
+      {
+        "RuleName": "BH08-2", //Lanes On Highway
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Lanes on highway must be an integer. Value will be rounded down to the nearest whole number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH08",
+          "ItemName": "Lanes On Highway",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BH08)" //int
+      },
+      {
+        "RuleName": "BH08-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH08 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH08",
+          "ItemName": "Lanes On Highway",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH08)"
+      },
+      {
+        "RuleName": "BH09-1", //Annual Average Daily Traffic
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Annual average daily traffic is null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH09",
+          "ItemName": "Annual Average Daily Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH09(input1)" //numeric
+      },
+      {
+        "RuleName": "BH09-2", //Annual Average Daily Traffic
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Annual average daily traffic must be an integer. Value will be rounded down to the nearest whole number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH09",
+          "ItemName": "Annual Average Daily Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BH09)" //numeric
+      },
+      {
+        "RuleName": "BH09-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH09 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH09",
+          "ItemName": "Annual Average Daily Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH09)"
+      },
+      {
+        "RuleName": "BH10-1", //Annual Average Daily Truck Traffic
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Annual average daily truck traffic is null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH10",
+          "ItemName": "Annual Average Daily Truck Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH10(input1)" //numeric
+      },
+      {
+        "RuleName": "BH10-2", //Annual Average Daily Truck Traffic
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Annual average daily truck traffic must be an integer. Value will be rounded down to the nearest whole number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH10",
+          "ItemName": "Annual Average Daily Truck Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BH10)" //numeric
+      },
+      {
+        "RuleName": "BH10-3",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH10 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH10",
+          "ItemName": "Annual Average Daily Truck Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH10)"
+      },
+      {
+        "RuleName": "BH11-1", //Year of Annual Average Daily Traffic
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Year of annual average daily traffic is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH11",
+          "ItemName": "Year of Annual Average Daily Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH11(input1)" //numeric
+      },
+      {
+        "RuleName": "BH11-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH11 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH11",
+          "ItemName": "Year of Annual Average Daily Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH11)"
+      },
+      {
+        "RuleName": "BH12-1", //Highway Maximum Usable Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway maximum usable vertical clearance is null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH12",
+          "ItemName": "Highway Maximum Usable Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH12(input1)"
+      },
+      {
+        "RuleName": "BH12-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH12 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH12",
+          "ItemName": "Highway Maximum Usable Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH12)"
+      },
+      {
+        "RuleName": "BH12-3", //Highway Maximum Usable Vertical Clearance Data Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway maximum usable vertical clearance exceeds 3 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH12",
+          "ItemName": "Highway Maximum Usable Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BH12, 3)"
+      },
+      {
+        "RuleName": "BH12-4", //Highway Maximum Usable Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH12",
+          "ItemName": "Highway Maximum Usable Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BH12, 2)"
+      },
+      {
+        "RuleName": "BH12-5", //Highway Maximum Usable Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH12",
+          "ItemName": "Highway Maximum Usable Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BH12)"
+      },
+      {
+        "RuleName": "BH13-1", //Highway Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway minimum vertical clearance is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH13",
+          "ItemName": "Highway Minimum Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH13(input1)"
+      },
+      {
+        "RuleName": "BH13-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH13 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH13",
+          "ItemName": "Highway Minimum Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH13)"
+      },
+      {
+        "RuleName": "BH13-3", //Highway Minimum Vertical Clearance Data Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway minimum vertical exceeds 3 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH13",
+          "ItemName": "Highway Minimum Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BH13, 3)"
+      },
+      {
+        "RuleName": "BH13-4", //HHighway Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH13",
+          "ItemName": "Highway Minimum Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BH13, 2)"
+      },
+      {
+        "RuleName": "BH13-5", //Highway Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH13",
+          "ItemName": "Highway Minimum Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BH13)"
+      },
+      {
+        "RuleName": "BH14-1", //Highway Minimum Horizontal Clearance, Left
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway minimum horizontal clearance, left is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH14",
+          "ItemName": "Highway Minimum Horizontal Clearance, Left",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH14(input1)"
+      },
+      {
+        "RuleName": "BH14-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH14 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH14",
+          "ItemName": "Highway Minimum Horizontal Clearance, Left",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH14)"
+      },
+      {
+        "RuleName": "BH14-3", //Highway Minimum Horizontal Clearance, Left Data Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Minimum Horizontal Clearance, Left exceeds 3 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH14",
+          "ItemName": "Highway Minimum Horizontal Clearance, Left",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BH14, 3)"
+      },
+      {
+        "RuleName": "BH14-4", //Highway Minimum Horizontal Clearance, Left
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH14",
+          "ItemName": "Highway Minimum Horizontal Clearance, Left",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BH14, 2)"
+      },
+      {
+        "RuleName": "BH14-5", //Highway Minimum Horizontal Clearance, Left
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH14",
+          "ItemName": "Highway Minimum Horizontal Clearance, Left",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BH14)"
+      },
+      {
+        "RuleName": "BH15-1", //Highway Minimum Horizontal Clearance, Right
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway minimum horizontal clearance, right is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH15",
+          "ItemName": "Highway Minimum Horizontal Clearance, Right",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH15(input1)"
+      },
+      {
+        "RuleName": "BH15-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH15 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH15",
+          "ItemName": "Highway Minimum Horizontal Clearance, Right",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH15)"
+      },
+      {
+        "RuleName": "BH15-3", //Highway Minimum Horizontal Clearance, Right Data Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Minimum Horizontal Clearance, Right exceeds 3 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH15",
+          "ItemName": "Highway Minimum Horizontal Clearance, Right",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BH15, 3)"
+      },
+      {
+        "RuleName": "BH15-4", //Highway Minimum Horizontal Clearance, Right
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH15",
+          "ItemName": "Highway Minimum Horizontal Clearance, Right",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BH15, 2)"
+      },
+      {
+        "RuleName": "BH15-5", //Highway Minimum Horizontal Clearance, Right
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH15",
+          "ItemName": "Highway Minimum Horizontal Clearance, Right",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BH15)"
+      },
+      {
+        "RuleName": "BH16-1", //Highway Maximum Usable Surface Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Maximum Usable Surface Width is null or not a numeric value with one decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH16",
+          "ItemName": "Highway Maximum Usable Surface Width",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH16(input1)"
+      },
+      {
+        "RuleName": "BH16-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BH18 crossing Bridge Number indicates this highway feature is carried on another bridge - do not report BH16 for this Features dataset",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH16",
+          "ItemName": "Highway Maximum Usable Surface Width",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBH(input1, input1.BH16)"
+      },
+      {
+        "RuleName": "BH16-3", //Highway Maximum Usable Surface Width Data Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Highway Maximum Usable Surface Width exceeds 3 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH16",
+          "ItemName": "Highway Maximum Usable Surface Width",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BH16, 3)"
+      },
+      {
+        "RuleName": "BH16-4", //Highway Maximum Usable Surface Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH16",
+          "ItemName": "Highway Maximum Usable Surface Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BH16, 2)"
+      },
+      {
+        "RuleName": "BH16-5", //Highway Maximum Usable Surface Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH16",
+          "ItemName": "Highway Maximum Usable Surface Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BH16)"
+      },
+      {
+        "RuleName": "BH17-1", //Bypass Detour Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bypass Detour Length is null or not a numeric value",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH17",
+          "ItemName": "Bypass Detour Length",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH17(input1)"
+      },
+      {
+        "RuleName": "BH17-2", //Bypass Detour Length
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bypass Detour Length must be an integer. Value will be rounded down to the nearest whole number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH17",
+          "ItemName": "Bypass Detour Length",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumber(input1.BH17)"
+      },
+      {
+        "RuleName": "BH18-1", // BridgeNumber RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH18",
+          "ItemName": "Crossing Bridge Number",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH18(input1.BH18, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      {
+        "RuleName": "BH18-2", //Crossing Bridge Number Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Crossing bridge number exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH18",
+          "ItemName": "Crossing Bridge Number",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BH18, 15)"
+      },
+      {
+        "RuleName": "BRR01-1", //Railroad Service Type
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Railroad service type is required if BF01 begins with R",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRR01",
+          "ItemName": "Railroad Service Type",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRR01(input1)" //IF B.F.01 begins with "R" then railroad service type is required, listed SNBI
+      },
+      {
+        "RuleName": "BRR02-1", //Railroad Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Railroad minimum vertical clearance is null or not a numeric value with one decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRR02",
+          "ItemName": "Railroad Minimum Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRR02(input1,1)" //If B.F.01 begins with "R" and B.F.02 = "B", required.
+      },
+      {
+        "RuleName": "BRR02-2", //Railroad Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRR02",
+          "ItemName": "Railroad Minimum Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BRR02, 2)"
+      },
+      {
+        "RuleName": "BRR03-1", //Railroad Minimum Horizontal Offset Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Railroad minimum horizontal offset is null or not a numeric value with one decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRR03",
+          "ItemName": "Railroad Minimum Horizontal Offset",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRR03(input1,1)" //If B.F.01 begins with "R" and B.F.02 = "B", required. Numeric with 1 decimal place
+      },
+      {
+        "RuleName": "BRR03-2", //Railroad Minimum Horizontal Offset Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 99.9",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRR03",
+          "ItemName": "Railroad Minimum Horizontal Offset",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BRR03, 2)"
+      },
+      {
+        "RuleName": "BN01-1", //Navigable Waterway Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Navigable waterway code is null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN01",
+          "ItemName": "Navigable Waterway",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBN01(input1)" //IF B.F.01 begins with "W" then navigable waterway code is required, listed SNBI
+      },
+      {
+        "RuleName": "BN02-1", //Navigation Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Navigation minimum vertical clearance is null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN02",
+          "ItemName": "Navigation Minimum Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBN02(input1)" //IF B.F.01 begins with "W" and B.N.01 = "Y" then navigation minimum vertical clearance is required, numeric
+      },
+      {
+        "RuleName": "BN02-2", //Navigation Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BN02",
+          "ItemName": "Navigation Minimum Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BN02, 3)"
+      },
+      {
+        "RuleName": "BN02-3", //Navigation Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN02",
+          "ItemName": "Navigation Minimum Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BN02)"
+      },
+      {
+        "RuleName": "BN03-1", //Movable Bridge Maximum Navigation Vertical Clearance Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Movable bridge maximum navigation vertical clearance is required if BF01 begins with W and BN01 = Y and BSP06 begins with M",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN03",
+          "ItemName": "Movable Bridge Maximum Navigation Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBN03(input1, input2)"
+      },
+      {
+        "RuleName": "BN03-2", //Movable Bridge Maximum Navigation Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BN03",
+          "ItemName": "Movable Bridge Maximum Navigation Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BN03, 3)"
+      },
+      {
+        "RuleName": "BN03-3", //Navigation Minimum Vertical Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN03",
+          "ItemName": "Movable Bridge Maximum Navigation Vertical Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BN03)"
+      },
+      {
+        "RuleName": "BN04-1", //Navigation Channel Width Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Navigation channel width is null or not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN04",
+          "ItemName": "Navigation Channel Width",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBN04(input1)" //TODO: IF B.F.01 begins with "W" and B.N.01 = "Y" then navigation channel width is required, numeric
+      },
+      {
+        "RuleName": "BN04-2", //Navigation Channel Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 9,999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BN04",
+          "ItemName": "Navigation Channel Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BN04, 4)"
+      },
+      {
+        "RuleName": "BN04-3", //Navigation Channel Width
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN04",
+          "ItemName": "Navigation Channel Width",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BN04)"
+      },
+      {
+        "RuleName": "BN05-1", //Navigation Channel Minimum Horizontal Clearance Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Navigation channel minimum horizontal clearance is null or is not numeric",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN05",
+          "ItemName": "Navigation Channel Minimum Horizontal Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBN05(input1)" //IF B.F.01 begins with "W" and B.N.01 = "Y" then navigation channel minimum horizontal clearance is required, numeric
+      },
+      {
+        "RuleName": "BN05-2", //Navigation Channel Minimum Horizontal Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The numeric value exceeds 9,999.9",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BN05",
+          "ItemName": "Navigation Channel Minimum Horizontal Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidIntegerPart(input1.BN05, 4)"
+      },
+      {
+        "RuleName": "BN05-3", //Navigation Channel Minimum Horizontal Clearance
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Value is not numeric with one decimal place and will be rounded down to the nearest allowed decimal place",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN05",
+          "ItemName": "Navigation Channel Minimum Horizontal Clearance",
+          "DataSet": "Primary"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMoreThanOneDecimalPlace(input1.BN05)"
+      },
+      {
+        "RuleName": "BN06-1", //Substructure Navigation Protection Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Substructure navigation protection is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BN06",
+          "ItemName": "Substructure Navigation Protection",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBN06(input1)"
+      }
+    ]
+  }
+]

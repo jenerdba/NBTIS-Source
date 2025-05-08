@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "code": "1",
+    "description": "Alabama",
+    "abbreviation": "AL"
+  },
+  {
+    "id": 2,
+    "code": "2",
+    "description": "Alaska",
+    "abbreviation": "AK"
+  },
+  {
+    "id": 3,
+    "code": "4",
+    "description": "Arizona",
+    "abbreviation": "AZ"
+  },
+  {
+    "id": 4,
+    "code": "5",
+    "description": "Arkansas",
+    "abbreviation": "AR"
+  },
+  {
+    "id": 5,
+    "code": "6",
+    "description": "California",
+    "abbreviation": "CA"
+  },
+  {
+    "id": 6,
+    "code": "8",
+    "description": "Colorado",
+    "abbreviation": "CO"
+  },
+  {
+    "id": 7,
+    "code": "9",
+    "description": "Connecticut",
+    "abbreviation": "CT"
+  },
+  {
+    "id": 8,
+    "code": "10",
+    "description": "Delaware",
+    "abbreviation": "DE"
+  },
+  {
+    "id": 9,
+    "code": "11",
+    "description": "District of Columbia",
+    "abbreviation": "DC"
+  },
+  {
+    "id": 10,
+    "code": "12",
+    "description": "Florida",
+    "abbreviation": "FL"
+  },
+  {
+    "id": 11,
+    "code": "13",
+    "description": "Georgia",
+    "abbreviation": "GA"
+  },
+  {
+    "id": 12,
+    "code": "15",
+    "description": "Hawaii",
+    "abbreviation": "HI"
+  },
+  {
+    "id": 13,
+    "code": "16",
+    "description": "Idaho",
+    "abbreviation": "ID"
+  },
+  {
+    "id": 14,
+    "code": "17",
+    "description": "Illinois",
+    "abbreviation": "IL"
+  },
+  {
+    "id": 15,
+    "code": "18",
+    "description": "Indiana",
+    "abbreviation": "IN"
+  },
+  {
+    "id": 16,
+    "code": "19",
+    "description": "Iowa",
+    "abbreviation": "IA"
+  },
+  {
+    "id": 17,
+    "code": "20",
+    "description": "Kansas",
+    "abbreviation": "KS"
+  },
+  {
+    "id": 18,
+    "code": "21",
+    "description": "Kentucky",
+    "abbreviation": "KY"
+  },
+  {
+    "id": 19,
+    "code": "22",
+    "description": "Louisiana",
+    "abbreviation": "LA"
+  },
+  {
+    "id": 20,
+    "code": "23",
+    "description": "Maine",
+    "abbreviation": "ME"
+  },
+  {
+    "id": 21,
+    "code": "24",
+    "description": "Maryland",
+    "abbreviation": "MD"
+  },
+  {
+    "id": 22,
+    "code": "25",
+    "description": "Massachusetts",
+    "abbreviation": "MA"
+  },
+  {
+    "id": 23,
+    "code": "26",
+    "description": "Michigan",
+    "abbreviation": "MI"
+  },
+  {
+    "id": 24,
+    "code": "27",
+    "description": "Minnesota",
+    "abbreviation": "MN"
+  },
+  {
+    "id": 25,
+    "code": "28",
+    "description": "Mississippi",
+    "abbreviation": "MS"
+  },
+  {
+    "id": 26,
+    "code": "29",
+    "description": "Missouri",
+    "abbreviation": "MO"
+  },
+  {
+    "id": 27,
+    "code": "30",
+    "description": "Montana",
+    "abbreviation": "MT"
+  },
+  {
+    "id": 28,
+    "code": "31",
+    "description": "Nebraska",
+    "abbreviation": "NE"
+  },
+  {
+    "id": 29,
+    "code": "32",
+    "description": "Nevada",
+    "abbreviation": "NV"
+  },
+  {
+    "id": 30,
+    "code": "33",
+    "description": "New Hampshire",
+    "abbreviation": "NH"
+  },
+  {
+    "id": 31,
+    "code": "34",
+    "description": "New Jersey",
+    "abbreviation": "NJ"
+  },
+  {
+    "id": 32,
+    "code": "35",
+    "description": "New Mexico",
+    "abbreviation": "NM"
+  },
+  {
+    "id": 33,
+    "code": "36",
+    "description": "New York",
+    "abbreviation": "NY"
+  },
+  {
+    "id": 34,
+    "code": "37",
+    "description": "North Carolina",
+    "abbreviation": "NC"
+  },
+  {
+    "id": 35,
+    "code": "38",
+    "description": "North Dakota",
+    "abbreviation": "ND"
+  },
+  {
+    "id": 36,
+    "code": "39",
+    "description": "Ohio",
+    "abbreviation": "OH"
+  },
+  {
+    "id": 37,
+    "code": "40",
+    "description": "Oklahoma",
+    "abbreviation": "OK"
+  },
+  {
+    "id": 38,
+    "code": "41",
+    "description": "Oregon",
+    "abbreviation": "OR"
+  },
+  {
+    "id": 39,
+    "code": "42",
+    "description": "Pennsylvania",
+    "abbreviation": "PA"
+  },
+  {
+    "id": 40,
+    "code": "44",
+    "description": "Rhode Island",
+    "abbreviation": "RI"
+  },
+  {
+    "id": 41,
+    "code": "45",
+    "description": "South Carolina",
+    "abbreviation": "SC"
+  },
+  {
+    "id": 42,
+    "code": "46",
+    "description": "South Dakota",
+    "abbreviation": "SD"
+  },
+  {
+    "id": 43,
+    "code": "47",
+    "description": "Tennessee",
+    "abbreviation": "TN"
+  },
+  {
+    "id": 44,
+    "code": "48",
+    "description": "Texas",
+    "abbreviation": "TX"
+  },
+  {
+    "id": 45,
+    "code": "49",
+    "description": "Utah",
+    "abbreviation": "UT"
+  },
+  {
+    "id": 46,
+    "code": "50",
+    "description": "Vermont",
+    "abbreviation": "VT"
+  },
+  {
+    "id": 47,
+    "code": "51",
+    "description": "Virginia",
+    "abbreviation": "VA"
+  },
+  {
+    "id": 48,
+    "code": "53",
+    "description": "Washington",
+    "abbreviation": "WA"
+  },
+  {
+    "id": 49,
+    "code": "54",
+    "description": "West Virginia",
+    "abbreviation": "WV"
+  },
+  {
+    "id": 50,
+    "code": "55",
+    "description": "Wisconsin",
+    "abbreviation": "WI"
+  },
+  {
+    "id": 51,
+    "code": "56",
+    "description": "Wyoming",
+    "abbreviation": "WY"
+  },
+  {
+    "id": 52,
+    "code": "60",
+    "description": "American Samoa",
+    "abbreviation": "AS"
+  },
+  {
+    "id": 53,
+    "code": "64",
+    "description": "Federated States of Micronesia",
+    "abbreviation": "FM"
+  },
+  {
+    "id": 54,
+    "code": "66",
+    "description": "Guam",
+    "abbreviation": "GU"
+  },
+  {
+    "id": 55,
+    "code": "68",
+    "description": "Marshall Islands",
+    "abbreviation": "MH"
+  },
+  {
+    "id": 56,
+    "code": "69",
+    "description": "Commonwealth of the Northern Mariana Islands",
+    "abbreviation": "MP"
+  },
+  {
+    "id": 57,
+    "code": "70",
+    "description": "Palau",
+    "abbreviation": "PW"
+  },
+  {
+    "id": 58,
+    "code": "72",
+    "description": "Puerto Rico",
+    "abbreviation": "PR"
+  },
+  {
+    "id": 59,
+    "code": "74",
+    "description": "U.S. Minor Outlying Islands",
+    "abbreviation": "UM"
+  },
+  {
+    "id": 60,
+    "code": "78",
+    "description": "U.S. Virgin Islands",
+    "abbreviation": "VI"
+  }
+]

@@ -1,0 +1,334 @@
+[
+  {
+    "WorkflowName": "FeaturesBorderBridge",
+    "Rules": [
+      {
+        "RuleName": "BF01-1", //Feature Type
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Feature type code is null or is not a valid value",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BF01",
+          "ItemName": "Feature Type",
+          "DataSet": "Features",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBF01(input1.BF01)" //Valid values listed in SNBI
+      },
+      {
+        "RuleName": "BF02", //Feature Location
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Feature location must be reported",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BF02",
+          "ItemName": "Feature Location",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBF02(input1.BF02)" //Valid values listed in SNBI
+      },
+      {
+        "RuleName": "BF03-1", //Feature Name
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Features Carried/Intersected by Structure must be reported",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BF03",
+          "ItemName": "Feature Name",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNullOrWhiteSpace(input1.BF03)" //not null
+      },
+      {
+        "RuleName": "BF03-2", //Feature Name Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Feature Name length exceeds 300 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BF03",
+          "ItemName": "Feature Name",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BF03, 300)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH01", //Do not report Functional Classification
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH01 Functional Classification",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH01",
+          "ItemName": "Functional Classification",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH01)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH02", //Do not report Urban Code
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH02 Urban Code",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH02",
+          "ItemName": "Urban Code",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH02)"
+      },
+      {
+        "RuleName": "BH03", //NHS Designation
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "NHS Designation is null or is not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH03",
+          "ItemName": "NHS Designation",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH03(input1)" //Must be reported and checked for valid NHS designation codes Y/N
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH04", //Do not report National Highway Freight Network
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH04 National Highway Freight Network",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH04",
+          "ItemName": "National Highway Freight Network",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH04)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH05", //Do not report STRAHNET Designation
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH05 STRAHNET Designation",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH05",
+          "ItemName": "STRAHNET Designation",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH05)"
+      },
+      {
+        "RuleName": "BH06-1", //LRS Route ID
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "LRS Route ID is null or exceeds 120 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH06",
+          "ItemName": "LRS Route ID",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH06(input1, 120)"
+      },
+      {
+        "RuleName": "BH07-1", //LRS Mile Point
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "LRS milepoint is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH07",
+          "ItemName": "LRS Mile Point",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBH07(input1, 3)" //numeric with 3 decimal places
+      },
+      {
+        "RuleName": "BH07-2", //LRS Mile Point Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "LRS milepoint length exceeds 8 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BH07",
+          "ItemName": "LRS Mile Point",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BH07, 8)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH08",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH08",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH08",
+          "ItemName": "Lanes On Highway",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH08)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH09",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH09",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH09",
+          "ItemName": "Annual Average Daily Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH09)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH10",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH10",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH10",
+          "ItemName": "Annual Average Daily Truck Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH10)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH11",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH11",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH11",
+          "ItemName": "Year of Annual Average Daily Traffic",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH11)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH12",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH12",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH12",
+          "ItemName": "Highway Maximum Usable Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH12)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH13",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH13",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH13",
+          "ItemName": "Highway Minimum Vertical Clearance",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH13)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH14",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH14",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH14",
+          "ItemName": "Highway Minimum Horizontal Clearance, Left",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH14)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH15",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH15",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH15",
+          "ItemName": "Highway Minimum Horizontal Clearance, Right",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH15)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH16",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH16",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH16",
+          "ItemName": "Highway Maximum Usable Surface Width",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH16)"
+      },
+      //Different from Features.json
+      {
+        "RuleName": "BH17",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Bridge is a Border Bridge and State is the Neighboring State - Do not report BH17",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BH17",
+          "ItemName": "Bypass Detour Length",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BH17)"
+      },
+      {
+        "RuleName": "BH18-1", // BridgeNumber RegexCheck
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Structure number contains invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - +",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH18",
+          "ItemName": "Crossing Bridge Number",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BH18, \"^[-a-zA-Z0-9 .&_*()+\\\\/]+$\")"
+      },
+      {
+        "RuleName": "BH18-2", //Crossing Bridge Number Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Crossing bridge number exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BH18",
+          "ItemName": "Crossing Bridge Number",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BH18, 15)"
+      }
+    ]
+  }
+]

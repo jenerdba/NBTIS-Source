@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using NBTIS.Core.Extensions
+@inject NavigationManager NavManager
+
+<div class="small ms-1 me-1">
+    <div class="subtitle d-flex align-items-center justify-content-between">
+        <AuthorizeView>
+            <Authorized>
+                <p><b>@context.User.GetUserType()</b></p>
+            </Authorized>
+            <NotAuthorized>
+                <p></p>
+            </NotAuthorized>
+        </AuthorizeView>
+
+
+        <!-- Right side: Dropdown + Logout Button -->
+        <div class="d-flex align-items-center">
+            <div class="pe-3"><b>Mode:</b></div>
+            <!-- Bootstrap Dropdown -->
+            <div class="btn-group me-3">
+                <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width: 200px; text-align: left; padding-left: 10px; border-radius: 0;">
+                    @selectedOption
+                </button>
+                <ul class="dropdown-menu">
+                    @foreach (var option in options)
+                    {
+                        <li>
+                            <a class="dropdown-item" href="#" @onclick="() => SelectOption(option)">
+                                <b>@option</b>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <AuthorizeView>
+                <Authorized>
+                    <button class="m-1" @onclick="Logout">
+                        <b>Logout</b>
+                    </button>
+                </Authorized>
+                <NotAuthorized>
+                    <button class="m-1" @onclick="Login">
+                        <b>Login</b>
+                    </button>
+                </NotAuthorized>
+            </AuthorizeView>
+
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private List<string> options = new() { "National Bridge Inventory", "National Tunnel Inventory" };
+    private string? selectedOption;
+
+    protected override void OnInitialized() => selectedOption = options.First();
+
+    private void SelectOption(string option) => selectedOption = option;
+    private void Logout() => NavManager.NavigateTo("/Authentication/Logout", forceLoad: true);
+    private void Login() => NavManager.NavigateTo("/Authentication/Login", forceLoad: true);
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "code": "ASD",
+    "description": "Allowable Stress Design"
+  },
+  {
+    "id": 2,
+    "code": "LFD",
+    "description": "Load Factor Design"
+  },
+  {
+    "id": 3,
+    "code": "LRFD",
+    "description": "Load and Resistance Factor Design"
+  },
+  {
+    "id": 4,
+    "code": "U",
+    "description": "Unknown"
+  },
+  {
+    "id": 5,
+    "code": "X",
+    "description": "Other"
+  }
+]

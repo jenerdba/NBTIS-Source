@@ -1,0 +1,308 @@
+[
+  {
+    "WorkflowName": "SpanSets",
+    "Rules": [
+      //BSP01 - Span Configuration Designation
+      {
+        "RuleName": "BSP01-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Span configuration designation is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BSP01",
+          "ItemName": "Span Configuration Designation",
+          "DataSet": "SpanSets",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP01(input1.BSP01)"
+      },
+      {
+        "RuleName": "BSP01-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Main span dataset missing - all bridges that are not designated as culverts must have at least one main span dataset",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP01",
+          "ItemName": "Span Configuration Designation",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckSpanSetsForMain(input1.BSP01, input2)"
+      },
+      //BSP02 - Number of Spans
+      {
+        "RuleName": "BSP02-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Number of Spans is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP02",
+          "ItemName": "Span Configuration Designation",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP02(input1.BSP02)" // 0 < value >= 9999
+      },
+      {
+        "RuleName": "BSP02-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Number of Spans must be an integer. Value will be rounded down to the nearest whole number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP02",
+          "ItemName": "Span Configuration Designation",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumberRoundDown(input1.BSP02)"
+      },
+      //BSP03 - Number of Beam Lines
+      {
+        "RuleName": "BSP03-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Number of Beam Lines is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP03",
+          "ItemName": "Number of Beam Lines",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP03(input1.BSP03)" // 0 < value >= 999
+      },
+      {
+        "RuleName": "BSP03-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Number of Beam Lines must be an integer. Value will be rounded down to the nearest whole number",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP03",
+          "ItemName": "Span Configuration Designation",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumberRoundDown(input1.BSP02)"
+      },
+      //{
+      //  "RuleName": "BSP03-4",
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "BSP03 Number of Beam Lines for most frame and slab bridges should be 1",
+      //  "Properties": {
+      //    "ErrorType": "Flag",
+      //    "ItemId": "BSP03",
+      //    "ItemName": "Number of Beam Lines",
+      //    "DataSet": "SpanSets"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.CheckBSP06_BSP03_For1(input1.BSP01, input2)"
+      //},
+      //BSP04 - Span Material
+      {
+        "RuleName": "BSP04",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Span Material is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP04",
+          "ItemName": "Span Material",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP04(input1.BSP04)"
+      },
+      //BSP05 - Span Continuity
+      {
+        "RuleName": "BSP05-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Span Continuity is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP05",
+          "ItemName": "Span Continuity",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP05(input1.BSP05)"
+      },
+      {
+        "RuleName": "BSP05-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BSP05 Span Continuity for rigid or flexible pipe spans that rely on soil interaction to support vertical loads should be reported as 7 - buried",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP05",
+          "ItemName": "Span Continuity",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckSpanContinuityBSP06(input1.BSP05, input2)"
+      },
+      //BSP06 - Span Type
+      {
+        "RuleName": "BSP06-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Span Type is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP06",
+          "ItemName": "Span Type",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP06(input1.BSP06)"
+      },
+      //BSP07 - Span Protective System
+      {
+        "RuleName": "BSP07",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Span Protective System is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP07",
+          "ItemName": "Span Protective System",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP07(input1.BSP07)"
+      },
+      //BSP08 - Deck Interaction
+      {
+        "RuleName": "BSP08-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck Interaction is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP08",
+          "ItemName": "Deck Interaction",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP08(input1.BSP08, input1.BSP09)"
+      },
+      {
+        "RuleName": "BSP08-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report Deck Interaction when B.SP.09 = '0'",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP08",
+          "ItemName": "Deck Interaction",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmptyBSP(input1.BSP08, input1.BSP09)"
+      },
+      //BSP09 - Deck Material and Type
+      {
+        "RuleName": "BSP09",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck Material and Type is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP09",
+          "ItemName": "Deck Material and Type",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP09(input1.BSP09)"
+      },
+      //BSP10 - Wearing Surface
+      {
+        "RuleName": "BSP10-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Wearing Surface is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP10",
+          "ItemName": "Wearing Surface",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP10(input1.BSP10, input1.BSP09)"
+      },
+      {
+        "RuleName": "BSP10-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report Wearing Surface when B.SP.09 = '0'",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP10",
+          "ItemName": "Wearing Surface",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmptyBSP(input1.BSP10, input1.BSP09)"
+      },
+      //BSP11 - Deck Protective System
+      {
+        "RuleName": "BSP11-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck Protective System is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP11",
+          "ItemName": "Deck Protective System",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP10(input1.BSP11, input1.BSP09)"
+      },
+      {
+        "RuleName": "BSP11-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report Deck Protective System when B.SP.09 = '0'",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP11",
+          "ItemName": "Deck Protective System",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmptyBSP(input1.BSP11, input1.BSP09)"
+      },
+      //BSP12 - Deck Reinforcing Protective System
+      {
+        "RuleName": "BSP12",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck Reinforcing Protective System is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP12",
+          "ItemName": "Deck Reinforcing Protective System",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP12(input1.BSP12, input1.BSP09)"
+      },
+      //BSP13 - Deck Stay-In-Place Forms
+      {
+        "RuleName": "BSP13-1",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Deck Stay-In-Place Forms is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP13",
+          "ItemName": "Deck Stay-In-Place Forms",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSP13(input1.BSP13, input1.BSP09)"
+      },
+      {
+        "RuleName": "BSP13-2",
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report Deck Stay-In-Place Forms when B.SP.09 = '0'",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSP13",
+          "ItemName": "Deck Stay-In-Place Forms",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmptyBSP(input1.BSP13, input1.BSP09)"
+      }
+
+    ]
+  }
+]

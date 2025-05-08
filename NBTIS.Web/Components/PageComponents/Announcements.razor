@@ -1,0 +1,64 @@
+﻿@using NBTIS.Core.DTOs
+@using NBTIS.Web.Services
+@using NBTIS.Web.ViewModels
+@inject HttpClient Http
+@inject AnnouncementsService AnnouncementsService
+
+@code {
+    private List<ViewModels.AnnouncementsViewModel> announcements = new();
+    private Dictionary<int, bool> expandedStates = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        announcements = await AnnouncementsService.GetAnnouncementsAsync();
+    }
+
+    private void ToggleExpand(int index)
+    {
+        expandedStates[index] = !expandedStates.GetValueOrDefault(index, false);
+    }
+
+    private string GetTruncatedText(string text, int maxLength)
+    {
+        return string.IsNullOrEmpty(text) || text.Length <= maxLength ? text : text.Substring(0, maxLength) + "...";
+    }
+}
+
+<!-- Hero Section with Announcements -->
+<section id="announcements-section" class="announcements position-relative d-flex align-items-center text-white">
+    <div class="container">
+            <h1 class="announcements_heading display-4">
+                Latest Announcements
+            </h1>
+
+            <ul class="list-unstyled"> 
+                @if (announcements.Any())
+                {
+                    @foreach (var announcement in announcements.Select((value, index) => new { value, index }))
+                    {
+                        <li class="mb-3">
+                            <p>
+                                @if (expandedStates.GetValueOrDefault(announcement.index, false))
+                                {
+                                    @announcement.value.AnnouncementText
+                                    <a href="#" class="text-warning" @onclick="() => ToggleExpand(announcement.index)"> Less</a>
+                                }
+                                else
+                                {
+                                    @GetTruncatedText(announcement.value.AnnouncementText, 500)
+                                    @if (announcement.value.AnnouncementText.Length > 500)
+                                    {
+                                        <a href="#" class="text-warning" @onclick="() => ToggleExpand(announcement.index)">More</a>
+                                    }
+                                }
+                            </p>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li>No announcements available.</li>
+                }
+            </ul>
+    </div>
+</section>

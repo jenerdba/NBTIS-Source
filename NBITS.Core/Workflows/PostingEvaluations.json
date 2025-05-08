@@ -1,0 +1,166 @@
+[
+  {
+    "WorkflowName": "PostingEvaluations",
+    "Rules": [
+      {
+        "RuleName": "BEP01-1", //	Legal Load Configuration Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Legal Load Configuration exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BEP01",
+          "ItemName": "Legal Load Configuration",
+          "DataSet": "PostingEvaluations",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BEP01, 15)"
+      },
+      //{
+      //  "RuleName": "BEP01-2", //	Legal Load Configuration Regex Check
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Legal load configuration value has invalid characters. Valid characters include A-Z, a-z, 0-9, and - ",
+      //  "Properties": {
+      //    "ErrorType": "Error",
+      //    "ItemId": "BEP01",
+      //    "ItemName": "Legal Load Configuration",
+      //    "DataSet": "PostingEvaluations"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.IsValidWithRegex(input1.BEP01, \"^[a-zA-Z0-9-]+$\")"
+      //},
+      {
+        "RuleName": "BEP01-3", //	Legal Load Configuration
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Legal Load Configuration is null",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BEP01",
+          "ItemName": "Legal Load Configuration",
+          "DataSet": "PostingEvaluations",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNullOrWhiteSpace(input1.BEP01)"
+      },
+      {
+        "RuleName": "BEP02-1", //Legal Load Rating Factor
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Legal Load Rating Factor is not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP02",
+          "ItemName": "Legal Load Rating Factor",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBEP02(input1.BEP02)"
+      },
+      {
+        "RuleName": "BEP02-2", //Legal Load Rating Factor Required
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Legal Load Rating Factor is null",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BEP02",
+          "ItemName": "Legal Load Rating Factor",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsRequiredBEP02(input1.BEP02, input1.BEP01)"
+      },
+      {
+        "RuleName": "BEP02-3", //Legal Load Rating Factor Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Legal Load Rating Factor exceeds 4 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP02",
+          "ItemName": "Legal Load Rating Factor",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BEP02, 4)"
+      },
+      {
+        "RuleName": "BEP03-1", //Posting Type Code Legal Load Rating 
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BEP03 Posting Type must be reported when Legal Load Rating Factor is less than 1.0 ",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP03",
+          "ItemName": "Posting Type",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckBEP03_BEP02(input1.BEP03, input1.BEP02)"
+      },
+      {
+        "RuleName": "BEP03-2", //Posting Type Code
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Posting Type Code is not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP03",
+          "ItemName": "Posting Type",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBEP03(input1.BEP03)"
+      },
+      {
+        "RuleName": "BEP03-3", //Posting Type Code Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Posting Type Code exceeds 17 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP03",
+          "ItemName": "Posting Type",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BEP03, 17)"
+      },
+      {
+        "RuleName": "BEP04-1", //Posting Value Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Posting Value exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP04",
+          "ItemName": "Posting Value",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BEP04, 15)"
+      },
+      {
+        "RuleName": "BEP04-2", //Posting Value Legal Load
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Posting Value is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP04",
+          "ItemName": "Posting Value",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckBEP04_BEP02ANDBEP03(input1.BEP04, input1.BEP03, input1.BEP02, input2)"
+      },
+      {
+        "RuleName": "BEP04-3", //Posting Value Legal Load Do Not Report
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report BEP04 Posting value when BEP03 Posting type is C, S, L or V",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BEP04",
+          "ItemName": "Posting Value",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckBEP04_BEP02ANDBEP03_DoNotReport(input1.BEP04, input1.BEP03, input1.BEP02, input2)"
+      }
+
+    ]
+  }
+]

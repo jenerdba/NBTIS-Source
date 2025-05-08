@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "None"
+  },
+  {
+    "id": 2,
+    "code": "C01",
+    "description": "Concrete – reinforced"
+  },
+  {
+    "id": 3,
+    "code": "C02",
+    "description": "Concrete – prestressed"
+  },
+  {
+    "id": 4,
+    "code": "F01",
+    "description": "FRP composite"
+  },
+  {
+    "id": 5,
+    "code": "M01",
+    "description": "Metal"
+  },
+  {
+    "id": 6,
+    "code": "T01",
+    "description": "Timber"
+  },
+  {
+    "id": 7,
+    "code": "X",
+    "description": "Other"
+  }
+]

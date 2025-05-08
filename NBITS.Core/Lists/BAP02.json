@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "Never"
+  },
+  {
+    "id": 2,
+    "code": "1",
+    "description": "Remote \u2013 once every 100 years or less frequently"
+  },
+  {
+    "id": 3,
+    "code": "2",
+    "description": "Very low \u2013 once every 51 to 99 years"
+  },
+  {
+    "id": 4,
+    "code": "3",
+    "description": "Low \u2013 once every 26 to 50 years"
+  },
+  {
+    "id": 5,
+    "code": "4",
+    "description": "Moderate \u2013 once every 11 to 25 years"
+  },
+  {
+    "id": 6,
+    "code": "5",
+    "description": "High \u2013 once every 3 to 10 years"
+  },
+  {
+    "id": 0,
+    "code": "6",
+    "description": "Very High \u2013 once every 2 years or more frequently"
+  },
+  {
+    "id": 7,
+    "code": "VLM-T",
+    "description": "Temporary code"
+  },
+  {
+    "id": 8,
+    "code": "HVH-T",
+    "description": "Temporary code"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "Scour appraisal has not been completed."
+  },
+  {
+    "id": 2,
+    "code": "A",
+    "description": "Scour appraisal completed. Bridge determined to be stable for scour."
+  },
+  {
+    "id": 3,
+    "code": "B",
+    "description": "Scour appraisal completed. Bridge determined to be stable for scour, dependent upon designed, and functioning countermeasures."
+  },
+  {
+    "id": 4,
+    "code": "C",
+    "description": "Scour appraisal completed. Bridge could become unstable for scour. Temporary (not designed) countermeasure installed to mitigate scour. Bridge is scour critical."
+  },
+  {
+    "id": 5,
+    "code": "D",
+    "description": "Scour appraisal completed. Bridge is, or may become, unstable for scour. Bridge is scour critical."
+  },
+  {
+    "id": 6,
+    "code": "E",
+    "description": "Scour appraisal has not been completed. Temporary (not designed) countermeasure installed to mitigate scour."
+  },
+  {
+    "id": 7,
+    "code": "U",
+    "description": "Scour appraisal has not been completed due to unknown foundations."
+  },
+  {
+    "id": 8,
+    "code": "AB-T",
+    "description": "Temporary code"
+  },
+  {
+    "id": 9,
+    "code": "BCE-T",
+    "description": "Temporary code"
+  },
+  {
+    "id": 10,
+    "code": "CD-T",
+    "description": "Temporary code"
+  }
+]

@@ -1,0 +1,284 @@
+﻿@page "/divisionapprovals"
+@inherits DivisionApprovalsBase
+
+@using Telerik.Blazor.Components
+@using NBTIS.Web.ViewModels
+@using NBTIS.Web.Components.PageComponents
+@using NBTIS.Core.Enums
+
+
+<PageTitle>Division Approval</PageTitle>
+
+<div class="container">
+    <h1 class="mb-2">Division Approval</h1>
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    @onclick="ClearSuccessMessage"></button>
+            <strong>Success:</strong> @successMessage
+        </div>
+    }
+
+
+    <div class="position-relative">
+    <TelerikGrid @ref="GridRef"
+                 Data="@SubmittalsList"
+                 TItem="SubmittalItem"
+                 EditMode="GridEditMode.Popup"
+                 Pageable="true"
+                 Sortable="true"
+                 FilterMode="@GridFilterMode.FilterMenu"
+                 class="mt-3">
+        <GridSettings>
+
+            <TelerikLoaderContainer OverlayThemeColor="light"
+                                        Visible="@( !IsInitialDataLoadComplete || IsActionLoading )"
+                                    Text="@null" Class="initial-data-loader">
+                <Template>
+                    <TelerikLoader Type="@LoaderType.InfiniteSpinner"
+                                   Size="@(ThemeConstants.Loader.Size.Large)">
+                    </TelerikLoader>
+                </Template>
+            </TelerikLoaderContainer>
+            <GridPopupEditSettings Width="850px"
+                                   Title="All Comments"
+                                   MaxHeight="99vh"
+                                   MaxWidth="99vw"
+                                   Class="popup-class">
+            </GridPopupEditSettings>
+            <GridPopupEditFormSettings>
+                <FormTemplate Context="gridPopupEditFormTemplateContext">
+                    @{
+                        EditItem = gridPopupEditFormTemplateContext.Item as SubmittalItem;
+                    }
+                    <CommentsPopup EditItem="@(EditItem)"
+                                   CurrentUser="@(CurrentUserService.UserId)"
+                                   OnCancel="@OnCancel" />
+                </FormTemplate>
+            </GridPopupEditFormSettings>
+        </GridSettings>
+        <GridColumns>
+            <GridColumn Title="Display" Width="40px" HeaderClass="fw-bold" TextAlign="@ColumnTextAlign.Center">
+                <Template>
+                    @{
+                        var item = (SubmittalItem)context;
+                        <input type="checkbox"
+                               checked="@item.DisplayRecord"
+                        @onclick:stopPropagation
+                               @onchange="(ChangeEventArgs e) => OnChangeCheckbox(item)" />
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(SubmittalItem.SubmittedByDescription)" Title="State or Agency" Width="115px" HeaderClass="fw-bold">
+                   <Template Context="context">
+                    @{
+                        var item = (SubmittalItem)context;
+                    }
+                    <a href="#" @onclick:preventDefault @onclick="@(() => DownloadFile(item))">
+                        @item.SubmittedByDescription
+                    </a>
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(SubmittalItem.UploadType)"
+                        Title="Type of Submittal"
+                        Width="50px"
+                        HeaderClass="fw-bold wrap-header" />
+            <GridColumn Field="@nameof(SubmittalItem.UploadedBy)"
+                        Title="Submitted By"
+                        Width="90px"
+                        HeaderClass="fw-bold" />
+            <GridColumn Field="@nameof(SubmittalItem.UploadDate)"
+                        Title="Submitted Date"
+                        DisplayFormat="{0:MM/dd/yyyy 'at' h:mm:ss tt}"
+                        Width="75px"
+                        HeaderClass="fw-bold" />
+            <GridColumn Field="@nameof(SubmittalItem.Status)"
+                        Title="Status" Width="75px"
+                        HeaderClass="fw-bold">
+                <Template>
+                    @{
+                        var item = (SubmittalItem)context;
+                        @(item.StatusCode == (byte)SubmittalStatus.DivisionReview ? "Division Review" : item.Status)
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Title="Report"
+                        Width="50px"
+                        TextAlign="@ColumnTextAlign.Center"
+                        HeaderClass="fw-bold">
+                <Template Context="context">
+                    @{
+                        var item = (SubmittalItem)context;
+                    }
+                    @if (item.ReportContent != null && item.ReportContent.Length > 0)
+                    {
+                        <button class="btn btn-success" title="Download Processing Report" @onclick="() => DownloadReport(item)">
+                            <i class="bi bi-file-earmark-excel"></i>
+                        </button> 
+                    }
+                </Template>
+            </GridColumn>
+            <GridCommandColumn Title="Comments" Width="75px" HeaderClass="fw-bold">
+                <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Comments</GridCommandButton>
+            </GridCommandColumn>
+            <!-- Approve column with icon button -->
+            <GridColumn Title="Approve"
+                        Width="50px"
+                        TextAlign="@ColumnTextAlign.Center"
+                        HeaderClass="fw-bold">
+                <Template Context="context">
+                    @{
+                        var item = (SubmittalItem)context;
+                    }
+                    
+                        <button class="btn btn-primary" title="Approve" @onclick="@(() => ConfirmAndApprove(item.SubmitId, item.UploadType, item.SubmittedByDescription))">
+                            <i class="bi bi-check-circle"></i>
+                        </button>
+                    
+                </Template>
+            </GridColumn>
+            <!-- Return column with icon button -->
+            <GridColumn Title="Return"
+                        Width="50px"
+                        TextAlign="@ColumnTextAlign.Center"
+                        HeaderClass="fw-bold">
+                <Template Context="context">
+                    @{
+                        var item = (SubmittalItem)context;
+                    }
+                    
+                        <button class="btn btn-danger" title="Return for Correction" @onclick="@(() => ConfirmAndReturn(item.SubmitId, item.UploadType, item.SubmittedByDescription))">
+                            <i class="bi bi-arrow-return-left"></i>
+                        </button>
+                    
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+    </div>
+</div>
+
+    @if (showErrorSummary)
+    {
+        <DivisionApproval_ErrorSummary_Grid SelectedSubmittals="SelectedSubmittals" FilteredSubmittals="FilteredSubmittals" />
+    }
+
+
+<style>
+    .popup-class {
+        border-radius: 8px;
+    }
+
+        .popup-class .k-window-titlebar {
+            border-radius: 8px;
+        }
+</style>
+
+@code {
+
+    // Reference to the grid instance
+    private TelerikGrid<SubmittalItem>? GridRef { get; set; }
+    public SubmittalItem EditItem { get; set; }
+    private string newCommentText { get; set; } = string.Empty;
+    private string confirmationMessage;
+    private bool isChecked;
+    private bool showErrorSummary = false;
+    private bool showCommentPopup = false;
+    private SubmittalItem currentItemForAction { get; set; }
+
+    private List<SubmittalItem> SelectedSubmittals => SubmittalsList.Where(x => x.DisplayRecord).ToList();
+    private IEnumerable<SubmittalItem> FilteredSubmittals =>
+       SubmittalsList?.Where(s => s.DisplayRecord) ?? new List<SubmittalItem>();
+
+    private void OnChangeCheckbox(SubmittalItem item)
+    {
+        bool newState = !item.DisplayRecord;
+
+        if (newState)
+        {
+            // Uncheck all items
+            foreach (var submittalItem in SubmittalsList)
+            {
+                submittalItem.DisplayRecord = false;
+            }
+
+            item.DisplayRecord = true;
+        }
+        else
+        {
+            // Just uncheck this one
+            item.DisplayRecord = false;
+        }
+
+        StateHasChanged();
+
+        UpdateErrorSummaryGrid();
+    }
+
+    private async Task OnCancel()
+    {
+        await ExitEditAsync();
+    }
+
+    private async Task ExitEditAsync()
+    {
+        var state = GridRef?.GetState();
+        state.OriginalEditItem = null;
+        state.EditItem = null;
+        state.InsertedItem = null;
+
+        await GridRef?.SetStateAsync(state);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && GridRef != null)
+        {
+            SubmittalsList = SubmittalsList
+                .OrderByDescending(x => x.UploadDate)
+                .ToList();
+
+            // Rebind the grid so that the new sort order takes effect,
+            GridRef.Rebind();
+        }
+    }
+
+    private void OnDisplayChanged(bool newValue, SubmittalItem item)
+    {
+        item.DisplayRecord = newValue;// TODO: this will refresh second grid
+    }
+
+    private void OnApproveChanged(SubmittalItem item, bool isChecked)
+    {
+        item.Approve = isChecked;
+
+        if (isChecked)
+        {
+            item.Return = false;
+        }
+
+        StateHasChanged();
+    }
+
+    private void OnReturnChanged(SubmittalItem item, bool isChecked)
+    {
+        item.Return = isChecked;
+
+        if (isChecked)
+        {
+            item.Approve = false;
+        }
+
+        StateHasChanged();
+    }
+
+    private void UpdateErrorSummaryGrid()
+    {
+        showErrorSummary = SelectedSubmittals.Any();
+        StateHasChanged();
+    }
+
+
+}

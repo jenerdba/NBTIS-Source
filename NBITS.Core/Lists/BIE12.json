@@ -1,0 +1,178 @@
+[
+  {
+    "id": 1,
+    "code": "AN",
+    "description": "No access equipment used"
+  },
+  {
+    "id": 2,
+    "code": "A01",
+    "description": "Ladder"
+  },
+  {
+    "id": 3,
+    "code": "A02",
+    "description": "Bucket lift vehicle"
+  },
+  {
+    "id": 4,
+    "code": "A03",
+    "description": "Under bridge inspection vehicle"
+  },
+  {
+    "id": 5,
+    "code": "A04",
+    "description": "Rigging"
+  },
+  {
+    "id": 6,
+    "code": "A05",
+    "description": "Waders"
+  },
+  {
+    "id": 7,
+    "code": "A06",
+    "description": "Boat"
+  },
+  {
+    "id": 8,
+    "code": "A07",
+    "description": "Snorkel"
+  },
+  {
+    "id": 9,
+    "code": "A08",
+    "description": "SCUBA"
+  },
+  {
+    "id": 10,
+    "code": "A09",
+    "description": "Surface supplied air"
+  },
+  {
+    "id": 11,
+    "code": "A10",
+    "description": "Remotely Operated Vehicle (ROV)"
+  },
+  {
+    "id": 12,
+    "code": "A11",
+    "description": "Video pole"
+  },
+  {
+    "id": 13,
+    "code": "A12",
+    "description": "Borescope"
+  },
+  {
+    "id": 14,
+    "code": "A13",
+    "description": "Unmanned aerial systems (UAS)"
+  },
+  {
+    "id": 15,
+    "code": "A14",
+    "description": "Service Traveler"
+  },
+  {
+    "id": 16,
+    "code": "A15",
+    "description": "Rope"
+  },
+  {
+    "id": 17,
+    "code": "AX",
+    "description": "Other"
+  },
+  {
+    "id": 18,
+    "code": "IN",
+    "description": "No inspection equipment used"
+  },
+  {
+    "id": 19,
+    "code": "I01",
+    "description": "Ultrasonic"
+  },
+  {
+    "id": 20,
+    "code": "I02",
+    "description": "Ground-penetrating radar"
+  },
+  {
+    "id": 21,
+    "code": "I03",
+    "description": "Infrared thermography"
+  },
+  {
+    "id": 22,
+    "code": "I04",
+    "description": "Radiographic testing"
+  },
+  {
+    "id": 23,
+    "code": "I05",
+    "description": "Impact echo"
+  },
+  {
+    "id": 24,
+    "code": "I06",
+    "description": "Electromagnetic methods"
+  },
+  {
+    "id": 25,
+    "code": "I07",
+    "description": "Rebound & penetration methods"
+  },
+  {
+    "id": 26,
+    "code": "I08",
+    "description": "Acoustic emissions testing"
+  },
+  {
+    "id": 27,
+    "code": "I09",
+    "description": "Dye penetrant"
+  },
+  {
+    "id": 28,
+    "code": "I10",
+    "description": "Magnetic particle"
+  },
+  {
+    "id": 29,
+    "code": "I11",
+    "description": "Eddy current"
+  },
+  {
+    "id": 30,
+    "code": "I12",
+    "description": "Boring or drilling"
+  },
+  {
+    "id": 31,
+    "code": "I13",
+    "description": "Underwater imaging"
+  },
+  {
+    "id": 32,
+    "code": "I14",
+    "description": "Depth finder/fathometer"
+  },
+  {
+    "id": 33,
+    "code": "I15",
+    "description": "Stress wave timer"
+  },
+  {
+    "id": 34,
+    "code": "I16",
+    "description": "Chain drag"
+  },
+  {
+    "id": 35,
+    "code": "IX",
+    "description": "Other"
+  }
+]
+

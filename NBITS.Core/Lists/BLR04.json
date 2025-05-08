@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "code": "LFR",
+    "description": "Load Factor Rating"
+  },
+  {
+    "id": 2,
+    "code": "ASR",
+    "description": "Allowable Stress Rating"
+  },
+  {
+    "id": 3,
+    "code": "LRFR",
+    "description": "Load and Resistance Factor Rating"
+  },
+  {
+    "id": 4,
+    "code": "LT",
+    "description": "Load Testing"
+  },
+  {
+    "id": 5,
+    "code": "AR",
+    "description": "Assigned Rating"
+  },
+  {
+    "id": 6,
+    "code": "EJ",
+    "description": "Field evaluation and documented engineering judgment"
+  },
+  {
+    "id": 7,
+    "code": "N",
+    "description": "No rating analysis or evaluation has been performed"
+  }
+]

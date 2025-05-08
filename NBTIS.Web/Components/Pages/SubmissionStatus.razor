@@ -1,0 +1,288 @@
+﻿@page "/SubmissionStatus"
+@inherits SubmissionStatusBase
+
+@using Telerik.Blazor.Components
+@using NBTIS.Web.ViewModels
+@using System.Data;
+@using ClosedXML.Excel;
+@using NBTIS.Web.Components.PageComponents
+@using NBTIS.Core.Enums
+
+<PageTitle>Submittal Status</PageTitle>
+
+<style>
+    .k-grid-header th {
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #f0f0f0;
+    }
+
+    .scrollable-treeview {
+    height: 300px; /* Set the desired height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scroll */
+    border: 1px solid #ccc; /* Add a border */
+    padding: 5px; /* Add some padding */
+    }
+</style>
+
+<div class="container">
+    <h1 class="mb-2">Submittal Status</h1>
+
+    <!-- Loading Indicator -->
+    <TelerikLoaderContainer OverlayThemeColor="light"
+    Visible="@( !IsInitialDataLoadComplete )"
+    Text="@null" Class="initial-data-loader">
+        <Template>
+            <TelerikLoader Type="@LoaderType.InfiniteSpinner"
+            Size="@(ThemeConstants.Loader.Size.Large)">
+            </TelerikLoader>
+        </Template>
+    </TelerikLoaderContainer>
+
+
+    <div class="card shadow-sm border-0">      
+        <div class="card-body">
+            <!-- Action Buttons -->
+            <div class="row mt-1 mb-1">
+                <div class="col-sm-12 d-flex justify-content-end">
+                    <button class="btn btn-primary" @onclick="ExportToExcel" title="click to export to excel">Export to Excel</button>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    @onclick="ClearSuccessMessage"></button>
+                    <strong>Success:</strong> @successMessage
+                </div>
+            }
+
+            <TelerikGrid Data="@SubmittalsList"
+            TItem="SubmissioniStatusItemViewModel"
+            Pageable="false"
+            Sortable="true"
+            FilterMode="@GridFilterMode.FilterMenu"
+            Class="mt-3">
+                <GridColumns>
+                    <!-- Accept Column (Excluded from Export) -->
+
+                    <GridColumn Field="@nameof(SubmissioniStatusItemViewModel.Lookup_States_Description)"
+                    Title="State or Agency"
+                    Width="155px"
+                    HeaderClass="fw-bold">
+
+                        <FilterMenuTemplate Context="context">
+                            <LocationFilter FlatData="@FlatData"
+                            Context="@context"
+                            SelectedItems="@checkedItems"
+                            SelectedItemsChanged="@(items => checkedItems = items)" />
+                        </FilterMenuTemplate>
+
+                        <Template Context="context">
+                            @{
+                                var item = (SubmissioniStatusItemViewModel)context;
+                            }
+                            <a href="#" @onclick:preventDefault @onclick="@(() => DownloadFile(item))">
+                                @item.Lookup_States_Description
+                            </a>
+                        </Template>
+                    </GridColumn>
+
+                    <GridColumn Field="@nameof(SubmissioniStatusItemViewModel.Lookup_Statuses_StatusDescription)"
+                    Title="Status"
+                    Width="155px"
+                    HeaderClass="fw-bold wrap-header"
+                    TextAlign="@ColumnTextAlign.Center">
+                        <Template Context="context">
+                            @{
+                                var item = (SubmissioniStatusItemViewModel)context;
+                                // Normalize to upper‑case for both display and switch‑mapping
+                                var upperStatus = (item.Lookup_Statuses_StatusDescription ?? string.Empty)
+                                .ToUpperInvariant()
+                                .Trim();
+
+                                var bgColor = upperStatus switch
+                                {
+                                    "ACCEPTED" => "lightgreen",
+                                    "REJECTED" => "pink",
+                                    "DIVISION REVIEW" => "beige",
+                                    "HQ REVIEW" => "lightblue",
+                                    "RETURND BY DIVISION" => "peachpuff",
+                                    _ => "transparent"
+                                };
+
+                                var style = $"display:flex;align-items:center;justify-content:center;height:100%;background-color:{bgColor};";
+                            }
+                            <div style="@style">
+                                @upperStatus
+                            </div>
+                        </Template>
+                    </GridColumn>
+
+                    <GridColumn Field="@nameof(SubmissioniStatusItemViewModel.SubmitDate)"
+                    Title="Submitted Date"
+                    Width="155px"
+                    HeaderClass="fw-bold wrap-header" />
+                    <GridColumn Field="@nameof(SubmissioniStatusItemViewModel.ReviewDate)"
+                    Title="DBE Review Date"
+                    Width="155px"
+                    HeaderClass="fw-bold wrap-header" />
+                    <GridColumn Field="@nameof(SubmissioniStatusItemViewModel.ApproveRejectDate)"
+                    Title="HQ Accept/Reject Date"
+                    Width="155px"
+                    HeaderClass="fw-bold wrap-header" />
+
+                    <!-- Report Content column with Excel icon if available -->
+                    <GridColumn Title="Report"
+                    Width="80px"
+                    TextAlign="@ColumnTextAlign.Center"
+                    HeaderClass="fw-bold">
+                        <Template Context="context">
+                            @{
+                                var item = (SubmissioniStatusItemViewModel)context;
+                            }
+                            @if (item.ReportContent != null && item.ReportContent.Length > 0)
+                            {
+                                <button class="btn btn-success" title="Download Processing Report" @onclick="() => DownloadReport(item)">
+                                    <i class="bi bi-file-earmark-excel"></i>
+                                </button>
+                            }
+                        </Template>
+                    </GridColumn>
+                    <!-- Comments Column (Excluded from Export) -->
+                    @*         <GridColumn Title="Comments" Width="155px" HeaderClass="fw-bold wrap-header">
+                        <Template Context="context">
+                            @{
+                                var item = (SubmissioniStatusItemViewModel)context;
+                            }
+
+                            <button class="btn btn-primary" title="View/Add Comments" @onclick="@(() => OpenCommentsPopup(item))">
+                                <i class="bi bi-chat-dots"></i> Comments
+                            </button>
+                        </Template>
+                </GridColumn> *@
+                    <GridCommandColumn Width="155px" HeaderClass="fw-bold wrap-header">
+
+                        @{
+                            var item = (SubmissioniStatusItemViewModel)context;
+                        }
+                        @* @if (item.StatusCode == (byte)SubmittalStatus.HQReview)
+                        { *@
+                            <GridCommandButton Icon="@SvgIcon.Pencil" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                                               OnClick="@((args) => OpenCommentsPopup((SubmissioniStatusItemViewModel)args.Item))">
+                                Comments
+                            </GridCommandButton>
+                        @* }                         *@
+                    </GridCommandColumn>
+
+
+                    <!-- Accept Column (Excluded from Export) -->
+                    <GridColumn Title="Accept" Width="80px" TextAlign="@ColumnTextAlign.Center" HeaderClass="fw-bold">
+                        <Template Context="context">
+                            @{
+                                var item = (SubmissioniStatusItemViewModel)context;
+                            }
+                            @if (item.StatusCode == (byte)SubmittalStatus.HQReview)
+                            {
+                                <button type="button" class="btn btn-primary" title="Accept" @onclick="@(() => OpenAcceptDialog(item))">
+                                    <i class="bi bi-check-circle"></i>
+                                </button>
+                            }
+                        </Template>
+                    </GridColumn>
+
+                    <!-- Reject Column (Excluded from Export) -->
+                    <GridColumn Title="Reject" Width="80px" TextAlign="@ColumnTextAlign.Center" HeaderClass="fw-bold">
+                        <Template Context="context">
+                            @{
+                                var item = (SubmissioniStatusItemViewModel)context;
+                            }
+                            @if (item.StatusCode == (byte)SubmittalStatus.HQReview)
+                            {
+                                <button type="button" class="btn btn-danger" title="Reject" @onclick="@(() => OpenRejectDialog(item))">
+                                    <i class="bi bi-arrow-return-left"></i>
+                                </button>
+                            }
+                        </Template>
+                    </GridColumn>
+                </GridColumns>
+            </TelerikGrid>
+        </div>
+    </div>
+</div>
+@if (ShowCommentDialog)
+{
+    <TelerikDialog @ref="DialogRef" Visible="true"
+                   Width="500px"
+                   ShowCloseButton="true">
+        <DialogTitle>
+            @($"{DialogMode} Comment")
+        </DialogTitle>
+
+        <DialogContent>
+            <div class="mb-3" @key="errorMessage">
+                @* this key triggers re-render *@
+                <label for="commentBox" class="form-label">
+                    @((MarkupString)(IsCommentRequired
+                        ? "Comment <span class='text-danger'>*</span>"
+                        : "Comment")) (max 500 chars):
+                </label>
+                <textarea id="commentBox"
+                          class="form-control @(string.IsNullOrEmpty(errorMessage) ? "" : "is-invalid")"
+                          maxlength="500"
+                          @bind="CommentText"
+                          oninput="updateCharCount('commentBox', 'commentCount',500)"
+                          rows="4">
+                    </textarea>
+                <small id="commentCount" class="text-muted">@($"{CommentText.Length}/500 characters")</small>
+
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="text-danger mt-1">@errorMessage</div>
+                }
+            </div>
+        </DialogContent>
+
+        <DialogButtons>
+            <button class="btn btn-primary" @onclick="SubmitCommentAsync">Submit</button>
+            <button class="btn btn-danger me-2" @onclick="() => ShowCommentDialog = false">Cancel</button>
+        </DialogButtons>
+    </TelerikDialog>
+}
+
+    @if (ShowCommentsPopup)
+    {
+    <TelerikDialog  Visible="true" Width="850px" ShowCloseButton="true" VisibleChanged="@VisibleChangedHandler"> @* @ref="@DialogRefSS" *@
+        <DialogTitle>Comments</DialogTitle>
+
+            <DialogContent>
+             <div style="max-height: 600px; overflow-y: auto;">
+            <CommentsPopupSS EditItem_SubmitId="@SelectedCommentsItem.SubmitId"
+                               CurrentUser="@(CurrentUserService.UserId.ToString())"
+                               OnValidSubmit="@(async () => await RefreshAfterComment())"
+                               OnCancel="@(() => ShowCommentsPopup = false)" />
+            </div>
+            </DialogContent>
+        </TelerikDialog>
+    }
+
+
+
+<script>
+    function updateCharCount(textareaId, counterId, maxLength) {
+        const textarea = document.getElementById(textareaId);
+        const counter = document.getElementById(counterId);
+
+        if (!textarea || !counter) return;
+
+        textarea.addEventListener("input", function () {
+            const currentLength = this.value.length;
+            counter.innerText = `${currentLength}/${maxLength} characters`;
+        });
+    }
+</script>
+
+

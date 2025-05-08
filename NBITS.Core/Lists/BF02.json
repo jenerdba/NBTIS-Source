@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "code": "C",
+    "description": "Carried on bridge"
+  },
+  {
+    "id": 2,
+    "code": "A",
+    "description": "Above bridge"
+  },
+  {
+    "id": 3,
+    "code": "B",
+    "description": "Below bridge"
+  },
+  {
+    "id": 4,
+    "code": "T",
+    "description": "Top level"
+  },
+  {
+    "id": 5,
+    "code": "L",
+    "description": "Lower level"
+  }
+]

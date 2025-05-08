@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "Navigation protection not required; bridge has been designed or assessed to have adequate capacity to resist anticipated impact loads without collapse."
+  },
+  {
+    "id": 2,
+    "code": "1",
+    "description": "Navigation protection not required; assessment of navigation opening and vessel traffic has determined that there is a low probability that an errant vessel could impact the bridge."
+  },
+  {
+    "id": 3,
+    "code": "2",
+    "description": "Protective system in place and functioning."
+  },
+  {
+    "id": 4,
+    "code": "3",
+    "description": "Protective system in place, but damage or deterioration impacts ability to protect."
+  },
+  {
+    "id": 5,
+    "code": "4",
+    "description": "Protective system in place, but reevaluation of design suggested."
+  },
+  {
+    "id": 6,
+    "code": "5",
+    "description": "No protective system in place, but reevaluation of the need for a protective system is recommended."
+  }
+]

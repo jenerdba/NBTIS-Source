@@ -1,0 +1,284 @@
+[
+  {
+    "WorkflowName": "Inspections",
+    "Rules": [
+      {
+        "RuleName": "BIE01", //Inspection Type
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection type code is not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BIE01",
+          "ItemName": "Inspection Type",
+          "DataSet": "Inspections",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIE01(input1.BIE01)"
+      },
+      {
+        "RuleName": "BIE02", //Inspection Begin Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection begin date is not numeric or is not a valid date",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BIE02",
+          "ItemName": "Inspection Begin Date",
+          "DataSet": "Inspections",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidYYYYMMDD(input1.BIE02)"
+      },
+      {
+        "RuleName": "BIE03", //Inspection Completion Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection completion date is not numeric or is not a valid date",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BIE03",
+          "ItemName": "Inspection Completion Date",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidYYYYMMDD(input1.BIE03)"
+      },
+      {
+        "RuleName": "BIE04-1", //Nationally Certified Bridge Inspector Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Nationally certified bridge inspector is null when a team leader is required for Special Inspections",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE04",
+          "ItemName": "Nationally Certified Bridge Inspector",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBIE01_BIE04(input1)"
+      },
+      {
+        "RuleName": "BIE04-2", //Nationally Certified Bridge Inspector Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Nationally certified bridge inspector exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE04",
+          "ItemName": "Nationally Certified Bridge Inspector",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BIE04, 15)"
+      },
+      //{
+      //  "RuleName": "BIE04-3", //Nationally Certified Bridge Inspector Data Type Check
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Nationally Certified Bridge Inspector has invalid characters. Valid characters include A-Z, a-z, 0-9",
+      //  "Properties": {
+      //    "ErrorType": "Error",
+      //    "ItemId": "BIE04",
+      //    "ItemName": "Nationally Certified Bridge Inspector",
+      //    "DataSet": "Inspections"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.IsValidWithRegex(input1.BIE04, \".*\")"
+      //},
+      {
+        "RuleName": "BIE05-1", //Inspection Interval
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection interval is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE05",
+          "ItemName": "Inspection Interval",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIE05(input1.BIE05)"
+      },
+      {
+        "RuleName": "BIE05-2", //Inspection Interval Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection interval exceeds 2 digits",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE05",
+          "ItemName": "Inspection Interval",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthDouble(input1.BIE05, 2)"
+      },
+      {
+        "RuleName": "BIE05-3", //Inspection Interval Length Check Cross Check BIE01
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BIE05 Inspection Interval should be equal to 0 for inspection types that do not have a defined inspection interval",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BIE05",
+          "ItemName": "Inspection Interval",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBIE05_BIE01(input1.BIE05, input1.BIE01)"
+      },
+      {
+        "RuleName": "BIE06", //Inspection Due Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "DO NOT REPORT Inspection due date",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE06",
+          "ItemName": "Inspection Due Date",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNullOrEmpty(input1.BIE06)" //do not report
+      },
+      {
+        "RuleName": "BIE07-1", //Risk-Based Inspection Interval Method
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Risk-based inspection interval method is not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE07",
+          "ItemName": "Risk-Based Inspection Interval Method",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIE07(input1.BIE07)"
+      },
+      {
+        "RuleName": "BIE07-2", //Risk-Based Inspection Interval Method N Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BIE07 risk-based inspection interval method should be equal to N for initial, damage, in-depth, special, service, or scour monitoring inspection types",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BIE07",
+          "ItemName": "Risk-Based Inspection Interval Method",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBIE07NotN(input1.BIE07, input1.BIE01)"
+      },
+      {
+        "RuleName": "BIE07-3", //Risk-Based Inspection Interval Method 1 or 2 Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BIE07 risk-based inspection interval method should be equal to 1 or 2 for routine, underwater, and NSTM inspection types",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BIE07",
+          "ItemName": "Risk-Based Inspection Interval Method",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBIE07_BIE01(input1.BIE07, input1.BIE01)"
+      },
+      {
+        "RuleName": "BIE08", //Inspection Quality Control Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection quality control date is not a valid date",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE08",
+          "ItemName": "Inspection Quality Control Date",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidYYYYMMDD(input1.BIE08)"
+      },
+      {
+        "RuleName": "BIE09", //Inspection Quality Assurance Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection quality assurance date is not a valid date",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE09",
+          "ItemName": "Inspection Quality Assurance Date",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidYYYYMMDD(input1.BIE09)"
+      },
+      {
+        "RuleName": "BIE10", //Inspection Data Update Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection data update date is not a valid date",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE10",
+          "ItemName": "Inspection Data Update Date",
+          "DataSet": "Inspections"
+
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidYYYYMMDD(input1.BIE10)"
+      },
+      {
+        "RuleName": "BIE11-1", //Inspection Note Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection note is required if BIE01 is 3, 4, 5, 6, 7, 8, or 9 ",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE11",
+          "ItemName": "Inspection Note",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNullBIE11(input1.BIE11, input1.BIE01)"
+      },
+      {
+        "RuleName": "BIE11-2", //Inspection Note Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection note exceeds 300 characters. Value will be truncated",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE11",
+          "ItemName": "Inspection Note",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthStringTruncate(input1.BIE11, 300)"
+      },
+      //{
+      //  "RuleName": "BIE11-3", //Inspection Note Regex
+      //  "SuccessEvent": "Valid",
+      //  "ErrorMessage": "Inspection note has invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) - + /\\",
+      //  "Properties": {
+      //    "ErrorType": "Error",
+      //    "ItemId": "BIE11",
+      //    "ItemName": "Inspection Note",
+      //    "DataSet": "Inspections"
+      //  },
+      //  "RuleExpressionType": "LambdaExpression",
+      //  "Expression": "CustomRules.IsValidBIE11(input1.BIE11, \".*\")"
+      //},
+      {
+        "RuleName": "BIE12-1", //Inspection Equipment
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection equipment codes are not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE12",
+          "ItemName": "Inspection Equipment",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBIE12(input1.BIE12)"
+      },
+      {
+        "RuleName": "BIE12-2", //Inspection Equipment Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Inspection equipment exceeds 120 characters. Value will be truncated",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BIE12",
+          "ItemName": "Inspection Equipment",
+          "DataSet": "Inspections"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthStringTruncate(input1.BIE12, 120)"
+      }
+
+    ]
+  }
+]

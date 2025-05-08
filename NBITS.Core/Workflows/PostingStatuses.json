@@ -1,0 +1,34 @@
+[
+  {
+    "WorkflowName": "PostingStatuses",
+    "Rules": [
+      {
+        "RuleName": "BPS01-1", //Load Posting Status
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Load posting status is not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BPS01",
+          "ItemName": "Load Posting Status",
+          "DataSet": "PostingStatuses"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBPS01(input1.BPS01)" //listed in SNBI
+      },
+      {
+        "RuleName": "BPS02-1", //Posting Status Change Date
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Posting status change date is not a valid date",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BPS02",
+          "ItemName": "Posting Status Change Date",
+          "DataSet": "PostingStatuses",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBPS02(input1.BPS02)" //	Checked for YYYYMMDD format
+      }
+    ]
+  }
+] 

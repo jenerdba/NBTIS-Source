@@ -1,0 +1,42 @@
+﻿@page "/relatedsites"
+@inherits RelatedBase
+
+@using Telerik.Blazor.Components
+@using NBTIS.Web.ViewModels
+
+<PageTitle>Related Sites</PageTitle>
+
+<section>
+    <div class="container">
+        <h1 class="mb-2">Related Sites</h1>
+
+        <div class="container-fluid px-3 py-3 bg-white">
+
+
+            <!-- Display query parameters -->
+            <div class="mb-3">
+                <strong>Submit Id:</strong> @submitId<br />
+                <strong>Submitted By:</strong> @submittedByDescription
+            </div>
+
+            <ul class="related-links">
+                @foreach (var site in RelatedSites)
+                {
+                    <li>
+                        <a href="@site.Url" target="_blank">@site.Title</a>
+                        @if (site.SubLinks?.Any() == true)
+                        {
+                            <ul>
+                                @foreach (var subLink in site.SubLinks)
+                                {
+                                    <li><a href="@subLink.Url" target="_blank">@subLink.Title</a></li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+

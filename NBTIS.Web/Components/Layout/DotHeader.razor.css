@@ -1,0 +1,73 @@
+﻿.usa-navbar {
+    display: flex;
+    align-items: flex-end; /* Align items at bottom if you want */
+    justify-content: space-between; /* Left logo, right menu */
+    height: 5rem;
+    padding: 0 1rem;
+    width: 100%;
+    /* position: relative; -- optional, can remove if not needed */
+}
+
+/* Keep existing logo styling */
+header .usa-logo {
+    margin: 0.5rem;
+    flex: 0 0 auto;
+    margin-right: 1rem;
+}
+
+/* Ensure logo does not scale too large */
+header .img-fluid {
+    max-width: 250px;
+    height: auto;
+}
+
+/* Navigation button color */
+.usa-nav__primary button {
+    color: var(--white-color);
+}
+
+/* Let Flex do the spacing instead of absolute positioning */
+.usa-nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* Push to the right */
+    align-items: flex-end;
+    gap: 1rem; /* optional spacing */
+}
+
+/* Ensure the nav links display inline */
+.usa-nav__primary {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    align-items: flex-end;
+}
+
+    /* Style nav links */
+    .usa-nav__primary a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        display: block;
+    }
+
+        .usa-nav__primary a:hover {
+            color: #ffcc00;
+        }
+
+/* Completely remove navigation on smaller screens */
+@media (max-width: 1024px) {
+    .usa-nav, /* Hide the entire navigation container */
+    .usa-nav__primary, /* Hide the navigation list */
+    .usa-nav__primary-item, /* Hide individual navigation items */
+    .usa-accordion__button, /* Hide submenu buttons */
+    .usa-nav__link { /* Hide main navigation links */
+        display: none !important;
+        visibility: hidden;
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}

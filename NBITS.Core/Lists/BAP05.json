@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "Seismic evaluation not completed."
+  },
+  {
+    "id": 2,
+    "code": "N",
+    "description": "Bridge does not require seismic evaluation due to low anticipated ground motion or agency prioritization."
+  },
+  {
+    "id": 3,
+    "code": "A",
+    "description": "Seismic evaluation completed. Bridge determined to meet the agency’s performance criteria established for the evaluation without need for retrofit."
+  },
+  {
+    "id": 4,
+    "code": "B",
+    "description": "Seismic evaluation completed. Satisfactory performance is dependent upon a designed, installed, and functioning retrofit. Retrofit is in place."
+  },
+  {
+    "id": 5,
+    "code": "C",
+    "description": "Seismic evaluation completed. Satisfactory performance is dependent upon a designed, installed, and functioning retrofit. Partial retrofit is in place."
+  },
+  {
+    "id": 6,
+    "code": "D",
+    "description": "Seismic evaluation completed. Satisfactory performance is dependent upon a designed, installed, and functioning retrofit. Retrofit is not in place."
+  }
+]

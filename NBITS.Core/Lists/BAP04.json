@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "A scour POA is not required."
+  },
+  {
+    "id": 2,
+    "code": "N",
+    "description": "A scour POA is required, but not implemented."
+  },
+  {
+    "id": 3,
+    "code": "Y",
+    "description": "A scour POA is required and implemented."
+  },
+  {
+    "id": 4,
+    "code": "Y-T",
+    "description": "Temporary Code."
+  }
+]
+

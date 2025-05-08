@@ -1,0 +1,99 @@
+﻿[
+  {
+    "WorkflowName": "RoutesBorderBridge",
+    "Rules": [
+      {
+        "RuleName": "BRT01-1", //Route Designation Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Route designation is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BRT01",
+          "ItemName": "Route Designation",
+          "DataSet": "Routes",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRT01(input1)" //IF B.F.01 begins with "H" then route designation is required	Valid values begin with "R"
+      },
+      {
+        "RuleName": "BRT02-1", //Route Number required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Route number is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRT02",
+          "ItemName": "Route Number",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRT02(input1)" //IF B.F.01 begins with "H" then route designation is required
+      },
+      {
+        "RuleName": "BRT02-2", //Route Number Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Route Number length exceeds 15 characters",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRT02",
+          "ItemName": "Route Number",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthString(input1.BRT02, 15)"
+      },
+      {
+        "RuleName": "BRT02-3", //Route Number Data Type Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Route Number has invalid characters. Valid characters include A-Z, a-z, 0-9, spaces, periods, and the symbols * & _ ( ) | - +",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRT02",
+          "ItemName": "Route Number",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidWithRegex(input1.BRT02, \"^[0-9A-Za-z-() .&_*+]+$\")"
+      },
+      {
+        "RuleName": "BRT03-1", //Route Direction required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Route direction is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRT03",
+          "ItemName": "Route Direction",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRT03(input1)" //IF B.F.01 begins with "H" then route direction is required, listed in SNBI, 1-T and 2-T
+      },
+      {
+        "RuleName": "BRT04-1", //Route Type Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Route type is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRT04",
+          "ItemName": "Route Type",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRT04(input1)"
+      },
+      {
+        "RuleName": "BRT05-1", //Service Type Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Service type is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BRT05",
+          "ItemName": "Service Type",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBRT05(input1)"
+      }
+    ]
+  }
+]

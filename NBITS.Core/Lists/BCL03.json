@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "code": "N",
+    "description": "Not applicable"
+  },
+  {
+    "id": 2,
+    "code": "BIA",
+    "description": "Indian Tribal Government or Bureau of Indian Affairs"
+  },
+  {
+    "id": 3,
+    "code": "BLM",
+    "description": "Bureau of Land Management"
+  },
+  {
+    "id": 4,
+    "code": "NPS",
+    "description": "National Park Service"
+  },
+  {
+    "id": 5,
+    "code": "USACE",
+    "description": "U.S. Army Corps of Engineers"
+  },
+  {
+    "id": 6,
+    "code": "USBR",
+    "description": "Bureau of Reclamation"
+  },
+  {
+    "id": 7,
+    "code": "USFS",
+    "description": "U.S. Forest Service"
+  },
+  {
+    "id": 8,
+    "code": "USFWS",
+    "description": "U.S. Fish and Wildlife Service"
+  },
+  {
+    "id": 9,
+    "code": "X",
+    "description": "Other"
+  } 
+]

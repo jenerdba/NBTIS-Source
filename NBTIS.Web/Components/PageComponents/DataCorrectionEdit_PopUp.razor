@@ -1,0 +1,151 @@
+﻿@using NBTIS.Web.ViewModels
+@using NBTIS.Core.DTOs
+@using Telerik.Blazor.Components
+@using NBTIS.Web.Services;
+@using ErrorSummary = NBTIS.Web.ViewModels.ErrorSummary;
+@using FieldTypeRegistry = NBTIS.Web.ViewModels.FieldTypeRegistry
+
+
+<TelerikForm EditContext="@editContext"
+OnValidSubmit="@HandleValidSubmit"
+ColumnSpacing="20px"
+ButtonsLayout="@FormButtonsLayout.Stretch"
+Columns="3">
+    <FormValidation>
+        <DataAnnotationsValidator />
+    </FormValidation>
+
+    <FormItems>
+        <FormItem Field="ItemId" LabelText="Item ID" Enabled="false"/>
+        <FormItem Field="ItemName" LabelText="Item Name" Enabled="false"/>
+        <FormItem Field="SubmittedValue" LabelText="Submitted Value" />
+    </FormItems>
+
+    <FormButtons>
+        <TelerikButton Icon="@nameof(SvgIcon.Save)" ButtonType="@ButtonType.Submit">
+            Save
+        </TelerikButton>
+        <TelerikButton Icon="@nameof(SvgIcon.Cancel)" ButtonType="@ButtonType.Button" OnClick="@OnCancel">
+            Cancel
+        </TelerikButton>
+    </FormButtons>
+</TelerikForm>
+
+@* @if (!string.IsNullOrEmpty(validationMessage))
+{
+    <div class="text-danger mt-3">@validationMessage</div>
+} *@
+
+@code {
+
+    private ErrorSummary CurrentlyEditedItem { get; set; }
+    [Inject]
+    private LookupDataItemService _lookupService { get; set; }
+    private string validationMessage = string.Empty;
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        CurrentlyEditedItem = new ErrorSummary
+            {
+                ItemId = EditItem.ItemId,
+                ItemName = EditItem.ItemName,
+                SubmittedValue = EditItem.SubmittedValue,
+                DataSet = EditItem.DataSet,
+                BID01 = EditItem.BID01
+            };
+
+        editContext = new EditContext(CurrentlyEditedItem);
+        messageStore = new ValidationMessageStore(editContext);
+
+        editContext.OnFieldChanged += HandleFieldChanged;
+
+
+    }
+
+    private void HandleFieldChanged(object sender, FieldChangedEventArgs args)
+    {
+        if (args.FieldIdentifier.FieldName == nameof(CurrentlyEditedItem.SubmittedValue))
+        {
+            messageStore.Clear();
+            validationMessage = string.Empty;
+            editContext.NotifyValidationStateChanged();
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        messageStore.Clear();
+
+        if (CurrentlyEditedItem != null)
+        {
+
+            try
+            {
+                var itemId = CurrentlyEditedItem.ItemId;
+                var submittedValue = CurrentlyEditedItem.SubmittedValue;
+                var submitId = SubmitId;
+                var dataSet = CurrentlyEditedItem.DataSet;
+                var bridgeNumber = CurrentlyEditedItem.BID01;
+                bool success = true;
+
+                switch (dataSet)
+                {
+                    case "Primary":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingPrimaryAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "Features":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingFeaturesAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "Elements":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingElementsAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "PostingEvaluations":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingPostingEvaluationsAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "PostingStatuses":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingPostingStatusesAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "Routes":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingRoutesAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "SubstructureSets":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingSubstructureSetsAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "Inspections":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingInspectionsAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "SpanSets":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingSpanSetsAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    case "Works":
+                        (success, errorMessage) = await _dataCorrectionService.UpdateBridgeStagingWorksAsync(submitId, itemId, bridgeNumber, submittedValue);
+                        break;
+                    default:
+                        await OnSaveFailure.InvokeAsync($"Unknown dataset: {dataSet}");
+                        return;
+                }
+
+                if (!success)
+                {
+                    validationMessage = errorMessage;
+                    messageStore.Clear();
+                    messageStore.Add(() => CurrentlyEditedItem.SubmittedValue, errorMessage);
+                    editContext.NotifyValidationStateChanged();
+                    return;
+                }
+
+                validationMessage = string.Empty;
+                await OnSaveSuccess.InvokeAsync();
+            }
+            catch (Exception ex)
+            {
+                validationMessage = $"Error saving item: {ex.Message}";
+                //await OnSaveFailure.InvokeAsync($"Error saving item."); //custom message? 
+            }
+        }
+    }
+}
+
+
+

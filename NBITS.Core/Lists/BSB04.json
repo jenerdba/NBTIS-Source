@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "None"
+  },
+  {
+    "id": 2,
+    "code": "A01",
+    "description": "Abutment – cantilever/wall"
+  },
+  {
+    "id": 3,
+    "code": "A02",
+    "description": "Abutment – stub"
+  },
+  {
+    "id": 4,
+    "code": "A03",
+    "description": "Abutment – open/spill through"
+  },
+  {
+    "id": 5,
+    "code": "A04",
+    "description": "Abutment – integral"
+  },
+  {
+    "id": 6,
+    "code": "A05",
+    "description": "Abutment – semi-integral"
+  },
+  {
+    "id": 7,
+    "code": "A06",
+    "description": "Abutment – gravity"
+  },
+  {
+    "id": 8,
+    "code": "A07",
+    "description": "Abutment – counterfort or buttressed"
+  },
+  {
+    "id": 9,
+    "code": "A08",
+    "description": "Abutment – pile bent with lagging"
+  },
+  {
+    "id": 10,
+    "code": "A09",
+    "description": "Abutment – crib"
+  },
+  {
+    "id": 11,
+    "code": "A10",
+    "description": "Abutment – cellular/vaulted"
+  },
+  {
+    "id": 12,
+    "code": "A11",
+    "description": "Abutment – reinforced soil mass"
+  },
+  {
+    "id": 13,
+    "code": "A12",
+    "description": "Abutment – footing or cap only"
+  },
+  {
+    "id": 14,
+    "code": "AX",
+    "description": "Abutment – other"
+  },
+  {
+    "id": 15,
+    "code": "B01",
+    "description": "Bent – column or open"
+  },
+  {
+    "id": 16,
+    "code": "B02",
+    "description": "Bent – column with web wall"
+  },
+  {
+    "id": 17,
+    "code": "B03",
+    "description": "Bent – pile"
+  },
+  {
+    "id": 18,
+    "code": "B04",
+    "description": "Bent – straddle or c-shaped"
+  },
+  {
+    "id": 19,
+    "code": "BX",
+    "description": "Bent – other"
+  },
+  {
+    "id": 20,
+    "code": "P01",
+    "description": "Pier – wall"
+  },
+  {
+    "id": 21,
+    "code": "P02",
+    "description": "Pier – single column"
+  },
+  {
+    "id": 22,
+    "code": "P03",
+    "description": "Pier – multiple column"
+  },
+  {
+    "id": 23,
+    "code": "P04",
+    "description": "Pier – multiple column with web wall"
+  },
+  {
+    "id": 24,
+    "code": "P05",
+    "description": "Pier – straddle or c-shaped"
+  },
+  {
+    "id": 25,
+    "code": "P06",
+    "description": "Pier – movable bridge"
+  },
+  {
+    "id": 26,
+    "code": "P07",
+    "description": "Pier – tower"
+  },
+  {
+    "id": 27,
+    "code": "P08",
+    "description": "Pier – footing or cap only"
+  },
+  {
+    "id": 28,
+    "code": "PX",
+    "description": "Pier – other"
+  },
+  {
+    "id": 29,
+    "code": "U",
+    "description": "Unknown"
+  },
+  {
+    "id": 30,
+    "code": "X",
+    "description": "Other"
+  }
+]

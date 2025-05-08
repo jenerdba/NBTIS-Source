@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "code": "F",
+    "description": "Freight"
+  },
+  {
+    "id": 2,
+    "code": "FE",
+    "description": "Freight - electrified"
+  },
+  {
+    "id": 3,
+    "code": "P",
+    "description": "Passenger"
+  },
+  {
+    "id": 4,
+    "code": "PE",
+    "description": "Passenger - electrified"
+  },
+  {
+    "id": 5,
+    "code": "M",
+    "description": "Multiple services - not electrified"
+  },
+  {
+    "id": 6,
+    "code": "ME",
+    "description": "Multiple services - electrified"
+  },
+  {
+    "id": 7,
+    "code": "I",
+    "description": "Inactive"
+  }
+]
+

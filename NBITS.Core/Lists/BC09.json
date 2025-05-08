@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "code": "N",
+    "description": "NOT APPLICABLE",
+    "name": "Bridge does not cross over water."
+  },
+  {
+    "id": 2,
+    "code": "9",
+    "description": "EXCELLENT",
+    "name": "No defects."
+  },
+  {
+    "id": 3,
+    "code": "8",
+    "description": "VERY GOOD",
+    "name": "Inherent defects only."
+  },
+  {
+    "id": 4,
+    "code": "7",
+    "description": "GOOD",
+    "name": "Some minor defects."
+  },
+  {
+    "id": 5,
+    "code": "6",
+    "description": "SATISFACTORY",
+    "name": "Widespread minor or isolated moderate defects."
+  },
+  {
+    "id": 6,
+    "code": "5",
+    "description": "FAIR",
+    "name": "Moderate defects; bridge and approach roadway are not threatened."
+  },
+  {
+    "id": 7,
+    "code": "4",
+    "description": "POOR",
+    "name": "Widespread moderate or isolated major defects; bridge and/or approach roadway is threatened."
+  },
+  {
+    "id": 8,
+    "code": "3",
+    "description": "SERIOUS",
+    "name": "Major defects; bridge or approach roadway is seriously threatened. description typically necessitates more frequent monitoring, load restrictions, and/or corrective actions."
+  },
+  {
+    "id": 9,
+    "code": "2",
+    "description": "CRITICAL",
+    "name": "Major defects. Bridge or approach roadway is severely threatened. description typically necessitates frequent monitoring, significant load restrictions, and/or corrective actions in order to keep the bridge open."
+  },
+  {
+    "id": 10,
+    "code": "1",
+    "description": "IMMINENT FAILURE",
+    "name": "Bridge is closed to traffic due to channel description. Channel rehabilitation may return the bridge to service."
+  },
+  {
+    "id": 11,
+    "code": "0",
+    "description": "FAILED",
+    "name": "Bridge is closed due to channel condition, and is beyond corrective action. Bridge location or design can no longer accommodate the channel, and bridge replacement is needed to restore service."
+  }
+]

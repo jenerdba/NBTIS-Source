@@ -1,0 +1,147 @@
+[
+  {
+    "id": 1,
+    "code": "N",
+    "description": "Not applicable – roadside hardware is not required."
+  },
+  {
+    "id": 2,
+    "code": "MYY1",
+    "description": "Test Level Code 1 - Roadside hardware successfully crash-tested for AASHTO MASH."
+  },
+  {
+    "id": 3,
+    "code": "MYY2",
+    "description": "Test Level Code 2 - Roadside hardware successfully crash-tested for AASHTO MASH."
+  },
+  {
+    "id": 4,
+    "code": "MYY3",
+    "description": "Test Level Code 3 - Roadside hardware successfully crash-tested for AASHTO MASH."
+  },
+  {
+    "id": 5,
+    "code": "MYY4",
+    "description": "Test Level Code 4 - Roadside hardware successfully crash-tested for AASHTO MASH."
+  },
+  {
+    "id": 6,
+    "code": "MYY5",
+    "description": "Test Level Code 5 - Roadside hardware successfully crash-tested for AASHTO MASH."
+  },
+  {
+    "id": 7,
+    "code": "MYY6",
+    "description": "Test Level Code 6 - Roadside hardware successfully crash-tested for AASHTO MASH."
+  },
+  {
+    "id": 8,
+    "code": "3501",
+    "description": "Test Level Code 1 - Roadside hardware successfully crash-tested for NCHRP Report 350."
+  },
+  {
+    "id": 9,
+    "code": "3502",
+    "description": "Test Level Code 2 - Roadside hardware successfully crash-tested for NCHRP Report 350."
+  },
+  {
+    "id": 10,
+    "code": "3503",
+    "description": "Test Level Code 3 - Roadside hardware successfully crash-tested for NCHRP Report 350."
+  },
+  {
+    "id": 11,
+    "code": "3504",
+    "description": "Test Level Code 4 - Roadside hardware successfully crash-tested for NCHRP Report 350."
+  },
+  {
+    "id": 12,
+    "code": "3505",
+    "description": "Test Level Code 5 - Roadside hardware successfully crash-tested for NCHRP Report 350."
+  },
+  {
+    "id": 13,
+    "code": "3506",
+    "description": "Roadside hardware successfully crash-tested for NCHRP Report 350."
+  },
+  {
+    "id": 14,
+    "code": "2301",
+    "description": "Test Level Code 1 - Roadside hardware successfully crash-tested for NCHRP Report 230."
+  },
+  {
+    "id": 15,
+    "code": "2302",
+    "description": "Test Level Code 2 - Roadside hardware successfully crash-tested for NCHRP Report 230."
+  },
+  {
+    "id": 16,
+    "code": "2303",
+    "description": "Test Level Code 3 - Roadside hardware successfully crash-tested for NCHRP Report 230."
+  },
+  {
+    "id": 17,
+    "code": "2391",
+    "description": "Test Level Code 1 - Roadside hardware successfully crash-tested for NCHRP Report 239."
+  },
+  {
+    "id": 18,
+    "code": "2392",
+    "description": "Test Level Code 2 - Roadside hardware successfully crash-tested for NCHRP Report 239."
+  },
+  {
+    "id": 19,
+    "code": "2393",
+    "description": "Test Level Code 3 - Roadside hardware successfully crash-tested for NCHRP Report 239."
+  },
+  {
+    "id": 20,
+    "code": "891",
+    "description": "Test Level Code 1 - Roadside hardware successfully crash-tested for 1989 AASHTO Guide Specifications for Bridge Railings."
+  },
+  {
+    "id": 21,
+    "code": "892",
+    "description": "Test Level Code 2 - Roadside hardware successfully crash-tested for 1989 AASHTO Guide Specifications for Bridge Railings."
+  },
+  {
+    "id": 22,
+    "code": "893",
+    "description": "Test Level Code 3 - Roadside hardware successfully crash-tested for 1989 AASHTO Guide Specifications for Bridge Railings."
+  },
+  {
+    "id": 23,
+    "code": "X",
+    "description": "Roadside hardware successfully crash-tested for other criteria."
+  },
+  {
+    "id": 24,
+    "code": "AYY",
+    "description": "Roadside hardware has not been crash-tested but meets AASHTO Standard Specifications for Highway Bridges."
+  },
+  {
+    "id": 25,
+    "code": "SYY",
+    "description": "Roadside hardware has not been crash-tested but meets approved agency standards."
+  },
+  {
+    "id": 26,
+    "code": "I",
+    "description": "Roadside hardware has not been crash-tested and does not meet approved agency standards."
+  },
+  {
+    "id": 27,
+    "code": "0",
+    "description": "None - roadside hardware is required, but required roadside hardware is not present."
+  },
+  {
+    "id": 28,
+    "code": "I0-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 29,
+    "code": "Y-T",
+    "description": "Temporary Code"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "code": "A",
+    "description": "Bridge carries routine permit loads. Load capacity is adequate for all routine permit loads approved for the route segment; no routine permit loads are restricted."
+  },
+  {
+    "id": 2,
+    "code": "B",
+    "description": "Bridge carries routine permit loads. Load capacity is adequate for some routine permit loads approved for the route segment, but some routine permit loads are restricted."
+  },
+  {
+    "id": 3,
+    "code": "C",
+    "description": "Bridge does not carry routine permit loads. Load capacity is inadequate for all routine permit loads approved for the route segment. Routine permit loads are restricted from the bridge."
+  },
+  {
+    "id": 4,
+    "code": "N",
+    "description": "Bridge does not carry routine permit loads. Routine permit loads are not approved for the route segment."
+  }
+]

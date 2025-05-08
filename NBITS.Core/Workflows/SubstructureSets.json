@@ -1,0 +1,138 @@
+[
+  {
+    "WorkflowName": "SubstructureSets",
+    "Rules": [
+      {
+        "RuleName": "BSB01", //Substructure Configuration Designation
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Substructure Configuration Designation is null or not valid",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BSB01",
+          "ItemName": "Substructure Configuration Designation",
+          "DataSet": "SubstructureSets",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSB01(input1.BSB01)"
+      },
+      {
+        "RuleName": "BSB02-1", //Number of Substructure Units Required
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Number of Substructure Units is null",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB02",
+          "ItemName": "Number of Substructure Units",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsNotNull(input1.BSB02)"
+      },
+      {
+        "RuleName": "BSB02-2", //Number of Substructure Units
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Number of Substructure Units must be numeric and must be greater than 0",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB02",
+          "ItemName": "Number of Substructure Units",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSB02(input1.BSB02)"
+      },
+      {
+        "RuleName": "BSB02-3", //Number of Substructure Units
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Number of substructure units must be an integer. Value will be rounded down to the nearest whole number.",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB02",
+          "ItemName": "Number of Substructure Units",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsWholeNumberRoundDown(input1.BSB02)"
+      },
+      {
+        "RuleName": "BSB03-1", //Substructure Material Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Substructure Material is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB03",
+          "ItemName": "Substructure Material",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSB03(input1.BSB03)"
+      },
+      {
+        "RuleName": "BSB04-1", //Substructure Type
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Substructure Type is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB04",
+          "ItemName": "Substructure Type",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSB04(input1.BSB04)"
+      },
+      {
+        "RuleName": "BSB05-1", //Substructure Protective System
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Substructure Protective System is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB05",
+          "ItemName": "Substructure Protective System",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSB05(input1.BSB04, input1.BSB05)"
+      },
+      {
+        "RuleName": "BSB05-2", //Substructure Protective System Required?
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Do not report Substructure Protective System when BSB04 = 0",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB05",
+          "ItemName": "Substructure Protective System",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.DoNotReportBSB05(input1.BSB04, input1.BSB05)"
+      },
+      {
+        "RuleName": "BSB06-1", //Foundation Type
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Foundation Type is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB06",
+          "ItemName": "Foundation Type",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSB06(input1.BSB06)"
+      },
+      {
+        "RuleName": "BSB07-1", //Foundation Protective System
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Foundation Protective System is null or not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BSB07",
+          "ItemName": "Foundation Protective System",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBSB07(input1.BSB07)"
+      }
+    ]
+  }
+]

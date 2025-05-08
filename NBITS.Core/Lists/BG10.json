@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "No median"
+  },
+  {
+    "id": 2,
+    "code": "1",
+    "description": "Open median"
+  },
+  {
+    "id": 3,
+    "code": "2",
+    "description": "Closed median (mountable)"
+  },
+  {
+    "id": 4,
+    "code": "3",
+    "description": "Closed median (non-mountable)"
+  }
+]
+

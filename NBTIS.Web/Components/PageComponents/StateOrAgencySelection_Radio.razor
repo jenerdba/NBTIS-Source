@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<InputRadioGroup Name="stateAgencyOption" Value="@StateAgencyOption" ValueChanged="StateAgencyOptionChanged" ValueExpression="@(() => StateAgencyOption)">
+    <div class="form-check form-check-inline">
+        <InputRadio id="state" Value="@("state")" class="form-check-input" />
+        <label class="form-check-label" for="state">State or Territory</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <InputRadio id="agency" Value="@("agency")" class="form-check-input" />
+        <label class="form-check-label" for="agency">Federal Agency or Tribal Government</label>
+    </div>
+</InputRadioGroup>
+
+@code {
+    [Parameter]
+    public string StateAgencyOption { get; set; }
+
+    [Parameter]
+    public EventCallback<string> StateAgencyOptionChanged { get; set; }
+
+    private async Task StateAgencyOptionChangedHandler(ChangeEventArgs e)
+    {
+        StateAgencyOption = e.Value?.ToString();
+        await StateAgencyOptionChanged.InvokeAsync(StateAgencyOption);
+    }
+}
+

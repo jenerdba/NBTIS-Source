@@ -1,0 +1,127 @@
+[
+  {
+    "WorkflowName": "Critical",
+    "Rules": [
+      {
+        "RuleName": "BE", //At least one element
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Element Identification datasets must be reported for bridges with a 'highway' feature carried 'on' the bridge that has been designated as being 'on' the NHS",
+
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BE",
+          "ItemName": "Elements",
+          "DataSet": "Elements"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOneElement(input1)"
+      },
+      {
+        "RuleName": "BF-1", //At least one feature
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "At least one Features dataset must be reported for all bridges",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BF",
+          "ItemName": "Features",
+          "DataSet": "Features"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOneFeature(input1)"
+      },
+      
+      {
+        "RuleName": "BRT", //"Highway" feature has at least one Route
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "At least one routes dataset must be reported for each 'highway' feature",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BRT",
+          "ItemName": "Routes",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOneRoute(input1)"
+      },
+      {
+        "RuleName": "BN", //At least one navigation dataset must be submitted for all 'waterway' features - Do not check for Border Supporting Bridge.
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "At at least one navigation dataset must be submitted for all 'waterway' features",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BN",
+          "ItemName": "Routes",
+          "DataSet": "Routes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOneNavigationSet(input1)"
+      },
+      {
+        "RuleName": "BEP", //At least one Posting Evaluation
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "At least one Load Evaluation and Posting dataset must be submitted for all bridges",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BEP",
+          "ItemName": "Posting Evaluations",
+          "DataSet": "PostingEvaluations"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOnePostingEvaluation(input1)"
+      },
+      {
+        "RuleName": "BPS", //At least one Posting Status
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "At least one Load Posting Status dataset must be reported for all bridges",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BPS",
+          "ItemName": "Posting Statuses",
+          "DataSet": "PostingStatuses"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOnePostingStatus(input1)"
+      },
+      {
+        "RuleName": "BSP", //At least one Span Set
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "At least one Span dataset must be reported for all bridges",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BSP",
+          "ItemName": "Span Sets",
+          "DataSet": "SpanSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOneSpanSet(input1)"
+      },
+      {
+        "RuleName": "BSB", //At least one Substructure Set
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "At least one Substructure dataset must be reported for all bridges",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BSB",
+          "ItemName": "Substructure Sets",
+          "DataSet": "SubstructureSets"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOneSubstructureSet(input1)"
+      },
+      {
+        "RuleName": "BW", //At least one Work Set
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "Work performed for a bridge must be reported every year - Work Events dataset is missing",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BW",
+          "ItemName": "Works",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CompletenessRules.HasAtLeastOneWorkSet(input1)"
+      }
+
+    ]
+  }
+]

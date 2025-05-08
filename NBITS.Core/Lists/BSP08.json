@@ -1,0 +1,23 @@
+[
+  {
+    "id":  1,
+    "code": "CS",
+    "description": "Composite - shored construction"
+  },
+  {
+    "id": 2,
+    "code": "CU",
+    "description": "Composite - unshored construction"
+  },
+  {
+    "id": 3,
+    "code": "IM",
+    "description": "Integral or monolithic"
+  },
+  {
+    "id": 4,
+    "code": "NC",
+    "description": "Non-composite"
+  }
+]
+

@@ -1,0 +1,30 @@
+﻿@inherits LayoutComponentBase       
+@layout TelerikLayout               
+
+<USGovBanner />
+
+<DotHeader />
+
+<NavMenu />
+
+<UserInfoComponent />
+
+<div class="page">
+
+    <main class="main-content p-0">     
+            @Body     
+    </main>
+</div>
+
+<section id="disclaimer-section" class="disclaimer-section">
+    <Disclaimer />
+</section>
+
+<Footer />
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+

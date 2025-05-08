@@ -1,0 +1,36 @@
+﻿@page "/" 
+@using NBTIS.Web.Components.PageComponents
+@using NBTIS.Web.Services
+<PageTitle>Home</PageTitle>
+
+<!-- Announcements -->
+<section id="announcements-section" class="announcements position-relative d-flex align-items-center text-white">
+
+    <div class="container">
+        <div class="announcements_callout">
+
+            <Announcements />
+        </div>
+    </div>
+</section>
+@* <div class="d-flex justify-content-end"><b>Questions?  Contact nbtis@dot.gov</b></div> *@
+
+
+<!-- Info Section -->
+<section id="feature-section" class="py-5">
+    <div class="container">
+        <HomeFeatures />
+    </div>
+</section>
+
+@* @code {
+    [Inject] 
+    private IBridgeService _bridgeService { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var bridges = await _bridgeService.GetBridges();
+        await base.OnInitializedAsync(); 
+    }
+} *@
+

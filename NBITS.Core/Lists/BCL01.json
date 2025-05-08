@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "code": "S01",
+    "description": "State transportation department"
+  },
+  {
+    "id": 2,
+    "code": "S02",
+    "description": "State park, forest, or reservation agency"
+  },
+  {
+    "id": 3,
+    "code": "S03",
+    "description": "State toll authority"
+  },
+  {
+    "id": 4,
+    "code": "SX",
+    "description": "Other State agency"
+  },
+  {
+    "id": 5,
+    "code": "L01",
+    "description": "County highway agency"
+  },
+  {
+    "id": 6,
+    "code": "L02",
+    "description": "Town or township highway agency"
+  },
+  {
+    "id": 7,
+    "code": "L03",
+    "description": "City or municipal highway agency"
+  },
+  {
+    "id": 8,
+    "code": "L04",
+    "description": "Local park, forest, or reservation agency"
+  },
+  {
+    "id": 9,
+    "code": "L05",
+    "description": "Local toll authority"
+  },
+  {
+    "id": 10,
+    "code": "LX",
+    "description": "Other local agency"
+  },
+  {
+    "id": 11,
+    "code": "F01",
+    "description": "Agriculture Research Service (ARS)"
+  },
+  {
+    "id": 12,
+    "code": "F02",
+    "description": "Department of Energy (DOE)"
+  },
+  {
+    "id": 13,
+    "code": "F03",
+    "description": "General Services Administration (GSA)"
+  },
+  {
+    "id": 14,
+    "code": "F04",
+    "description": "National Aeronautics and Space Administration (NASA)"
+  },
+  {
+    "id": 15,
+    "code": "F05",
+    "description": "Smithsonian \u2013 National Zoo"
+  },
+  {
+    "id": 16,
+    "code": "F06",
+    "description": "Tennessee Valley Authority (TVA)"
+  },
+  {
+    "id": 17,
+    "code": "F07",
+    "description": "U.S. Department of Veterans Affairs"
+  },
+  {
+    "id": 18,
+    "code": "F08",
+    "description": "Federal Emergency Management Agency (FEMA)"
+  },
+  {
+    "id": 19,
+    "code": "F09",
+    "description": "International Boundary and Water Commission, United States Section (USIBWC)"
+  },
+  {
+    "id": 20,
+    "code": "FX",
+    "description": "Other Federal agency"
+  },
+  {
+    "id": 21,
+    "code": "FL01",
+    "description": "Bureau of Indian Affairs (BIA)"
+  },
+  {
+    "id": 22,
+    "code": "FL02",
+    "description": "Bureau of Land Management (BLM)"
+  },
+  {
+    "id": 23,
+    "code": "FL03",
+    "description": "Bureau of Reclamation (USBR)"
+  },
+  {
+    "id": 24,
+    "code": "FL04",
+    "description": "U.S. Fish and Wildlife Service (FWS)"
+  },
+  {
+    "id": 25,
+    "code": "FL05",
+    "description": "National Park Service (NPS)"
+  },
+  {
+    "id": 26,
+    "code": "FL06",
+    "description": "U.S. Army Corps of Engineers (USACE)"
+  },
+  {
+    "id": 27,
+    "code": "FL07",
+    "description": "U.S. Forest Service (USFS)"
+  },
+  {
+    "id": 28,
+    "code": "FL0X",
+    "description": "Other Federal Lands Management Agency"
+  },
+  {
+    "id": 29,
+    "code": "I",
+    "description": "Indian Tribal Government"
+  },
+  {
+    "id": 30,
+    "code": "D01",
+    "description": "Air Force"
+  },
+  {
+    "id": 31,
+    "code": "D02",
+    "description": "Army"
+  },
+  {
+    "id": 32,
+    "code": "D03",
+    "description": "Navy/Marines"
+  },
+  {
+    "id": 33,
+    "code": "D04",
+    "description": "Pentagon"
+  },
+  {
+    "id": 34,
+    "code": "D05",
+    "description": "National Security Agency (NSA)"
+  },
+  {
+    "id": 35,
+    "code": "DX",
+    "description": "Other Department of Defense"
+  },
+  {
+    "id": 36,
+    "code": "T",
+    "description": "Transit Agency/Authority"
+  },
+  {
+    "id": 37,
+    "code": "P",
+    "description": "Private"
+  },
+  {
+    "id": 38,
+    "code": "R",
+    "description": "Railroad"
+  },
+  {
+    "id": 39,
+    "code": "U",
+    "description": "Unknown"
+  },
+  {
+    "id": 40,
+    "code": "X",
+    "description": "Other"
+  },
+  {
+    "id": 41,
+    "code": "F10",
+    "description": "National Oceanic \u0026 Atmospheric Admin (NOAA)"
+  },
+  {
+    "id": 42,
+    "code": "F11",
+    "description": "Presidio Trust"
+  }
+]

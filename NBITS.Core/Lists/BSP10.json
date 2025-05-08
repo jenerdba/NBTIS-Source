@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "None"
+  },
+  {
+    "id": 2,
+    "code": "B01",
+    "description": "Bituminous (asphalt)"
+  },
+  {
+    "id": 3,
+    "code": "C01",
+    "description": "Concrete - monolithic"
+  },
+  {
+    "id": 4,
+    "code": "C02",
+    "description": "Concrete - unmodified"
+  },
+  {
+    "id": 5,
+    "code": "C03",
+    "description": "Concrete - latex modified"
+  },
+  {
+    "id": 6,
+    "code": "C04",
+    "description": "Concrete - low slump"
+  },
+  {
+    "id": 7,
+    "code": "C05",
+    "description": "Concrete - fiber reinforced"
+  },
+  {
+    "id": 8,
+    "code": "C06",
+    "description": "Concrete - microsilica"
+  },
+  {
+    "id": 9,
+    "code": "C07",
+    "description": "Concrete - polyester"
+  },
+  {
+    "id": 10,
+    "code": "CX",
+    "description": "Concrete - other"
+  },
+  {
+    "id": 11,
+    "code": "CU",
+    "description": "Concrete - unknown"
+  },
+  {
+    "id": 12,
+    "code": "E01",
+    "description": "Earth - gravel or soil"
+  },
+  {
+    "id": 13,
+    "code": "P01",
+    "description": "Polymer - epoxy"
+  },
+  {
+    "id": 14,
+    "code": "P02",
+    "description": "Polymer - polyester"
+  },
+  {
+    "id": 15,
+    "code": "PX",
+    "description": "Polymer - other"
+  },
+  {
+    "id": 16,
+    "code": "S01",
+    "description": "Steel"
+  },
+  {
+    "id": 17,
+    "code": "T01",
+    "description": "Timber - running planks"
+  },
+  {
+    "id": 18,
+    "code": "X",
+    "description": "Other"
+  },
+  {
+    "id": 19,
+    "code": "C-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 20,
+    "code": "P-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 21,
+    "code": "X-T",
+    "description": "Temporary Code"
+  }
+]

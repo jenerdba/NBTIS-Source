@@ -1,0 +1,221 @@
+[
+  {
+    "code": "BAP01",
+    "description": "Approach Roadway Alignment"
+  },
+  {
+    "code": "BAP02",
+    "description": "Overtopping Likelihood"
+  },
+  {
+    "code": "BAP03",
+    "description": "Scour Vulnerability"
+  },
+  {
+    "code": "BAP04",
+    "description": "Scour Plan of Action"
+  },
+  {
+    "code": "BAP05",
+    "description": "Seismic Vulnerability"
+  },
+  {
+    "code": "BC01_BC07",
+    "description": "Component Condition Ratings"
+  },
+  {
+    "code": "BC08",
+    "description": "Bridge Joints Condition Rating"
+  },
+  {
+    "code": "BC09",
+    "description": "Channel Condition Rating"
+  },
+  {
+    "code": "BC10",
+    "description": "Channel Protection Condition Rating"
+  },
+  {
+    "code": "BC11",
+    "description": "Scour Condition Rating"
+  },
+  {
+    "code": "BCL01",
+    "description": "Owner"
+  },
+  {
+    "code": "BCL03",
+    "description": "Federal or Tribal Land Access"
+  },
+  {
+    "code": "BCL04",
+    "description": "Historic Significance"
+  },
+  {
+    "code": "BCL05",
+    "description": "Toll"
+  },
+  {
+    "code": "BE01",
+    "description": "Element Number"
+  },
+  {
+    "code": "BEP03",
+    "description": "Posting Type"
+  },
+  {
+    "code": "BF01",
+    "description": "Feature Type"
+  },
+  {
+    "code": "BF02",
+    "description": "Feature Location"
+  },
+  {
+    "code": "BG10",
+    "description": "Bridge Median"
+  },
+  {
+    "code": "BG12",
+    "description": "Curved Bridge"
+  },
+  {
+    "code": "BH01",
+    "description": "Functional Classification"
+  },
+  {
+    "code": "BH04",
+    "description": "National Highway Freight Network"
+  },
+  {
+    "code": "BIE01",
+    "description": "Inspection Type"
+  },
+  {
+    "code": "BIE07",
+    "description": "Inspection Equipment"
+  },
+  {
+    "code": "BIE12",
+    "description": "Inspection Equipment"
+  },
+  {
+    "code": "BIR01",
+    "description": "NSTM Inspection Required"
+  },
+  {
+    "code": "BLR01",
+    "description": "Design Load"
+  },
+  {
+    "code": "BLR02",
+    "description": "Design Method"
+  },
+  {
+    "code": "BLR04",
+    "description": "Load Rating Method"
+  },
+  {
+    "code": "BLR08",
+    "description": "Routine Permit Loads"
+  },
+  {
+    "code": "BN01",
+    "description": "Navigable Waterway"
+  },
+  {
+    "code": "BN06",
+    "description": "Substructure Navigation Protection"
+  },
+  {
+    "code": "BPS01",
+    "description": "Load Posting Status"
+  },
+  {
+    "code": "BRH01_BRH02",
+    "description": "Bridge Railings/Transitions"
+  },
+  {
+    "code": "BRR01",
+    "description": "Railroad Service Type"
+  },
+  {
+    "code": "BRT03",
+    "description": "Route Direction"
+  },
+  {
+    "code": "BRT04",
+    "description": "Route Type"
+  },
+  {
+    "code": "BRT05",
+    "description": "Service Type"
+  },
+  {
+    "code": "BSB03",
+    "description": "Substructure Material"
+  },
+  {
+    "code": "BSB04",
+    "description": "Substructure Type"
+  },
+  {
+    "code": "BSB05",
+    "description": "Substructure Protective System"
+  },
+  {
+    "code": "BSB06",
+    "description": "Foundation Type"
+  },
+  {
+    "code": "BSB07",
+    "description": "Foundation Protective System"
+  },
+  {
+    "code": "BSP04",
+    "description": "Span Material"
+  },
+  {
+    "code": "BSP05",
+    "description": "Span Continuity"
+  },
+  {
+    "code": "BSP06",
+    "description": "Span Type"
+  },
+  {
+    "code": "BSP07",
+    "description": "Span Protective System"
+  },
+  {
+    "code": "BSP08",
+    "description": "Deck Interaction"
+  },
+  {
+    "code": "BSP09",
+    "description": "Deck Material and Type"
+  },
+  {
+    "code": "BSP10",
+    "description": "Wearing Surface"
+  },
+  {
+    "code": "BSP11",
+    "description": "Deck Protective System"
+  },
+  {
+    "code": "BSP12",
+    "description": "Deck Reinforcing Protective System"
+  },
+  {
+    "code": "BSP13",
+    "description": "Deck Stay-In-Place Forms"
+  },
+  {
+    "code": "BW03",
+    "description": "Work Performed"
+  }
+
+
+]
+

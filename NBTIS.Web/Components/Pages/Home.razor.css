@@ -1,0 +1,13 @@
+﻿#announcements-section {
+    background-image: url('images/AdobeStock_621492739_engineer.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right center;
+    position: relative;
+    margin-top: 0;
+    height: 400px;
+}
+
+#feature-section {
+    min-height: 300px;
+}

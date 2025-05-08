@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "code": "N",
+    "description": "NOT APPLICABLE",
+    "name": "Bridge does not cross over water or channel protection devices do not exist."
+  },
+  {
+    "id": 2,
+    "code": "9",
+    "description": "EXCELLENT",
+    "name": "Isolated inherent defects."
+  },
+  {
+    "id": 3,
+    "code": "8",
+    "description": "VERY GOOD",
+    "name": "Some inherent defects."
+  },
+  {
+    "id": 4,
+    "code": "7",
+    "description": "GOOD",
+    "name": "Some minor defects."
+  },
+  {
+    "id": 5,
+    "code": "6",
+    "description": "SATISFACTORY",
+    "name": "Widespread minor or isolated moderate defects."
+  },
+  {
+    "id": 6,
+    "code": "5",
+    "description": "FAIR",
+    "name": "Some moderate defects; performance of the channel protection is not affected."
+  },
+  {
+    "id": 7,
+    "code": "4",
+    "description": "POOR",
+    "name": "Widespread moderate or isolated major defects; performance of channel protection is affected."
+  },
+  {
+    "id": 8,
+    "code": "3",
+    "description": "SERIOUS",
+    "name": "Major defects; performance of channel protection is seriously affected. description typically necessitates more frequent monitoring or corrective actions."
+  },
+  {
+    "id": 9,
+    "code": "2",
+    "description": "CRITICAL",
+    "name": "Major defects; channel protection is severely compromised. description typically necessitates more frequent monitoring or corrective actions."
+  },
+  {
+    "id": 10,
+    "code": "1",
+    "description": "IMMINENT FAILURE",
+    "name": "Channel protection has failed, but corrective action could restore it to working description."
+  },
+  {
+    "id": 11,
+    "code": "0",
+    "description": "FAILED",
+    "name": "Channel protection is beyond repair and must be replaced."
+  }
+]

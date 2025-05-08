@@ -1,0 +1,37 @@
+﻿@using NBTIS.Web.ViewModels
+
+<!-- Data Set Type Dropdown -->
+
+<div class="mb-3">
+    <label class="col-sm-3 col-form-label fw-semibold">
+        Data Type Category <span class="text-danger">*</span>
+    </label>
+    <select class="form-select"
+    style="max-width: 400px;"
+    @onchange="OnSelectionChanged"
+    value="@SelectedType">
+        <option value="">Select...</option>
+        @foreach (var option in DataTypes)
+        {
+            <option value="@option">@option</option>
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter] public string SelectedType { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> SelectedTypeChanged { get; set; }
+
+    private DataSets ViewModel { get; set; } = new();
+    private List<string> DataTypes => ViewModel.DataTypes;
+
+    private async Task OnSelectionChanged(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        if (SelectedType != value)
+        {
+            SelectedType = value;
+            await SelectedTypeChanged.InvokeAsync(value);
+        }
+    }
+}

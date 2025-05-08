@@ -1,0 +1,113 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "None"
+  },
+  {
+    "id": 2,
+    "code": "A01",
+    "description": "Admixture – internally sealed"
+  },
+  {
+    "id": 3,
+    "code": "A02",
+    "description": "Admixture – low permeability"
+  },
+  {
+    "id": 4,
+    "code": "A03",
+    "description": "Admixture – polymer impregnated"
+  },
+  {
+    "id": 5,
+    "code": "A04",
+    "description": "Admixture – corrosion inhibitor"
+  },
+  {
+    "id": 6,
+    "code": "A05",
+    "description": "Admixture – ASR inhibitor"
+  },
+  {
+    "id": 7,
+    "code": "AX",
+    "description": "Admixture – other"
+  },
+  {
+    "id": 8,
+    "code": "C01",
+    "description": "Coating – paint"
+  },
+  {
+    "id": 9,
+    "code": "C02",
+    "description": "Coating – sealer"
+  },
+  {
+    "id": 10,
+    "code": "C03",
+    "description": "Coating – methacrylate"
+  },
+  {
+    "id": 11,
+    "code": "C04",
+    "description": "Coating – hot dip galvanizing"
+  },
+  {
+    "id": 12,
+    "code": "C05",
+    "description": "Coating – metalizing/thermal spray"
+  },
+  {
+    "id": 13,
+    "code": "CX",
+    "description": "Coating – other"
+  },
+  {
+    "id": 14,
+    "code": "E01",
+    "description": "Encasement – concrete"
+  },
+  {
+    "id": 15,
+    "code": "EX",
+    "description": "Encasement – other"
+  },
+  {
+    "id": 16,
+    "code": "P01",
+    "description": "Patina – uncoated weathering steel"
+  },
+  {
+    "id": 17,
+    "code": "S01",
+    "description": "Sacrificial – cathodic, passive"
+  },
+  {
+    "id": 18,
+    "code": "S02",
+    "description": "Sacrificial – cathodic, active"
+  },
+  {
+    "id": 19,
+    "code": "SX",
+    "description": "Sacrificial – other"
+  },
+  {
+    "id": 20,
+    "code": "T01",
+    "description": "Treated – timber preservative"
+  },
+  {
+    "id": 21,
+    "code": "U",
+    "description": "Unknown"
+  },
+  {
+    "id": 22,
+    "code": "X",
+    "description": "Other"
+  }
+]
+

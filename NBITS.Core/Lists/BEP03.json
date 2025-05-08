@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "code": "G",
+    "description": "Gross Load"
+  },
+  {
+    "id": 2,
+    "code": "A",
+    "description": "Single Axle Load"
+  },
+  {
+    "id": 3,
+    "code": "D",
+    "description": "Tandem Axle Load"
+  },
+  {
+    "id": 4,
+    "code": "T",
+    "description": "Truck Load"
+  },
+  {
+    "id": 5,
+    "code": "C",
+    "description": "No commercial vehicles"
+  },
+  {
+    "id": 6,
+    "code": "S",
+    "description": "Speed reduction"
+  },
+  {
+    "id": 7,
+    "code": "L",
+    "description": "Number of lanes restricted"
+  },
+  {
+    "id": 8,
+    "code": "V",
+    "description": "Number of vehicles restricted"
+  },
+  {
+    "id": 9,
+    "code": "X",
+    "description": "Other"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "code": "N",
+    "description": "Not navigable waters"
+  },
+  {
+    "id": 2,
+    "code": "Y",
+    "description": "Navigable waters"
+  },
+  {
+    "id": 3,
+    "code": "U",
+    "description": "Navigable waters designation is undetermined"
+  }  
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "code": "NB",
+    "description": "Northbound"
+  },
+  {
+    "id": 2,
+    "code": "EB",
+    "description": "Eastbound"
+  },
+  {
+    "id": 3,
+    "code": "SB",
+    "description": "Southbound"
+  },
+  {
+    "id": 4,
+    "code": "WB",
+    "description": "Westbound"
+  },
+  {
+    "id": 5,
+    "code": "NS",
+    "description": "Northbound and Southbound"
+  },
+  {
+    "id": 6,
+    "code": "EW",
+    "description": "Eastbound and Westbound"
+  },
+  {
+    "id": 7,
+    "code": "1-T",
+    "description": "Temporary Code"
+  },
+  {
+    "id": 8,
+    "code": "2-T",
+    "description": "Temporary Code"
+  }
+
+]

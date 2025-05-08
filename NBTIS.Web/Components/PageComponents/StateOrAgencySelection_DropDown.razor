@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using NBTIS.Web.ViewModels
+@using NBTIS.Core.DTOs;
+
+
+        <!-- State/Agency Dropdown -->
+        <div class="mb-3">
+            <label for="locationDropdown" class="col-sm-3 col-form-label fw-semibold">
+                State or Federal Agency <span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+                @if (LocationList != null && LocationList.Any())
+                {
+                    <select id="locationDropdown"
+                            class="form-select"
+                            style="max-width: 400px;"
+                            value="@SelectedState"
+                        @onchange="OnStateChanged">
+                        <option value="">Select...</option>
+                        @foreach (var location in LocationList)
+                        {
+                            <option value="@location.Code">@location.Description</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <p>Loading options...</p>
+                }
+            </div>
+        </div>
+
+
+@code {
+    [Parameter] public string SelectedState { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> SelectedStateChanged { get; set; }
+    [Parameter] public List<LocationDTO> LocationList { get; set; } = new List<LocationDTO>();
+
+
+    private async Task OnStateChanged(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        if (SelectedState != value)
+        {
+            SelectedState = value;
+            await SelectedStateChanged.InvokeAsync(value);
+        }
+    }
+
+}
+

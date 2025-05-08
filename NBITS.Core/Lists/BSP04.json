@@ -1,0 +1,187 @@
+[
+  {
+    "id": 1,
+    "code": "A01",
+    "description": "Aluminum"
+  },
+  {
+    "id": 2,
+    "code": "C01",
+    "description": "Reinforced concrete and - cast-in-place"
+  },
+  {
+    "id": 3,
+    "code": "C02",
+    "description": "Reinforced concrete - precast"
+  },
+  {
+    "id": 4,
+    "code": "C03",
+    "description": "Prestressed concrete - pre-tensioned"
+  },
+  {
+    "id": 5,
+    "code": "C04",
+    "description": "Prestressed concrete - cast-in-place post-tensioned"
+  },
+  {
+    "id": 6,
+    "code": "C05",
+    "description": "Prestressed concrete - precast post-tensioned"
+  },
+  {
+    "id": 7,
+    "code": "CX",
+    "description": "Concrete - other"
+  },
+  {
+    "id": 8,
+    "code": "F01",
+    "description": "FRP composite - aramid fiber"
+  },
+  {
+    "id": 9,
+    "code": "F02",
+    "description": "FRP composite - carbon fiber"
+  },
+  {
+    "id": 10,
+    "code": "F03",
+    "description": "FRP composite - glass fiber"
+  },
+  {
+    "id": 11,
+    "code": "FX",
+    "description": "FRP composite - other"
+  },
+  {
+    "id": 12,
+    "code": "I01",
+    "description": "Iron - cast"
+  },
+  {
+    "id": 13,
+    "code": "I02",
+    "description": "Iron - wrought"
+  },
+  {
+    "id": 14,
+    "code": "M01",
+    "description": "Masonry - block"
+  },
+  {
+    "id": 15,
+    "code": "M02",
+    "description": "Masonry - stone"
+  },
+  {
+    "id": 16,
+    "code": "P01",
+    "description": "Plastic - Polyethylene"
+  },
+  {
+    "id": 17,
+    "code": "PX",
+    "description": "Plastic - other"
+  },
+  {
+    "id": 18,
+    "code": "S01",
+    "description": "Steel - rolled shapes"
+  },
+  {
+    "id": 19,
+    "code": "S02",
+    "description": "Steel - welded shapes"
+  },
+  {
+    "id": 20,
+    "code": "S03",
+    "description": "Steel - bolted shapes"
+  },
+  {
+    "id": 21,
+    "code": "S04",
+    "description": "Steel - riveted shapes"
+  },
+  {
+    "id": 22,
+    "code": "S05",
+    "description": "Steel - bolted and riveted shapes"
+  },
+  {
+    "id": 23,
+    "code": "SX",
+    "description": "Steel - other"
+  },
+  {
+    "id": 24,
+    "code": "T01",
+    "description": "Timber - glue laminated"
+  },
+  {
+    "id": 25,
+    "code": "T02",
+    "description": "Timber - nail laminated"
+  },
+  {
+    "id": 26,
+    "code": "T03",
+    "description": "Timber - solid sawn"
+  },
+  {
+    "id": 27,
+    "code": "T04",
+    "description": "Timber - stress laminated"
+  },
+  {
+    "id": 28,
+    "code": "TX",
+    "description": "Timber - other"
+  },
+  {
+    "id": 29,
+    "code": "X",
+    "description": "Other"
+  },
+  {
+    "id": 30,
+    "code": "X-T",
+    "description": "Other - Temporary Code"
+  },
+  {
+    "id": 31,
+    "code": "CR-T",
+    "description": "Concrete - Temporary Code"
+  },
+  {
+    "id": 32,
+    "code": "S-T",
+    "description": "Steel - Temporary Code"
+  },
+  {
+    "id": 33,
+    "code": "CP-T",
+    "description": "FRP composite - Temporary Code"
+  },
+  {
+    "id": 34,
+    "code": "T-T",
+    "description": "Timber - Temporary Code"
+  },
+  {
+    "id": 35,
+    "code": "M-T",
+    "description": "Masonry - Temporary Code"
+  },
+  {
+    "id": 36,
+    "code": "AI-T",
+    "description": "Aluminum - Temporary Code"
+  },
+  {
+    "id": 37,
+    "code": "L-T",
+    "description": "Temporary Code"
+  }
+]

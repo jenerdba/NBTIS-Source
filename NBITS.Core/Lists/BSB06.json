@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "None"
+  },
+  {
+    "id": 2,
+    "code": "E01",
+    "description": "Earth – reinforced soil"
+  },
+  {
+    "id": 3,
+    "code": "E02",
+    "description": "Earth – unreinforced soil"
+  },
+  {
+    "id": 4,
+    "code": "E03",
+    "description": "Rock"
+  },
+  {
+    "id": 5,
+    "code": "F01",
+    "description": "Footing – not on rock"
+  },
+  {
+    "id": 6,
+    "code": "F02",
+    "description": "Footing – on rock"
+  },
+  {
+    "id": 7,
+    "code": "F03",
+    "description": "Footing – on reinforced soil"
+  },
+  {
+    "id": 8,
+    "code": "P01",
+    "description": "Pile – steel H-shape"
+  },
+  {
+    "id": 9,
+    "code": "P02",
+    "description": "Pile – steel pipe"
+  },
+  {
+    "id": 10,
+    "code": "P03",
+    "description": "Pile – concrete, cast-in-place"
+  },
+  {
+    "id": 11,
+    "code": "P04",
+    "description": "Pile – prestressed concrete"
+  },
+  {
+    "id": 12,
+    "code": "P05",
+    "description": "Pile – timber"
+  },
+  {
+    "id": 13,
+    "code": "P06",
+    "description": "Pile – auger cast"
+  },
+  {
+    "id": 14,
+    "code": "P07",
+    "description": "Pile – micropile"
+  },
+  {
+    "id": 15,
+    "code": "P08",
+    "description": "Pile – composite"
+  },
+  {
+    "id": 16,
+    "code": "P09",
+    "description": "Pile – FRP composite"
+  },
+  {
+    "id": 17,
+    "code": "PX",
+    "description": "Pile – other"
+  },
+  {
+    "id": 18,
+    "code": "S01",
+    "description": "Drilled shaft – single"
+  },
+  {
+    "id": 19,
+    "code": "S02",
+    "description": "Drilled shafts – multiple"
+  },
+  {
+    "id": 20,
+    "code": "S03",
+    "description": "Caisson"
+  },
+  {
+    "id": 21,
+    "code": "U",
+    "description": "Unknown"
+  },
+  {
+    "id": 22,
+    "code": "X",
+    "description": "Other"
+  }
+]

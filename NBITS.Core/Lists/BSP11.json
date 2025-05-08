@@ -1,0 +1,117 @@
+[
+  {
+    "id": 1,
+    "code": "0",
+    "description": "None"
+  },
+  {
+    "id": 2,
+    "code": "A01",
+    "description": "Admixture - internally sealed"
+  },
+  {
+    "id": 3,
+    "code": "A02",
+    "description": "Admixture - low permeability"
+  },
+  {
+    "id": 4,
+    "code": "A03",
+    "description": "Admixture - polymer impregnated"
+  },
+  {
+    "id": 5,
+    "code": "A04",
+    "description": "Admixture - corrosion inhibitor"
+  },
+  {
+    "id": 6,
+    "code": "A05",
+    "description": "Admixture - ASR inhibitor"
+  },
+  {
+    "id": 7,
+    "code": "AX",
+    "description": "Admixture - other"
+  },
+  {
+    "id": 8,
+    "code": "C01",
+    "description": "Coating - paint"
+  },
+  {
+    "id": 9,
+    "code": "C02",
+    "description": "Coating - sealers"
+  },
+  {
+    "id": 10,
+    "code": "C03",
+    "description": "Coating - methacrylate"
+  },
+  {
+    "id": 11,
+    "code": "C04",
+    "description": "Coating - hot dip galvanizing"
+  },
+  {
+    "id": 12,
+    "code": "C05",
+    "description": "Coating - metalizing/thermal spray"
+  },
+  {
+    "id": 13,
+    "code": "CX",
+    "description": "Coating - other"
+  },
+  {
+    "id": 14,
+    "code": "M01",
+    "description": "Membrane - built up"
+  },
+  {
+    "id": 15,
+    "code": "M02",
+    "description": "Membrane - sheet"
+  },
+  {
+    "id": 16,
+    "code": "M03",
+    "description": "Membrane - liquid applied"
+  },
+  {
+    "id": 17,
+    "code": "MU",
+    "description": "Membrane - unknown"
+  },
+  {
+    "id": 18,
+    "code": "MX",
+    "description": "Membrane - other"
+  },
+  {
+    "id": 19,
+    "code": "P01",
+    "description": "Patina - uncoated weathering steel"
+  },
+  {
+    "id": 20,
+    "code": "T01",
+    "description": "Treated - timber preservative"
+  },
+  {
+    "id": 21,
+    "code": "U",
+    "description": "Unknown"
+  },
+  {
+    "id": 22,
+    "code": "X",
+    "description": "Other"
+  },
+  {
+    "id": 23,
+    "code": "MX-T",
+    "description": "Temporary Code"
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1,
+    "code": "1",
+    "description": "Bridge is on the National Register"
+  },
+  {
+    "id": 2,
+    "code": "2",
+    "description": "Bridge is eligible for the National Register"
+  },
+  {
+    "id": 3,
+    "code": "3",
+    "description": "Bridge is in a historic district that is on or eligible for the National Register, and contributes to the eligibility of the district"
+  },
+  {
+    "id": 4,
+    "code": "4",
+    "description": "Bridge is in a historic district that is on or eligible for the National Register, but does not contribute to the eligibility of the district"
+  },
+  {
+    "id": 5,
+    "code": "5",
+    "description": "Bridge is potentially eligible for the National Register, or potentially contributes to a historic district, but has not been evaluated according to the criteria for listing"
+  },
+  {
+    "id": 6,
+    "code": "6",
+    "description": "Bridge is on a State or local historic register, but is not eligible for the National Register"
+  },
+  {
+    "id": 7,
+    "code": "7",
+    "description": "Historic significance of the bridge has not been determined"
+  },
+  {
+    "id": 8,
+    "code": "N",
+    "description": "Bridge is not eligible for the National Register, and is not in a historic district eligible for the National Register"
+  },
+  {
+    "id": 9,
+    "code": "T",
+    "description": "Temporary Code is accepted for 2026 and 2027"
+  }
+]
+
+

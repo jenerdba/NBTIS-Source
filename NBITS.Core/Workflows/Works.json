@@ -1,0 +1,216 @@
+[
+  {
+    "WorkflowName": "Works",
+    "Rules": [
+      {
+        "RuleName": "BW02-1", //Year Work Performed
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW02 Year Work Performed is null or not in the correct \"YYYY\" format",
+        "Properties": {
+          "ErrorType": "Critical",
+          "ItemId": "BW02",
+          "ItemName": "Year Work Performed",
+          "DataSet": "Works",
+          "IsFatal": "Yes"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBW02(input1.BW02)"
+      },
+      {
+        "RuleName": "BW02-3", //Year Work Performed Year Compare Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW02 Year Work Performed is earlier or equal to BW01 Year Built",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW02",
+          "ItemName": "Year Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CrossCheckBW01_BW02(input1.BW01, input1.BW02)"
+      },
+      {
+        "RuleName": "BW03-1", //Work Performed
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed is not valid",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.IsValidBW03(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-2", //Work Performed Length Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed exceeds 120 characters. Value will be truncated",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.HasMaxLengthStringTruncate(input1.BW03, 120)"
+      },
+      {
+        "RuleName": "BW03-3", //Work Performed BR1 Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed indicates the bridge has been replaced - no other codes should be reported in this dataset",
+        "Properties": {
+          "ErrorType": "Error",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.WorkedPerformedWorkEventsCrossCheckBW03(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-4", //Work Performed Deck Rehab Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed includes deck replacement code with deck rehabilitation codes",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckYearWorkedPeformedDeckRehabilitation(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-5", //Work Performed Superstructure Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed includes superstructure replacement code with superstructure rehabilitation codes",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckYearWorkedPeformedSuperstructureRehabilitation(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-6", //Work Performed Substructure Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed codes include substructure replacment code with substructure rehabilitation codes",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckYearWorkedPeformedSubstructureRehabilitation(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-7", //Work Performed Deck Major Rehab Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed - report only DK2 deck major rehabilitation when both major and minor rehabilitation activities were completed on the deck",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckYearWorkedPeformedMajorDeckRehabilitation(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-8", //Work Performed Superstructure Deck Major Rehab Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed - report only SP2 superstructure major rehabilitation when both major and minor rehabilitation activities were completed on the superstructure",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckYearWorkedPeformedSuperstructureMajorDeckRehabilitation(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-9", //Work Performed Substructure Deck Major Rehab Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed - report only SB2 substructure major rehabilitation when both major and minor rehabilitation activities were completed on the substructure",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckYearWorkedPeformedSubstructureMajorDeckRehabilitation(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-10", //Work Performed Culvert Major Rehab Cross Check
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed - report only CU2 culvert major rehabilitation when both major and minor rehabilitation activities were completed on the culvert",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckYearWorkedPeformedCulvertMajorDeckRehabilitation(input1.BW03)"
+      },
+      {
+        "RuleName": "BW03-11", //Work Performed BF01
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "The BW03 Work Performed field includes scour, channel, and channel protection codes, even for a bridge that does not have a \"waterway\" feature below it",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckWorkPerformedBW03_BF01(input1.BW03, input2)"
+      },
+      {
+        "RuleName": "BW03-12", //Work Performed Waterway BRH01
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed includes bridge railing and transition codes for a bridge does have railings or transitions",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckWorkPerformedBW03_BRH01(input1.BW03, input2)"
+      },
+      {
+        "RuleName": "BW03-13", //Work Performed BSP01
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed includes superstructure and substructure work codes for a culvert that include superstructure or substructure",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckBW03WorkPerformed_BSP01(input1.BW03, input2)"
+      },
+      {
+        "RuleName": "BW03-14", //Work Performed Culvert BSP01
+        "SuccessEvent": "Valid",
+        "ErrorMessage": "BW03 Work Performed includes culvert work codes for a bridge that does not include culvert elements",
+        "Properties": {
+          "ErrorType": "Flag",
+          "ItemId": "BW03",
+          "ItemName": "Work Performed",
+          "DataSet": "Works"
+        },
+        "RuleExpressionType": "LambdaExpression",
+        "Expression": "CustomRules.CheckBW03Culvert_BSP01(input1.BW03, input2)"
+      }
+    ]
+  }
+]
